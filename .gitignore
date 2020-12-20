@@ -1,0 +1,12 @@
+#ignore
+*
+!*/
+!.gitignore
+!*.cc
+!*.cpp
+!*.h
+!*.hpp
+!Makefile
+/cmake-build-debug/
+/.idea/
+/cmake-build-debug-coverage/
