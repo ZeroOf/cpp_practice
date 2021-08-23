@@ -14,7 +14,8 @@ set(CMAKE_BUILD_RPATH "$ENV{HOME}/3rd_party/lib")
 configure_file(src/config/version.h.in version.h)
 
 set(BOOST_ROOT $ENV{HOME}/3rd_party)
-message("${BOOST_ROOT}")
+set(OPENSSL_ROOT_DIR $ENV{HOME}/3rd_party)
+
 include_directories(INTERFACE $ENV{HOME}/3rd_party/include)
 link_directories($ENV{HOME}/3rd_party/lib)
 

@@ -5,8 +5,8 @@
 #include "test_client.h"
 #include <LogWrapper.h>
 #include <boost/make_shared.hpp>
-#include <boost/chrono/chrono.hpp>
 #include <boost/bind.hpp>
+#include <ssl_client.h>
 
 using namespace TcpIO;
 
@@ -41,17 +41,24 @@ void TestClient::OnClose() {
 }
 
 TestClient::TestClient(boost::asio::io_context &ioContext, const std::string &host, const std::string &service)
-        : io_context_(ioContext), strand_(ioContext.get_executor()), timer_(strand_), host_(host), service_(service) {}
+    : io_context_(ioContext), strand_(ioContext.get_executor()), timer_(strand_), host_(host), service_(service) {}
 
-void TestClient::Start() {
+void TestClient::Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext) {
     LOG_DEBUG("remote is " << host_ << ":" << service_);
+    pSSLContext = pSSLContext;
+    if (pSSLContext) {
+        ptr_client_ = boost::make_shared<SSLClient>(io_context_, *pSSLContext, shared_from_this());
+        ptr_client_->Start(host_, service_);
+        return;
+    }
     ptr_client_ = boost::make_shared<TcpClient>(io_context_, shared_from_this());
     ptr_client_->Start(host_, service_);
 }
 
 void TestClient::DelayConnect() {
     timer_.expires_after(boost::asio::chrono::seconds(1));
-    timer_.async_wait(boost::bind(&TestClient::Start, boost::dynamic_pointer_cast<TestClient>(shared_from_this())));
+    timer_.async_wait(
+        boost::bind(&TestClient::Start, boost::dynamic_pointer_cast<TestClient>(shared_from_this()), pssl_context_));
 }
 
 TestClient::~TestClient() {

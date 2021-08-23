@@ -8,6 +8,8 @@
 #include <boost/asio/buffers_iterator.hpp>
 #include "io_interface.h"
 #include "tcp_client.h"
+#include <optional>
+#include <boost/asio/ssl.hpp>
 
 namespace TcpIO {
 
@@ -27,7 +29,7 @@ namespace TcpIO {
 
         void OnClose() override;
 
-        void Start();
+        void Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext);
 
         virtual ~TestClient();
 
@@ -36,11 +38,12 @@ namespace TcpIO {
 
     private:
         boost::asio::io_context &io_context_;
-        boost::shared_ptr<TcpClient> ptr_client_;
+        boost::shared_ptr<Client> ptr_client_;
         boost::asio::strand<boost::asio::io_context::executor_type> strand_;
         boost::asio::steady_timer timer_;
         std::string host_;
         std::string service_;
+        std::shared_ptr<boost::asio::ssl::context> pssl_context_;
     };
 
 }

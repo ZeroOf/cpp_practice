@@ -3,13 +3,14 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
+#include <boost/bind/bind.hpp>
 
 using boost::asio::ip::tcp;
 
 class session : public std::enable_shared_from_this<session> {
 public:
     session(tcp::socket socket, boost::asio::ssl::context &context)
-            : socket_(std::move(socket), context), m_strand(socket.get_executor()) {
+        : socket_(std::move(socket), context), m_strand(socket.get_executor()) {
     }
 
     void start() {
@@ -25,7 +26,7 @@ private:
                                         do_read();
                                     }
                                 });
-        boost::asio::post(m_strand, session::do_read, self);
+        boost::asio::post(m_strand, boost::bind(&session::do_read, self));
     }
 
     void do_read() {
@@ -57,12 +58,12 @@ private:
 class server {
 public:
     server(boost::asio::io_context &io_context, unsigned short port)
-            : acceptor_(io_context, tcp::endpoint(tcp::v4(), port)),
-              context_(boost::asio::ssl::context::sslv23) {
+        : acceptor_(io_context, tcp::endpoint(tcp::v4(), port)),
+          context_(boost::asio::ssl::context::sslv23) {
         context_.set_options(
-                boost::asio::ssl::context::default_workarounds
-                | boost::asio::ssl::context::no_sslv2
-                | boost::asio::ssl::context::single_dh_use);
+            boost::asio::ssl::context::default_workarounds
+            | boost::asio::ssl::context::no_sslv2
+            | boost::asio::ssl::context::single_dh_use);
         context_.set_password_callback(std::bind(&server::get_password, this));
         context_.use_certificate_chain_file("server.pem");
         context_.use_private_key_file("server.pem", boost::asio::ssl::context::pem);
@@ -78,13 +79,13 @@ private:
 
     void do_accept() {
         acceptor_.async_accept(
-                [this](const boost::system::error_code &error, tcp::socket socket) {
-                    if (!error) {
-                        std::make_shared<session>(std::move(socket), context_)->start();
-                    }
+            [this](const boost::system::error_code &error, tcp::socket socket) {
+                if (!error) {
+                    std::make_shared<session>(std::move(socket), context_)->start();
+                }
 
-                    do_accept();
-                });
+                do_accept();
+            });
     }
 
     tcp::acceptor acceptor_;
