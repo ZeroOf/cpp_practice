@@ -52,7 +52,7 @@ operator<<(boost::log::formatting_ostream &strm, const boost::log::to_log_manip<
     };
     LogLevel level = manip.get();
     if (level < sizeof(strings) / sizeof(*strings)) {
-        strm << strings[level];
+        strm << std::setw(5) << strings[level];
     } else {
         strm << static_cast<int>(level);
     }
