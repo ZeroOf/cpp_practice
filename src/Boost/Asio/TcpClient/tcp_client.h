@@ -10,15 +10,12 @@
 #include "io_interface.h"
 #include "client.h"
 
-typedef boost::shared_ptr<TcpIO::IOInterface> InterfacePtr;
 
 class TcpClient : public Client {
 public:
-    TcpClient(boost::asio::io_context &ioContext, const boost::shared_ptr<TcpIO::IOInterface> &ptrIoInterface);
+    TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface);
 
-    void SendMsg(const std::string msg, uint32_t msg_type) override;
-
-    void Close();
+    void Close() override;
 
     virtual ~TcpClient();
 
@@ -31,6 +28,9 @@ private:
 
     void Connect(const boost::system::error_code &ec,
                  boost::asio::ip::basic_resolver_results<boost::asio::ip::tcp> remote) override;
+
+protected:
+    void SendInLoop() override;
 
 private:
     boost::asio::ip::tcp::socket socket_;

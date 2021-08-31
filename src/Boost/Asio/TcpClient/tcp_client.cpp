@@ -17,14 +17,6 @@ void TcpClient::Close() {
     }
 }
 
-void TcpClient::SendMsg(const std::string msg, uint32_t msg_type) {
-    socket_.async_send(
-        boost::asio::buffer(msg), boost::asio::bind_executor(
-            strand_, boost::bind(
-                &TcpClient::HandelSend, boost::static_pointer_cast<TcpClient>(shared_from_this()),
-                boost::placeholders::_1, boost::placeholders::_2, msg_type)));
-}
-
 void TcpClient::HandelSend(const boost::system::error_code &ec, size_t recv_size, uint32_t msgType) {
     InterfacePtr pInterface = ptr_io_interface_.lock();
     if (!pInterface) {
@@ -34,6 +26,7 @@ void TcpClient::HandelSend(const boost::system::error_code &ec, size_t recv_size
         pInterface->OnSend(false, msgType);
         return;
     }
+    LOG_DEBUG("send " << recv_size << " bytes");
     pInterface->OnSend(true, msgType);
 }
 
@@ -62,10 +55,10 @@ void TcpClient::Read() {
         return;
     }
     boost::asio::async_read_until(
-        socket_, recv_buf_, boost::bind(
-            &TcpIO::IOInterface::IsPackageComplete, pInterface, boost::placeholders::_1, boost::placeholders::_2),
-        boost::asio::bind_executor(strand_, boost::bind(
-            &Client::HandleRead, shared_from_this(), boost::placeholders::_1, boost::placeholders::_2)));
+        socket_, boost::asio::dynamic_buffer(recv_buf_), std::bind(
+            &TcpIO::IOInterface::IsPackageComplete, pInterface, std::placeholders::_1, std::placeholders::_2),
+        std::bind(
+            &Client::HandleRead, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
 }
 
 void TcpClient::Connect(const boost::system::error_code &ec,
@@ -77,10 +70,14 @@ void TcpClient::Connect(const boost::system::error_code &ec,
         }
         return;
     }
-    boost::asio::async_connect(socket_, remote, boost::asio::bind_executor(strand_, boost::bind(
-        &::TcpClient::HandleConnect, boost::static_pointer_cast<TcpClient>(shared_from_this()),
-        boost::placeholders::_1, boost::placeholders::_2)));
+    boost::asio::async_connect(socket_, remote, std::bind(
+        &::TcpClient::HandleConnect, std::static_pointer_cast<TcpClient>(shared_from_this()),
+        std::placeholders::_1, std::placeholders::_2));
 }
 
-TcpClient::TcpClient(boost::asio::io_context &ioContext, const boost::shared_ptr<TcpIO::IOInterface> &ptrIoInterface)
-    : Client(ioContext, ptrIoInterface), socket_(strand_) {}
+TcpClient::TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface)
+    : Client(threadPool, ptrIoInterface), socket_(strand_) {}
+
+void TcpClient::SendInLoop() {
+
+}

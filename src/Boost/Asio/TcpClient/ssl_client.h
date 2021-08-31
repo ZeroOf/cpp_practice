@@ -11,20 +11,22 @@
 
 class SSLClient : public Client {
 public:
-    SSLClient(boost::asio::io_context &ioContext, boost::asio::ssl::context &sslContext,
-              const boost::shared_ptr<TcpIO::IOInterface> &ptrIoInterface);
+    SSLClient(boost::asio::thread_pool &threadPool, boost::asio::ssl::context &sslContext,
+              const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface);
 
     void Read() override;
 
-    void HandleConnect(const boost::system::error_code &ec);
+    void HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote);
 
-    void SendMsg(const std::string msg, uint32_t msg_type) override;
+    void Close() override;
 
 protected:
     void Connect(const boost::system::error_code &ec,
                  boost::asio::ip::basic_resolver_results<boost::asio::ip::tcp> remote) override;
 
     void HandleSend(const boost::system::error_code &ec, std::size_t size, uint32_t msgType);
+
+    void SendInLoop() override;
 
 private:
     void HandShake();

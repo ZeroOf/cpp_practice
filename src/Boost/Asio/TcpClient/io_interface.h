@@ -1,20 +1,15 @@
-//
-// Created by God on 2021/5/4.
-//
-
 #ifndef CPP_PRACTICE_SRC_BOOST_ASIO_TCPCLIENT_IO_INTERFACE_H_
 #define CPP_PRACTICE_SRC_BOOST_ASIO_TCPCLIENT_IO_INTERFACE_H_
 
 #include <string>
-#include <boost/enable_shared_from_this.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/asio.hpp>
 
 namespace TcpIO {
 
-    typedef boost::asio::buffers_iterator<boost::asio::streambuf::const_buffers_type> buffer_iterator;
+    using buffer_iterator = boost::asio::buffers_iterator<boost::asio::dynamic_vector_buffer<char, std::allocator<char>>::const_buffers_type>;
 
-    class IOInterface : public boost::enable_shared_from_this<IOInterface> {
+    class IOInterface : public std::enable_shared_from_this<IOInterface> {
     public:
         virtual void OnRead(std::vector<char> msg) = 0;
 

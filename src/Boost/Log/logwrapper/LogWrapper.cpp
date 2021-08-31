@@ -7,6 +7,7 @@
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
 #include <boost/log/support/date_time.hpp>
+#include <boost/thread.hpp>
 
 namespace logging = boost::log;
 namespace attrs = logging::attributes;
@@ -29,8 +30,8 @@ void LogWrapper::Init() {
 
 void LogWrapper::ConsoleLog() const {
     logging::add_console_log(std::cout, keywords::format = (
-            expr::stream << boost::log::v2s_mt_posix::expressions::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
-                         << " " << severity << " " << expr::smessage
+        expr::stream << boost::log::v2s_mt_posix::expressions::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
+                     << " " <<  severity << " " << expr::smessage
     ));
 }
 
@@ -45,9 +46,9 @@ boost::log::sources::severity_logger_mt<LogLevel> &LogWrapper::GetLog() {
 boost::log::formatting_ostream &
 operator<<(boost::log::formatting_ostream &strm, const boost::log::to_log_manip<LogLevel, tag::severity> &manip) {
     static const char *strings[] = {
-            "DEBUG",
-            "INFO",
-            "ERROR"
+        "DEBUG",
+        "INFO",
+        "ERROR"
     };
     LogLevel level = manip.get();
     if (level < sizeof(strings) / sizeof(*strings)) {

@@ -8,6 +8,8 @@
 #include <LogWrapper.h>
 
 void Client::Start(const std::string &host, const std::string &service) {
+    host_ = host;
+    service_ = service;
     resolver_.async_resolve(host, service, boost::asio::bind_executor(
         strand_, boost::bind(&Client::Connect, shared_from_this(), boost::placeholders::_1, boost::placeholders::_2)));
 }
@@ -18,18 +20,29 @@ void Client::HandleRead(const boost::system::error_code &ec, size_t recv_size) {
         return;
     }
     if (ec) {
-        LOG_ERROR("Read failed, error : " << ec);
+        if (ec == boost::asio::error::operation_aborted) {
+            return;
+        }
+        LOG_ERROR("Read failed, error : " << ec.message());
         pInterface->OnClose();
         return;
     }
-    std::istream input(&recv_buf_);
-    std::vector<char> input_buf(recv_size);
-    input.readsome(input_buf.data(), recv_size);
-    pInterface->OnRead(std::move(input_buf));
+    pInterface->OnRead(std::vector<char>(recv_buf_.begin(), recv_buf_.begin() + recv_size));
+    recv_buf_.erase(recv_buf_.begin(), recv_buf_.begin() + recv_size);
     Read();
 }
 
-Client::Client(boost::asio::io_context &ioContext, boost::shared_ptr<TcpIO::IOInterface> ptr_io_interface)
-    : strand_(ioContext.get_executor()), resolver_(ioContext),
+Client::Client(boost::asio::thread_pool &thread_pool, std::shared_ptr<TcpIO::IOInterface> ptr_io_interface)
+    : strand_(boost::asio::make_strand(thread_pool)), resolver_(thread_pool),
       ptr_io_interface_(ptr_io_interface) {
+}
+
+void Client::SendMsg(const std::string &msg, uint32_t msg_type) {
+    auto self = shared_from_this();
+    boost::asio::post(strand_, [msg, self, this, msg_type]() {
+        out_box_.emplace_back(msg, msg_type);
+        if (out_box_.size() == 1) {
+            SendInLoop();
+        }
+    });
 }

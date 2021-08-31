@@ -15,7 +15,7 @@ namespace TcpIO {
 
     class TestClient : public IOInterface {
     public:
-        TestClient(boost::asio::io_context &ioContext, const std::string &host, const std::string &service);
+        TestClient(boost::asio::thread_pool &threadPool, const std::string &host, const std::string &service);
 
         void OnRead(std::vector<char> msg) override;
 
@@ -37,13 +37,15 @@ namespace TcpIO {
         void DelayConnect();
 
     private:
-        boost::asio::io_context &io_context_;
-        boost::shared_ptr<Client> ptr_client_;
-        boost::asio::strand<boost::asio::io_context::executor_type> strand_;
+        boost::asio::thread_pool &thread_pool_;
+        std::shared_ptr<Client> ptr_client_;
+        boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
         boost::asio::steady_timer timer_;
         std::string host_;
         std::string service_;
         std::shared_ptr<boost::asio::ssl::context> pssl_context_;
+        size_t seq_ = 0;
+        bool isConnected_ = false;
     };
 
 }
