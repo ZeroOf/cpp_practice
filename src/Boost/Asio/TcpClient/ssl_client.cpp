@@ -24,7 +24,7 @@ void SSLClient::Read() {
 
 void SSLClient::HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote) {
     if (ec) {
-        LOG_ERROR("connect to " << remote << " failed!");
+        LOG_ERROR("connect to " << host_ << ":" << service_ << " failed!");
         if (auto pInterface = ptr_io_interface_.lock()) {
             pInterface->OnConnectFailed();
         }
