@@ -1,7 +1,7 @@
 
 #include "Thread.h"
 
-namespace wd
+namespace net
 {
 Thread::Thread(ThreadCallback && cb)
 : _pthid(0)

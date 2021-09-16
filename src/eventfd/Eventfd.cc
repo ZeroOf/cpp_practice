@@ -9,7 +9,7 @@
 
 using std::cout;
 using std::endl;
-using namespace wd;
+using namespace net;
 
 
 Eventfd::Eventfd(EventfdCallback &&cb)

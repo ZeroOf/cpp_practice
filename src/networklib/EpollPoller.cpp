@@ -7,7 +7,7 @@
 using std::cout;
 using std::endl;
 
-namespace wd {
+namespace net {
 
 EpollPoller::EpollPoller(Acceptor& acceptor)
         :acceptor_(acceptor), epollfd_(createEpollFd()), eventfd_(createEventFd()), listenfd_(acceptor_.fd()),
@@ -174,4 +174,4 @@ void EpollPoller::wakeup()
     }
 }
 
-}// end of namespace wd
+}// end of namespace net

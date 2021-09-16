@@ -2,7 +2,7 @@
 #ifndef __WD_NONCOPYABLE_H__
 #define __WD_NONCOPYABLE_H__
 
-namespace wd {
+namespace net {
 
     class Noncopyable {
     protected:

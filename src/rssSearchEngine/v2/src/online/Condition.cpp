@@ -7,7 +7,7 @@
 #include "Condition.h"
 #include "MutexLock.h"
 
-using namespace wd;
+using namespace net;
 
 
 Condition::Condition(MutexLock & mutex)

@@ -11,7 +11,7 @@
 #include <pthread.h>
 #include <functional>
 
-namespace wd
+namespace net
 {
 
 //这是一个具体类
@@ -36,7 +36,7 @@ private:
 	ThreadCallback _cb;
 };
 
-}//end of namespace wd
+}//end of namespace net
 #endif 
 
 

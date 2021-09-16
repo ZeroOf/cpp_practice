@@ -3,7 +3,7 @@
 #include "SocketUtil.h"
 #include "InetAddress.h"
 
-namespace wd
+namespace net
 {
 
 Socket::Socket(int sockfd)
@@ -57,4 +57,4 @@ InetAddress Socket::getPeerAddr(int sockfd)
 	return InetAddress(addr);
 }
 
-}// end of namespace wd
+}// end of namespace net

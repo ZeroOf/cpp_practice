@@ -11,7 +11,7 @@
 #include <pthread.h>
 #include <functional>
 
-namespace wd
+namespace net
 {
 
 //这是一个具体类
@@ -40,7 +40,7 @@ private:
 	int _name;
 };
 
-}//end of namespace wd
+}//end of namespace net
 #endif 
 
 

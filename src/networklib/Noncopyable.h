@@ -3,7 +3,7 @@
 #define __WD_NONCOPYABLE_H__
 
 
-namespace wd
+namespace net
 {
 
 class Noncopyable
@@ -15,6 +15,6 @@ protected:
 	Noncopyable & operator=(const Noncopyable &) = delete;
 };
 
-}//end of namespace wd
+}//end of namespace net
 
 #endif

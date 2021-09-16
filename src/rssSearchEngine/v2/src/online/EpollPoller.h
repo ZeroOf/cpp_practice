@@ -16,7 +16,7 @@
 #include <map>
 #include <functional>
 
-namespace wd
+namespace net
 {
 
 class Acceptor;
@@ -67,6 +67,6 @@ private:
 };
 
 
-}//end of namespace wd
+}//end of namespace net
 
 #endif

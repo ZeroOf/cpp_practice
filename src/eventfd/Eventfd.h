@@ -5,7 +5,7 @@
 #include <functional>
 
 
-namespace wd {
+namespace net {
 
     class Eventfd {
     public:
@@ -32,6 +32,6 @@ namespace wd {
         EventfdCallback _cb;
     };
 
-}//end of namespace wd
+}//end of namespace net
 
 #endif

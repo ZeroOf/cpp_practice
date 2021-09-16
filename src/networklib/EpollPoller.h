@@ -11,7 +11,7 @@
 #include <map>
 #include <functional>
 
-namespace wd {
+namespace net {
 
 class Acceptor;
 class EpollPoller : Noncopyable {
@@ -59,6 +59,6 @@ private:
     EpollCallback onCloseCb_;
 };
 
-}//end of namespace wd
+}//end of namespace net
 
 #endif

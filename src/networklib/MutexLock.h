@@ -4,7 +4,7 @@
 #include "Noncopyable.h"
 #include <pthread.h>
 
-namespace wd
+namespace net
 {
 
 class MutexLock
@@ -45,7 +45,7 @@ private:
 	MutexLock & _mutex;
 };
 
-}//end of namespace wd
+}//end of namespace net
 
 
 #endif

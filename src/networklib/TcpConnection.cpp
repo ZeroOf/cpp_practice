@@ -5,14 +5,14 @@
 #include <stdio.h>
 
 
-namespace wd
+namespace net
 {
 
 TcpConnection::TcpConnection(int sockfd, EpollPoller * loop)
 : sockfd_(sockfd)
 , sockIO_(sockfd)
-, localAddr_(wd::Socket::getLocalAddr(sockfd))
-, peerAddr_(wd::Socket::getPeerAddr(sockfd))
+, localAddr_(net::Socket::getLocalAddr(sockfd))
+, peerAddr_(net::Socket::getPeerAddr(sockfd))
 , isShutdownWrite_(false)
 , loop_(loop) 
 {
@@ -106,4 +106,4 @@ void TcpConnection::sendInLoop(const std::string & msg)
 	loop_->runInLoop(std::bind(&TcpConnection::send, this, msg));
 }
 
-}// end of namespace wd
+}// end of namespace net

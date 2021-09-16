@@ -3,7 +3,7 @@
 #define _WD_SOCKETIO_H
 #include <stdio.h>
 
-namespace wd
+namespace net
 {
 class SocketIO
 {
@@ -22,7 +22,7 @@ private:
 };
 
 
-}// end of namespace wd
+}// end of namespace net
 
 
 #endif

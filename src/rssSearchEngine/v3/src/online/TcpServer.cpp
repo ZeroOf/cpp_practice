@@ -12,7 +12,7 @@ using std::cout;
 using std::endl;
 
 
-namespace wd
+namespace net
 {
 
 TcpServer::TcpServer(const string & ip, unsigned short port)
@@ -48,4 +48,4 @@ void TcpServer::setMessageCallback(TcpServerCallback cb)
 void TcpServer::setCloseCallback(TcpServerCallback cb)
 {	closeCallback_ = cb;	}
 
-}//end of namespace wd
+}//end of namespace net

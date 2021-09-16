@@ -4,8 +4,7 @@
 #include <ctype.h>
 #include "pshm_ucase.h"
 
-int
-main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Usage: %s /shm-path\n", argv[0]);
         exit(EXIT_FAILURE);

@@ -4,7 +4,7 @@
 
 #include "Noncopyable.h"
 
-namespace wd
+namespace net
 {
 class InetAddress;
 class Socket : Noncopyable
@@ -24,6 +24,6 @@ public:
 private:
 	int sockfd_;
 };
-}// end of namespace wd
+}// end of namespace net
 
 #endif

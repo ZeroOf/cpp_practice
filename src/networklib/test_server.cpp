@@ -9,7 +9,7 @@ using std::endl;
 
 class Task {
 public:
-    Task(const string &query, wd::TcpConnectionPtr conn)
+    Task(const string &query, net::TcpConnectionPtr conn)
             : _queury(query), _conn(std::move(conn)) {}
 
     //process的执行是在一个计算线程里面完成的
@@ -21,18 +21,18 @@ public:
 
 private:
     string _queury;
-    wd::TcpConnectionPtr _conn;
+    net::TcpConnectionPtr _conn;
 };
 
-wd::Threadpool *g_threadpool = NULL;
+net::Threadpool *g_threadpool = NULL;
 
-void onConnection(const wd::TcpConnectionPtr &conn) {
+void onConnection(const net::TcpConnectionPtr &conn) {
     cout << conn->toString() << endl;
     conn->send("hello, welcome to Chat Server.\r\n");
 }
 
 //运行在IO线程
-void onMessage(const wd::TcpConnectionPtr &conn) {
+void onMessage(const net::TcpConnectionPtr &conn) {
     std::string s(conn->receive());
 
     Task task(s, conn);
@@ -40,7 +40,7 @@ void onMessage(const wd::TcpConnectionPtr &conn) {
     cout << "> add task to threadpool" << endl;
 }
 
-void onClose(const wd::TcpConnectionPtr &conn) {
+void onClose(const net::TcpConnectionPtr &conn) {
     printf("%s close\n", conn->toString().c_str());
 }
 
@@ -57,11 +57,11 @@ void onClose(const wd::TcpConnectionPtr &conn) {
 //};
 
 int main(int argc, char const *argv[]) {
-    wd::Threadpool threadpool(4, 10);
+    net::Threadpool threadpool(4, 10);
     g_threadpool = &threadpool;
     threadpool.start();
 
-    wd::TcpServer tcpserver("192.168.137.128", 9999);
+    net::TcpServer tcpserver("127.0.0.1", 9999);
     tcpserver.setConnectionCallback(&onConnection);
     tcpserver.setMessageCallback(&onMessage);
     tcpserver.setCloseCallback(&onClose);

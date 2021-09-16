@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 
-namespace wd
+namespace net
 {
 
 EpollPoller::EpollPoller(Acceptor & acceptor)
@@ -203,4 +203,4 @@ void EpollPoller::wakeup()
 	}
 }
 
-}// end of namespace wd
+}// end of namespace net

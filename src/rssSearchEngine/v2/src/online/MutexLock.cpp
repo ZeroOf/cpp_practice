@@ -6,7 +6,7 @@
  
 #include "MutexLock.h"
  
-using namespace wd;
+using namespace net;
 
 MutexLock::MutexLock()
 : _isLocking(false)

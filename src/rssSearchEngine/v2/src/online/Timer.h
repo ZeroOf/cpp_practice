@@ -5,7 +5,7 @@
 #include <functional>
 
 class Timer
-:wd::Noncopyable
+: net::Noncopyable
 {
 public:
 	typedef std::function<void()> TimerCallback;

@@ -4,7 +4,7 @@
 using std::cout;
 using std::endl;
 
-namespace wd {
+namespace net {
 
     __thread int pthname = 0;
 

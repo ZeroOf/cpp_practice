@@ -5,7 +5,7 @@
 #include "Socket.h"
 #include "InetAddress.h"
 
-namespace wd
+namespace net
 {
 
 class Acceptor
@@ -29,6 +29,6 @@ private:
 };
 
 
-}//end of namespace wd
+}//end of namespace net
 
 #endif

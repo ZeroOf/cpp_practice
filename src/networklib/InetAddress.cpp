@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-namespace wd
+namespace net
 {
 
 InetAddress::InetAddress(short port)
@@ -47,5 +47,5 @@ unsigned short InetAddress::port() const
 }
 
 
-}// end of namespace wd
+}// end of namespace net
 

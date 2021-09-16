@@ -9,7 +9,7 @@
 using std::cout;
 using std::endl;
 
-namespace wd
+namespace net
 {
 Thread::Thread(ThreadCallback && cb)
 : _pthid(0)

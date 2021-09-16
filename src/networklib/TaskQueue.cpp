@@ -4,7 +4,7 @@
 using std::cout;
 using std::endl;
 
-using namespace wd;
+using namespace net;
 
 TaskQueue::TaskQueue(int queSize)
 : _queSize(queSize)

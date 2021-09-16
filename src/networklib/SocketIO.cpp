@@ -3,7 +3,7 @@
 #include "SocketUtil.h"
 
 
-namespace wd
+namespace net
 {
 
 SocketIO::SocketIO(int sockfd)
@@ -99,4 +99,4 @@ size_t SocketIO::readline(char * buf, size_t maxlen)
 	return maxlen - 1;
 }
 
-}// end of namespace wd
+}// end of namespace net

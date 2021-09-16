@@ -16,7 +16,7 @@ public:
 	void stop();
 private:
 	Timer _timer;
-	wd::Thread _thread;
+	net::Thread _thread;
 };
 
 #endif

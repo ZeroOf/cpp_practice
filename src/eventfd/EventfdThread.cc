@@ -3,7 +3,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
-using namespace wd;
+using namespace net;
 
 
 EventfdThread::EventfdThread(EventfdCallback && cb)

@@ -15,7 +15,7 @@
 #include <sys/eventfd.h>
 #include <sys/epoll.h>
 
-namespace wd
+namespace net
 {
 
 inline int createSocketFd()
@@ -105,6 +105,6 @@ inline bool isConnectionClosed(int sockfd)
 	return (0 == nread);
 }
 
-}//end of namespace wd
+}//end of namespace net
 
 #endif

@@ -12,7 +12,7 @@
 #include <queue>
 #include <functional>
 
-namespace wd
+namespace net
 {
 
 
@@ -40,7 +40,7 @@ private:
 };
 
 
-}//end of namespace wd
+}//end of namespace net
 
 
 

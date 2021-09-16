@@ -5,7 +5,7 @@
 #include "Thread.h"
 #include "Eventfd.h"
 
-namespace wd
+namespace net
 {
 
 class EventfdThread

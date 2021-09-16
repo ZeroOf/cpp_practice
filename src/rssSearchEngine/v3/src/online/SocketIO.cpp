@@ -8,7 +8,7 @@
 #include "SocketUtil.h"
 
 
-namespace wd
+namespace net
 {
 
 SocketIO::SocketIO(int sockfd)
@@ -25,7 +25,7 @@ size_t SocketIO::readn(char * buf, size_t count)
 		int nread = ::read(sockfd_, pbuf, nleft);
 		if(-1 == nread)
 		{
-			if(errno == EINTR)//ºöÂÔµôÖÐ¶ÏÐÅºÅ
+			if(errno == EINTR)//ï¿½ï¿½ï¿½Ôµï¿½ï¿½Ð¶ï¿½ï¿½Åºï¿½
 				continue;
 			return EXIT_FAILURE;
 		}
@@ -80,7 +80,7 @@ size_t SocketIO::readline(char * buf, size_t maxlen)
 		if(nread <= 0)
 			return nread;
 
-		//¼ì²é'\n'
+		//ï¿½ï¿½ï¿½'\n'
 		for(size_t idx = 0; idx != nread; ++idx)
 		{
 			if(pbuf[idx] == '\n')
@@ -104,4 +104,4 @@ size_t SocketIO::readline(char * buf, size_t maxlen)
 	return maxlen - 1;
 }
 
-}// end of namespace wd
+}// end of namespace net

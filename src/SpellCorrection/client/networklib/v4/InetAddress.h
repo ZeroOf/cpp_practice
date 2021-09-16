@@ -12,7 +12,7 @@
 #include <netinet/in.h>
 #include <string>
 
-namespace wd
+namespace net
 {
 
 class InetAddress
@@ -33,7 +33,7 @@ private:
 };
 
 
-}// end of namespace wd
+}// end of namespace net
 
 
 

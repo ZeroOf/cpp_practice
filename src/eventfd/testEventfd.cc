@@ -10,13 +10,13 @@ using std::endl;
  
 int test0(void)
 {
-	wd::Eventfd efd([](){
+	net::Eventfd efd([](){
 		::srand(clock());
 		int number = ::rand() % 100;
 		cout << ">>> number = " << number << endl;
 	});
 
-	wd::Thread thread(std::bind(&wd::Eventfd::Start, &efd));
+	net::Thread thread(std::bind(&net::Eventfd::Start, &efd));
     thread.Start();
 
 	::sleep(30);
@@ -27,7 +27,7 @@ int test0(void)
 
 void test1(void)
 {
-	wd::EventfdThread efd([](){
+	net::EventfdThread efd([](){
 		::srand(clock());
 		int number = ::rand() % 100;
 		cout << ">>> number = " << number << endl;

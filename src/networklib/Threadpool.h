@@ -13,7 +13,7 @@ using std::unique_ptr;
 using std::vector;
 
 
-namespace wd
+namespace net
 {
 
 class Thread;
@@ -39,7 +39,7 @@ private:
 	bool _isExit;
 };
 
-}//end of namespac wd
+}//end of namespac net
 
 
 #endif

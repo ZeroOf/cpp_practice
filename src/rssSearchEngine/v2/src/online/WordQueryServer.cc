@@ -25,12 +25,12 @@ void WordQueryServer::start()
 	_tcpserver.start();
 }
 
-void WordQueryServer::onConnection(const wd::TcpConnectionPtr & conn)
+void WordQueryServer::onConnection(const net::TcpConnectionPtr & conn)
 {
 	printf("%s\n",conn->toString().c_str());
 }
 
-void WordQueryServer::onMessage(const wd::TcpConnectionPtr & conn)
+void WordQueryServer::onMessage(const net::TcpConnectionPtr & conn)
 {
 	string s = conn->receive();
 	string data;
@@ -43,12 +43,12 @@ void WordQueryServer::onMessage(const wd::TcpConnectionPtr & conn)
 	cout << "test -------" << endl;
 }
 
-void WordQueryServer::onClose(const wd::TcpConnectionPtr & conn)
+void WordQueryServer::onClose(const net::TcpConnectionPtr & conn)
 {
 	printf("%s close.\n",conn->toString().c_str());
 }
 
-void WordQueryServer::dotask(const wd::TcpConnectionPtr & conn, const string & data)
+void WordQueryServer::dotask(const net::TcpConnectionPtr & conn, const string & data)
 {
 	string result = _wqo.doQuery(data);
 	cout << "test -------------2" <<endl;

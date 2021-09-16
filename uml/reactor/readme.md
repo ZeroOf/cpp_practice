@@ -2,7 +2,7 @@
 
 ```puml
 @startuml
-interface Reactor {
+interface ReactorInterface {
     +void RegisterHander(Hander hander);
     +void RemoveRegisterHander(Hander hander);
     void HanderEvent();
@@ -14,7 +14,7 @@ interface Hander {
     + void HandleExcept();
 }
 
-Reactor --> Hander
+ReactorInterface --> Hander
 
 class Task {
     +void Run();

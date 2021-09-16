@@ -12,7 +12,7 @@
 using std::cout;
 using std::endl;
 
-using namespace wd;
+using namespace net;
 
 
 Threadpool::Threadpool(size_t threadNum, size_t queSize)

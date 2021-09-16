@@ -31,7 +31,7 @@ size_t length(const string &str)
 	return ilen;
 }
 
-Task::Task(const string & query, const wd::TcpConnectionPtr & conn)
+Task::Task(const string & query, const net::TcpConnectionPtr & conn)
 : _query(query)
 , _conn(conn)
 {}
@@ -84,12 +84,12 @@ void Task::process()
 	cout << testdic.size() << endl;
 	size_t size = _query.size();
 	//get Cache
-	Cache & mcache = CacheManager::getCache(wd::pthname);
+	Cache & mcache = CacheManager::getCache(net::pthname);
 
 	string tmp;
 	//query cache
 	tmp = mcache.query(_query);
-	cout << wd::pthname << endl;
+	cout << net::pthname << endl;
 	if(!tmp.size()){
 	//query index
 		cout << "query index for" << endl; 

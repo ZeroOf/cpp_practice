@@ -7,7 +7,7 @@ using std::cout;
 using std::endl;
 
 
-namespace wd
+namespace net
 {
 
 Acceptor::Acceptor(int listenfd, const InetAddress & addr)
@@ -94,5 +94,5 @@ void Acceptor::listen()
 	}
 }
 
-}//end of namespace wd
+}//end of namespace net
 

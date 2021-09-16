@@ -20,13 +20,12 @@ StartSSL(boost::asio::thread_pool &threadPool, std::shared_ptr<boost::asio::ssl:
 }
 
 int main(int argc, const char *argv[]) {
-    boost::asio::io_context ioContext;
     std::shared_ptr<boost::asio::ssl::context> pSSLContext
         = std::make_shared<boost::asio::ssl::context>(boost::asio::ssl::context::tlsv13);
     pSSLContext->load_verify_file("ca.pem");
     boost::asio::thread_pool threadPool;
-    auto pC = StartSSL(threadPool, pSSLContext, argv[1], argv[2]);
-//    auto pC = Start(ioContext);
+//    auto pC = StartSSL(threadPool, pSSLContext, argv[1], argv[2]);
+    auto pC = Start(threadPool);
     threadPool.join();
 }
 
