@@ -13,7 +13,8 @@ function(AddChildren father)
             STRING(REGEX REPLACE "/" "_" PNAME ${relativePath})
             FILE(WRITE ${father}/CMakeLists.txt
                     "project(${PNAME})\n"
-                    "include(\${CMAKE_SOURCE_DIR}/cmake/source.cmake)\n")
+                    "include(\${CMAKE_SOURCE_DIR}/cmake/source.cmake)\n"
+                    "gtest_discover_tests(\${PROJECT_NAME})")
             add_subdirectory(${father})
         else ()
             foreach (child ${children})
@@ -23,7 +24,7 @@ function(AddChildren father)
     endif ()
 endfunction()
 
-function(AddSub)
+function(AddSubTest)
     SUBDIRLIST(children ${CMAKE_CURRENT_SOURCE_DIR})
     foreach (child ${children})
         AddChildren("${CMAKE_CURRENT_SOURCE_DIR}/${child}")

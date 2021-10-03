@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <boost/coroutine2/all.hpp>
 
 int main() {
     std::cout << "hello world" << std::endl;
