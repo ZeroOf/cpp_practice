@@ -20,7 +20,7 @@ namespace net {
 
         virtual void RegisterWrite(EventHandler &eventHander) = 0;
 
-        virtual void RegisterTimeout(EventHandler &eventHandler) = 0;
+        virtual void RegisterTimeout(EventHandler &eventHandler, size_t second) = 0;
 
     };
 }

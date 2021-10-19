@@ -3,21 +3,31 @@
 //
 
 #include "EpollReactor.h"
-#include "EventHandler.h"
+#include "reactor/EventHandler.h"
 
 using namespace net;
 
 EpollReactor::EpollReactor() {}
 
 void EpollReactor::RegisterRead(EventHandler &eventHandler) {
-//    epoll_ctl(epollfd_, EPOLL_CTL_MOD)
+    auto it = registerdFd_.find(eventHandler.GetHandleID()));
+    if (registerdFd_.end() != it) {
+        if (it->second.events & EPOLLIN) {
+            return;
+        } else {
+            it->second.events &= EPOLLIN;
+            epoll_ctl(epollfd_, EPOLL_CTL_MOD, it->first, &it->second);
+            return;
+        }
+    } else {
+    }
 }
 
 void EpollReactor::RegisterWrite(EventHandler &eventHander) {
 
 }
 
-void EpollReactor::RegisterTimeout(EventHandler &eventHandler) {
+void EpollReactor::RegisterTimeout(EventHandler &eventHandler, size_t second) {
 
 }
 

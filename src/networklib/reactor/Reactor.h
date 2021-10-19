@@ -17,7 +17,7 @@ namespace net {
 
         void RegisterWrite(EventHandler &eventHander) override;
 
-        void RegisterTimeout(EventHandler &eventHandler) override;
+        void RegisterTimeout(EventHandler &eventHandler, size_t second) override;
 
     private:
         std::unique_ptr<ReactorInterface> realReactor_;

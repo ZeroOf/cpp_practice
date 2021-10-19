@@ -18,7 +18,11 @@ auto switch_to_new_thread(std::jthread &out) {
             std::jthread &out = *p_out;
             if (out.joinable())
                 throw std::runtime_error("Output jthread parameter not empty");
-            out = std::jthread([h] { h.resume(); });
+            out = std::jthread([h] {
+                std::cout << "before resume" << std::endl;
+                h.resume();
+                std::cout << "end resume" << std::endl;
+            });
             // Potential undefined behavior: accessing potentially destroyed *this
             // std::cout << "New thread ID: " << p_out->get_id() << '\n';
             std::cout << "New thread ID: " << out.get_id() << '\n'; // this is OK
@@ -66,6 +70,9 @@ task resuming_on_new_thread(std::jthread &out) {
 }
 
 int main() {
+    std::cout << "before main, sizeof task : " << sizeof(task) << std::endl;
+    std::cout << "main started on thread: " << std::this_thread::get_id() << '\n';
     std::jthread out;
     resuming_on_new_thread(out);
+    std::cout << "end main" << std::endl;
 }

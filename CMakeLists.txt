@@ -21,6 +21,7 @@ include_directories(INTERFACE $ENV{HOME}/3rd_party/include)
 link_directories($ENV{HOME}/3rd_party/lib)
 
 add_subdirectory(src)
+add_subdirectory(test)
 
 # pacakge
 include(InstallRequiredSystemLibraries)

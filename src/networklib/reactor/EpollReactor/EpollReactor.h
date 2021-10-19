@@ -5,9 +5,10 @@
 #ifndef CPP_PRACTICE_EPOLLREACTOR_H
 #define CPP_PRACTICE_EPOLLREACTOR_H
 
-#include "ReactorInterface.h"
+#include "reactor/ReactorInterface.h"
 #include <sys/epoll.h>
 #include <vector>
+#include <map>
 
 namespace net {
     class EpollReactor : public ReactorInterface {
@@ -18,13 +19,14 @@ namespace net {
 
         void RegisterWrite(EventHandler &eventHander) final;
 
-        void RegisterTimeout(EventHandler &eventHandler) final;
+        void RegisterTimeout(EventHandler &eventHandler, size_t second) final;
 
         void Run();
 
     private:
         int epollfd_;
         std::vector<epoll_event> events_;
+        std::map<int, epoll_event> registerdFd_;
         uint32_t eventSize_;
         bool isRunning_;
     };

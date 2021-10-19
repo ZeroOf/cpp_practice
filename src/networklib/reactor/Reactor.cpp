@@ -12,8 +12,8 @@ void net::Reactor::RegisterWrite(EventHandler &eventHander) {
     realReactor_->RegisterWrite(eventHander);
 }
 
-void net::Reactor::RegisterTimeout(EventHandler &eventHandler) {
-    realReactor_->RegisterTimeout(eventHandler);
+void net::Reactor::RegisterTimeout(EventHandler &eventHandler, size_t second) {
+    realReactor_->RegisterTimeout(eventHandler, 0);
 }
 
 void net::Reactor::Init(std::unique_ptr<ReactorInterface> &&pReactor) {
