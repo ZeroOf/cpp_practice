@@ -14,5 +14,7 @@ int main() {
     std::set_difference(numbers1.begin(), numbers1.end(), numbers2.begin(), numbers2.end(),
                         std::ostream_iterator<int>(cout, " "));
     cout << endl;
+    std::set_union(numbers1.begin(), numbers1.end(), numbers2.begin(), numbers2.end(),
+                   std::ostream_iterator<int>(cout, " "));
     return 0;
 }
