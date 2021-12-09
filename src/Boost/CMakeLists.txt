@@ -1,0 +1,7 @@
+
+SET(Boost_USE_STATIC_LIBS ON)
+find_package(Boost REQUIRED COMPONENTS system)
+link_libraries(${Boost_SYSTEM_LIBRARY})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include(${CMAKE_SOURCE_DIR}/cmake/child.cmake)
+AddSub()

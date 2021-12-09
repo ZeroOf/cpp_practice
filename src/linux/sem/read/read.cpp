@@ -16,7 +16,7 @@ void CloesSem(sem_t *pSem) {
 int main() {
     std::unique_ptr<sem_t, decltype(&CloesSem)> ptrSem(sem_open("test", O_CREAT | O_RDWR), &CloesSem);
     sem_init(ptrSem.get(), 1, 0);
-    std::cout << "start wait, pSem : " << ptrSem.get() << std::endl;
+    std::cout << "Start wait, pSem : " << ptrSem.get() << std::endl;
     while(0 != sem_wait(ptrSem.get())) {
         std::cout << errno << std::endl;
     }

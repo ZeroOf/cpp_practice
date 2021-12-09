@@ -9,7 +9,7 @@ function(AddChildren father)
         SUBDIRLIST(children ${father})
         list(LENGTH children childNum)
         if (${childNum} EQUAL 0)
-            file(RELATIVE_PATH relativePath ${CMAKE_SOURCE_DIR}/src ${father})
+            file(RELATIVE_PATH relativePath ${CMAKE_SOURCE_DIR}/test ${father})
             STRING(REGEX REPLACE "/" "_" PNAME ${relativePath})
             FILE(WRITE ${father}/CMakeLists.txt
                     "project(${PNAME})\n"

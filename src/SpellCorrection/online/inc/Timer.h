@@ -12,7 +12,7 @@ public:
 	Timer(TimerCallback cb, int init_sec, int interval_sec);
 	~Timer();
 
-	void start();
+	void Start();
 	void stop();
 private:
 	int _fd;

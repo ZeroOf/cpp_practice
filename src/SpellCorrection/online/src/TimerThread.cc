@@ -8,7 +8,7 @@ TimerThread::TimerThread(TimerThreadCallback cb, int init_sec, int interval_sec)
 
 void TimerThread::start()
 {
-	_thread.start();
+    _thread.Start();
 }
 
 void TimerThread::stop()

@@ -11,7 +11,7 @@ using boost::asio::ip::tcp;
 
 std::string make_daytime_string() {
   using namespace std; // For time_t, time and ctime;
-  time_t now = time(0);
+  time_t now = time(nullptr);
   return ctime(&now);
 }
 
@@ -38,7 +38,7 @@ class tcp_connection
   }
 
  private:
-  tcp_connection(boost::asio::io_context &io_context)
+  explicit tcp_connection(boost::asio::io_context &io_context)
       : socket_(io_context) {
   }
 
@@ -52,7 +52,7 @@ class tcp_connection
 
 class tcp_server {
  public:
-  tcp_server(boost::asio::io_context &io_context)
+  explicit tcp_server(boost::asio::io_context &io_context)
       : io_context_(io_context),
         acceptor_(io_context, tcp::endpoint(tcp::v4(), 1133)) {
     start_accept();
@@ -68,7 +68,7 @@ class tcp_server {
                                        boost::asio::placeholders::error));
   }
 
-  void handle_accept(tcp_connection::pointer new_connection,
+  void handle_accept(const tcp_connection::pointer& new_connection,
                      const boost::system::error_code &error) {
     if (!error) {
       new_connection->start();

@@ -18,7 +18,7 @@ namespace net {
 
         void HandleWrite() override;
 
-        void HandletimeOut() override;
+        void HandleTimeOut() override;
 
         HandleID GetHandleID() override;
 

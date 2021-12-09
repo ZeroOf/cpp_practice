@@ -13,7 +13,7 @@ Timer::~Timer() {
         stop();
 }
 
-void Timer::start() {
+void Timer::Start() {
     _isStarted = true;
 
     struct pollfd pfd{_fd, POLLIN};

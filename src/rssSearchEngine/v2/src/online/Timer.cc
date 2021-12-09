@@ -54,7 +54,7 @@ Timer::Timer(TimerCallback cb, int init_sec, int interval_sec)
 	setTimerfd(_fd,init_sec,interval_sec);
 }
 
-void Timer::start()
+void Timer::Start()
 {
 	_isStarted = true;
 	struct pollfd pfd;

@@ -24,9 +24,12 @@ namespace net {
         void Run();
 
     private:
-        int epollfd_;
+        void RegisterEvent(EventHandler &eventHandler, uint32_t event);
+
+    private:
+        int epollFd_;
         std::vector<epoll_event> events_;
-        std::map<int, epoll_event> registerdFd_;
+        std::map<int, epoll_event> registeredFd_;
         uint32_t eventSize_;
         bool isRunning_;
     };

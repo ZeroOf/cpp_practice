@@ -140,7 +140,7 @@ class HMMSegment: public SegmentBase {
     vector<int> path(XYSize);
     vector<double> weight(XYSize);
 
-    //start
+    //Start
     for (size_t y = 0; y < Y; y++) {
       weight[0 + y * X] = model_->startProb[y] + model_->GetEmitProb(model_->emitProbVec[y], begin->rune, MIN_DOUBLE);
       path[0 + y * X] = -1;

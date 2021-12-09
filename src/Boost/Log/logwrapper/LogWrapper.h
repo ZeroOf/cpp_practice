@@ -35,6 +35,8 @@ public:
 
     virtual ~LogWrapper();
 
+    void AddLogFile();
+
 private:
     boost::log::sources::severity_logger_mt<LogLevel> m_log;
 

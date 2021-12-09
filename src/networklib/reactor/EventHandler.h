@@ -16,7 +16,9 @@ namespace net {
 
         virtual void HandleWrite() = 0;
 
-        virtual void HandletimeOut() = 0;
+        virtual void HandleTimeOut() = 0;
+
+        virtual void HandleErr() = 0;
 
         virtual HandleID GetHandleID() = 0;
     };

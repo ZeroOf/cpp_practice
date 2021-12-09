@@ -9,8 +9,8 @@
 #include <array>
 
 class TimerWheel {
-    const size_t static SecondsPerMinunes = 60;
-    std::array<SecondGrid, SecondsPerMinunes> grids_;
+    const static size_t SecondsPerMinutes = 60;
+    std::array<SecondGrid, SecondsPerMinutes> grids_;
 public:
     void OnSecond();
 

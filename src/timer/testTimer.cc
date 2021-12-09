@@ -15,7 +15,7 @@ int test0() {
         cout << " number = " << number << endl;
     });
 
-    Thread thread(std::bind(&Timer::start, &timer));
+    Thread thread(std::bind(&Timer::Start, &timer));
     thread.start();
     sleep(30);
     timer.stop();

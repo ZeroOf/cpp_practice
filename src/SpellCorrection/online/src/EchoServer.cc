@@ -37,14 +37,14 @@ public:
 	{
 		Dict::instance().init(CfgProxy::instance().getConfig("myindex").c_str(), CfgProxy::instance().getConfig("cnindex").c_str());
 		_pthreadpool = &_threadpool;
-		_threadpool.start();
-		_timerthread.start();
+        _threadpool.Start();
+        _timerthread.Start();
 
 		_server.setConnectionCallback(&onConnection);
 		_server.setMessageCallback(&onMessage);
 		_server.setCloseCallback(&onClose);
 
-		_server.start();
+        _server.Start();
 
 	}
 private:

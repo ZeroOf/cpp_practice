@@ -125,7 +125,7 @@ class XMLUnknown;
 class XMLPrinter;
 
 /*
-	A class that wraps strings. Normally stores the start and end
+	A class that wraps strings. Normally stores the Start and end
 	pointers into the XML file itself, and will apply normalization
 	and entity translation if actually read. Can also store (and memory
 	manage) a traditional char[]
@@ -2191,7 +2191,7 @@ public:
 
     /** If streaming, write the BOM and declaration. */
     void PushHeader( bool writeBOM, bool writeDeclaration );
-    /** If streaming, start writing an element.
+    /** If streaming, Start writing an element.
         The element must be closed with CloseElement()
     */
     void OpenElement( const char* name, bool compactMode=false );

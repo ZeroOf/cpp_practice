@@ -1,25 +1,33 @@
 #ifndef __TIMER_H__
 #define __TIMER_H__
+
 #include <functional>
-class Timer
-{
+
+class Timer {
 public:
-	using TimerCallback = std::function<void()>;
+    using TimerCallback = std::function<void()>;
 
-	Timer(int initialTime, int _perodicTime, TimerCallback && cb);
-	~Timer();
+    Timer(int initialTime, int _perodicTime, TimerCallback &&cb);
 
-	void start();
-	void stop();
+    ~Timer();
+
+    void Start();
+
+    void stop();
+
 private:
-	static int createTimerfd();
-	void setTimerfd(int initialTime, int perodicTime) const;
-	void handleRead() const;
+    static int createTimerfd();
+
+    void setTimerfd(int initialTime, int perodicTime) const;
+
+    void handleRead() const;
+
 private:
-	int _fd;
-	int _initialTime;
-	int _perodicTime;
-	bool _isStarted;
-	TimerCallback _cb;
+    int _fd;
+    int _initialTime;
+    int _perodicTime;
+    bool _isStarted;
+    TimerCallback _cb;
 };
+
 #endif

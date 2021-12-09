@@ -52,7 +52,7 @@ void onClose(const net::TcpConnectionPtr &conn)
 //class EchoServer
 //{
 //public:
-//	void start();
+//	void Start();
 //	void onMessage();
 //	void onConnection();
 //	void onClose();

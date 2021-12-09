@@ -2436,7 +2436,7 @@ void XMLPrinter::Print( const char* format, ... )
     }
     else {
         const int len = TIXML_VSCPRINTF( format, va );
-        // Close out and re-start the va-args
+        // Close out and re-Start the va-args
         va_end( va );
         TIXMLASSERT( len >= 0 );
         va_start( va, format );

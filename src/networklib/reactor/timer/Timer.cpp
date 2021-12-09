@@ -13,7 +13,7 @@ void net::Timer::HandleWrite() {
 
 }
 
-void net::Timer::HandletimeOut() {
+void net::Timer::HandleTimeOut() {
 
 }
 
