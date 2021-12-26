@@ -46,3 +46,7 @@ void Client::SendMsg(const std::string &msg, uint32_t msg_type) {
         }
     });
 }
+
+void Client::Start() {
+
+}

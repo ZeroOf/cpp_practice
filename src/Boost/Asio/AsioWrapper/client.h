@@ -15,6 +15,8 @@ public:
 
     void Start(const std::string &host, const std::string &service);
 
+    void Start();
+
     void HandleRead(const boost::system::error_code &ec, size_t recv_size);
 
     void SendMsg(const std::string &msg, uint32_t msg_type);

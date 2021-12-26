@@ -3,8 +3,9 @@
 //
 
 #include <Print.h>
+#include <string>
 
 int main() {
     Print print;
-    print.Run();
+    print.Start(std::__cxx11::basic_string<char>(), nullptr);
 }

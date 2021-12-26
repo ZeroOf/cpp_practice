@@ -21,8 +21,8 @@ WordQueryServer::WordQueryServer(Configuration & conf)
 
 void WordQueryServer::start()
 {
-    _tpl.Start();
-    _tcpserver.Start();
+    _tpl.Start(std::string(), nullptr);
+    _tcpserver.Start(std::string(), nullptr);
 }
 
 void WordQueryServer::onConnection(const wd::TcpConnectionPtr & conn)

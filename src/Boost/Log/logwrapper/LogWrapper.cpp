@@ -48,10 +48,10 @@ boost::log::sources::severity_logger_mt<LogLevel> &LogWrapper::GetLog() {
 }
 
 void LogWrapper::AddLogFile() {
-    std::filesystem::path logPath= std::filesystem::current_path();
+    std::filesystem::path logPath= std::filesystem::path("../log/");
 
     logging::add_file_log(
-           keywords::file_name =  "sample_%N.log",
+           keywords::file_name =  "../log/sample_%N.log",
            keywords::rotation_size = 10 * 1024 * 1024,
            keywords::max_files = 3,
            keywords::enable_final_rotation = true,

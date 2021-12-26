@@ -30,7 +30,7 @@ void Threadpool::start()
 	for(size_t idx = 0; idx != _threadNum; ++idx)
 	{
 		unique_ptr<Thread> up(new Thread(std::bind(&Threadpool::threadFunc, this), idx+1));
-        up->Start();
+        up->Start(std::string(), nullptr);
 		_threads.push_back(std::move(up));
 	}
 }

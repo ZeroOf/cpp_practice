@@ -1,3 +1,4 @@
+#include <string>
 #include "TimerThread.h"
 
 TimerThread::TimerThread(TimerThreadCallback cb, int init_sec, int interval_sec)
@@ -7,7 +8,7 @@ TimerThread::TimerThread(TimerThreadCallback cb, int init_sec, int interval_sec)
 
 void TimerThread::start()
 {
-    _thread.Start();
+    _thread.Start(std::__cxx11::basic_string<char>(), nullptr);
 }
 
 void TimerThread::stop()

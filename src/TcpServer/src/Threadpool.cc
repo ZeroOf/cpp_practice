@@ -32,7 +32,7 @@ void Threadpool::start()
 		_threads.push_back(std::move(up));
 	}
 	for(auto & thread : _threads)
-        thread->Start();
+        thread->Start(std::string(), nullptr);
 }
 
 void Threadpool::stop()

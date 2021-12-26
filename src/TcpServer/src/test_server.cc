@@ -49,12 +49,12 @@ int main(int argc, char const * argv[])
 {
 	wiz::Threadpool threadpool(4,10);
 	g_threadpool = & threadpool;
-    threadpool.Start();
+    threadpool.Start(std::string(), nullptr);
 
 	wiz::TcpServer tcpserver("192.168.79.130",9999);
 	tcpserver.setConnectionCallback(onConnection);
 	tcpserver.setMessageCallback(onMessege);
 	tcpserver.setCloseCallback(onClose);
-    tcpserver.Start();
+    tcpserver.Start(std::string(), nullptr);
 	return 0;
 }
