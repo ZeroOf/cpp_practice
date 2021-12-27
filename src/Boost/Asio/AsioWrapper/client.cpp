@@ -11,7 +11,7 @@ void Client::Start(const std::string &host, const std::string &service) {
     host_ = host;
     service_ = service;
     resolver_.async_resolve(host, service, boost::asio::bind_executor(
-        strand_, boost::bind(&Client::Connect, shared_from_this(), boost::placeholders::_1, boost::placeholders::_2)));
+        strand_, std::bind(&Client::Connect, shared_from_this(), std::placeholders::_1, std::placeholders::_2)));
 }
 
 void Client::HandleRead(const boost::system::error_code &ec, size_t recv_size) {

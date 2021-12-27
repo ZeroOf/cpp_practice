@@ -1,0 +1,5 @@
+find_package(OpenSSL)
+include_directories(${OPENSSL_INCLUDE_DIR})
+link_libraries(${OPENSSL_LIBRARIES})
+include(${CMAKE_SOURCE_DIR}/cmake/child.cmake)
+AddSub()
