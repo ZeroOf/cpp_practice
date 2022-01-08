@@ -19,7 +19,7 @@ void print() {
 
 template<typename T, typename... Args>
 void print(T t, Args... args) {
-    std::cout << t << std::endl;
+    std::cout << t << "\t";
     print(args...);//函数参数包扩展 print(arg1, arg2, ..., argN)
 }
 

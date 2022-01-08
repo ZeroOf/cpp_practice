@@ -13,7 +13,7 @@ Server::Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFacto
 void Server::Start(std::string ip, uint32_t port) {
     ip_ = ip;
     port_ = port_;
-    acceptor_.bind(boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(ip), port));
+    acceptor_.bind(boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(ip_), port));
     acceptor_.listen();
     acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
 }

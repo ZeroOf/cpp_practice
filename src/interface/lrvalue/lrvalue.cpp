@@ -2,8 +2,14 @@
 
 using namespace std;
 
+void display2(int &&m) {
+  cout << "&& " << m << endl;
+}
+
 void display(int &&m) {
     cout << "&& " << m << endl;
+  display2(std::forward<int>(m));
+  display2(std::move(m));
 }
 
 void display(const int &m) {

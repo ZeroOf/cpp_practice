@@ -15,10 +15,10 @@ public:
 	Number(int value)
 	: _value(value)
 	{}
-	
+
 	void display() const
 	{	cout << _value << " ";	}
-	
+
 	bool isEven() const
 	{
 		return   (_value % 2 == 0);
@@ -38,7 +38,7 @@ public:
 private:
 	int _value;
 };
- 
+
 int main(void)
 {
 	vector<Number> numbers;

@@ -10,6 +10,9 @@
 class Demo : public AppBase {
     bool OnActivite() override {
         LOG_INFO("start");
+        while(true) {
+          sleep(1);
+        }
         return true;
     }
 
