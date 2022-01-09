@@ -15,7 +15,7 @@ function(AddChildren father)
                     "project(test_${PNAME})\n"
                     "include_directories(\${CMAKE_SOURCE_DIR}/src/${relativePath} \${PROJECT_SOURCE_DIR})\n"
                     "file(GLOB_RECURSE SRCS *.cc *.cpp *.h *.hpp \${CMAKE_SOURCE_DIR}/src/${relativePath}/*.cc \${CMAKE_SOURCE_DIR}/src/${relativePath}/*.h \${CMAKE_SOURCE_DIR}/src/${relativePath}/*.cpp \${CMAKE_SOURCE_DIR}/src/${relativePath}/*.hpp)\n"
-                    "list(FILTER SRCS EXCLUDE REGEX \".*main\\.cpp\")\n"
+                    "list(FILTER SRCS EXCLUDE REGEX \".*main\\\\.cpp\")\n"
                     "add_executable(\${PROJECT_NAME} \${SRCS})\n"
                     "install(TARGETS \${PROJECT_NAME} DESTINATION bin)\n"
                     "gtest_discover_tests(\${PROJECT_NAME})")

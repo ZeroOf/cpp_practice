@@ -5,7 +5,6 @@
 #include "test_client.h"
 #include <LogWrapper.h>
 #include <boost/make_shared.hpp>
-#include <boost/bind.hpp>
 #include <ssl_client.h>
 
 using namespace TcpIO;

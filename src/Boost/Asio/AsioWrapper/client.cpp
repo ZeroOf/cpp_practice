@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-#include <boost/bind/bind.hpp>
 #include "client.h"
 #include <LogWrapper.h>
 

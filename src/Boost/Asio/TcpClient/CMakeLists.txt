@@ -1,5 +1,5 @@
 project(Boost_TcpClient)
 find_package(OpenSSL)
+link_libraries(pthread Boost_Asio_AsioWrapper Boost_Log_logwrapper ${OPENSSL_LIBRARIES})
 include(${CMAKE_SOURCE_DIR}/cmake/source.cmake)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src/Boost/Log/logwrapper ${CMAKE_SOURCE_DIR}/src/Boost/Asio/AsioWrapper)
-target_link_libraries(${PROJECT_NAME} PUBLIC pthread Boost_Asio_AsioWrapper Boost_Log_logwrapper ${OPENSSL_LIBRARIES})

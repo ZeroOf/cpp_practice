@@ -5,7 +5,6 @@
 #ifndef CPP_PRACTICE_MOCKTURTLE_H
 #define CPP_PRACTICE_MOCKTURTLE_H
 
-#include <Turtle.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 

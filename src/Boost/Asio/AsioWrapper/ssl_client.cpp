@@ -1,6 +1,5 @@
 #include "ssl_client.h"
 #include <LogWrapper.h>
-#include <boost/bind.hpp>
 #include <functional>
 
 SSLClient::SSLClient(boost::asio::thread_pool &threadPool, boost::asio::ssl::context &sslContext,

@@ -5,7 +5,6 @@
 #include "test_client.h"
 #include <Log/logwrapper/LogWrapper.h>
 #include <boost/make_shared.hpp>
-#include <boost/bind.hpp>
 
 using namespace TcpIO;
 
