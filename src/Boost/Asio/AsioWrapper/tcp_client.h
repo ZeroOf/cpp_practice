@@ -14,7 +14,7 @@ class TcpClient : public Client {
  public:
   TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface);
   TcpClient(boost::asio::thread_pool &thread_pool,
-            std::shared_ptr<TcpIO::IOInterface> &ptr_io_interface,
+            std::shared_ptr<TcpIO::IOInterface> ptr_io_interface,
             boost::asio::ip::tcp::socket &&socket);
 
   void Close() override;
@@ -25,8 +25,8 @@ class TcpClient : public Client {
 
   void Read() override;
 
+  void HandleSend(const boost::system::error_code &ec, size_t recv_size, uint32_t msgType);
  private:
-  void HandelSend(const boost::system::error_code &ec, size_t send_size, uint32_t msgType);
 
   void Connect(const boost::system::error_code &ec,
                boost::asio::ip::basic_resolver_results<boost::asio::ip::tcp> remote) override;

@@ -3,23 +3,30 @@
 //
 
 #include "server.h"
-
+#include "LogWrapper.h"
 
 Server::Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFactory> pClientFactory) : acceptor_(
-        threadPool), pClientFactory_(pClientFactory) {
+    threadPool), pClientFactory_(pClientFactory) {
 
 }
 
 void Server::Start(std::string ip, uint32_t port) {
-    ip_ = ip;
-    port_ = port_;
-    acceptor_.bind(boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(ip_), port));
+  ip_ = ip;
+  port_ = port_;
+  try {
+    local_ = boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(ip_), port);
+    acceptor_.open(local_.protocol());
+    acceptor_.bind(local_);
     acceptor_.listen();
-    acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
+  } catch (const std::exception &exception) {
+    LOG_ERROR(exception.what());
+    exit;
+  }
+  acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void Server::HandleAccept(const boost::system::error_code &ec, boost::asio::ip::tcp::socket s) {
-    auto client = pClientFactory_->GetClient(s);
-    client->Start();
-    acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
+  auto client = pClientFactory_->GetClient(s);
+  client->Start();
+  acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
 }

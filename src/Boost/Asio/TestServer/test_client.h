@@ -15,7 +15,7 @@ namespace TcpIO {
 
     class TestClient : public IOInterface {
     public:
-        TestClient(boost::asio::thread_pool &threadPool, const std::string &host, const std::string &service);
+        TestClient(boost::asio::thread_pool &threadPool, const std::string &&host, const std::string &&service);
 
         void OnRead(std::vector<char> msg) override;
 

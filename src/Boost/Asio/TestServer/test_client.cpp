@@ -46,7 +46,7 @@ void TestClient::OnClose() {
                std::allocator<char>());
 }
 
-TestClient::TestClient(boost::asio::thread_pool &threadPool, const std::string &host, const std::string &service)
+TestClient::TestClient(boost::asio::thread_pool &threadPool, const std::string &&host, const std::string &&service)
     : thread_pool_(threadPool),
       strand_(boost::asio::make_strand(threadPool)),
       timer_(strand_),
@@ -57,7 +57,7 @@ void TestClient::Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext) {
   LOG_DEBUG("remote is " << host_ << ":" << service_);
   pssl_context_ = pSSLContext;
   if (pSSLContext) {
-    ptr_client_ = std::make_shared<SSLClient>(thread_pool_, *pSSLContext, shared_from_this());
+    ptr_client_ = std::make_shared<TcpClient>(thread_pool_, shared_from_this());
     ptr_client_->Start(host_, service_);
     return;
   }

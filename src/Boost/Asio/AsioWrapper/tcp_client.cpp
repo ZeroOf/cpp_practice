@@ -16,7 +16,7 @@ void TcpClient::Close() {
   }
 }
 
-void TcpClient::HandelSend(const boost::system::error_code &ec, size_t recv_size, uint32_t msgType) {
+void TcpClient::HandleSend(const boost::system::error_code &ec, size_t recv_size, uint32_t msgType) {
   InterfacePtr pInterface = ptr_io_interface_.lock();
   if (!pInterface) {
     return;
@@ -86,8 +86,20 @@ TcpClient::TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr
     : Client(threadPool, ptrIoInterface), socket_(strand_) {}
 
 void TcpClient::SendInLoop() {
-
+  if (out_box_.empty()) {
+    return;
+  }
+  auto &msgPair = out_box_.front();
+  boost::asio::async_write(socket_,
+                           boost::asio::buffer(msgPair.first),
+                           std::bind(&TcpClient::HandleSend,
+                                     std::static_pointer_cast<TcpClient>(shared_from_this()),
+                                     std::placeholders::_1,
+                                     std::placeholders::_2,
+                                     msgPair.second));
 }
 TcpClient::TcpClient(boost::asio::thread_pool &thread_pool,
-                     std::shared_ptr<TcpIO::IOInterface> &ptr_io_interface,
-                     boost::asio::ip::tcp::socket &&socket) : Client(thread_pool, ptr_io_interface), socket_(std::move(socket)) {}
+                     std::shared_ptr<TcpIO::IOInterface> ptr_io_interface,
+                     boost::asio::ip::tcp::socket &&socket) : Client(thread_pool, ptr_io_interface),
+                                                              socket_(std::move(socket)) {
+}

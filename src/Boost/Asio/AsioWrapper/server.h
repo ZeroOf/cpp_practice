@@ -7,23 +7,23 @@
 
 #include <memory>
 #include <boost/asio.hpp>
-#include <client_factory.h>
+#include "client_factory.h"
 
 class Server : public std::enable_shared_from_this<Server> {
-public:
-    Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFactory> pClientFactory);
+ public:
+  Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFactory> pClientFactory);
 
-    void Start(std::string ip, uint32_t port);
+  void Start(std::string ip, uint32_t port);
 
-private:
-    void HandleAccept(const boost::system::error_code &ec, boost::asio::ip::tcp::socket s);
+ private:
+  void HandleAccept(const boost::system::error_code &ec, boost::asio::ip::tcp::socket s);
 
-private:
-    boost::asio::ip::tcp::acceptor acceptor_;
-    std::shared_ptr<ClientFactory> pClientFactory_;
-    std::string ip_;
-    uint32_t port_;
+ private:
+  boost::asio::ip::tcp::acceptor acceptor_;
+  std::shared_ptr<ClientFactory> pClientFactory_;
+  boost::asio::ip::tcp::endpoint local_;
+  std::string ip_;
+  uint32_t port_;
 };
-
 
 #endif //CPP_PRACTICE_SERVER_H
