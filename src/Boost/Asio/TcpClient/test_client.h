@@ -8,6 +8,7 @@
 #include <boost/asio/buffers_iterator.hpp>
 #include "io_interface.h"
 #include "tcp_client.h"
+#include "Asio/TestServer/tcp_factory.h"
 #include <optional>
 #include <boost/asio/ssl.hpp>
 
@@ -15,7 +16,10 @@ namespace TcpIO {
 
 class TestClient : public IOInterface {
  public:
-  TestClient(boost::asio::thread_pool &threadPool, const std::string &&host, const std::string &&service);
+  TestClient(boost::asio::thread_pool &threadPool,
+             const std::string &&host,
+             const std::string &&service,
+             TcpFactory &tcpFatory);
 
   void OnRead(std::vector<char> msg) override;
 

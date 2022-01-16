@@ -7,16 +7,16 @@
 #include <LogWrapper.h>
 
 Client::Client(boost::asio::thread_pool &thread_pool, std::shared_ptr<TcpIO::IOInterface> ptr_io_interface) : strand_(
-    boost::asio::make_strand(thread_pool)), resolver_(thread_pool), ptr_io_interface_(ptr_io_interface) {
+    boost::asio::make_strand(thread_pool)), resolver_(thread_pool), ptr_io_interface_(ptr_io_interface), type_(CLIENT) {
 }
 
-Client::Client(const std::weak_ptr<TcpIO::IOInterface> &ptr_io_interface,
+Client::Client(const std::shared_ptr<TcpIO::IOInterface> &ptr_io_interface,
                boost::asio::thread_pool &thread_pool,
                bool isConnected)
     : strand_(boost::asio::make_strand(thread_pool)),
       resolver_(thread_pool),
       ptr_io_interface_(ptr_io_interface),
-      isConnected_(isConnected) {}
+      isConnected_(isConnected), type_(SERVER) {}
 
 void Client::Start(const std::string &host, const std::string &service) {
   host_ = host;
@@ -59,4 +59,7 @@ void Client::SendMsg(const std::string &msg, uint32_t msg_type) {
 }
 void Client::Start() {
   Read();
+}
+void Client::SetIOInterface(std::shared_ptr<TcpIO::IOInterface> pInterface) {
+  ptr_io_interface_ = pInterface;
 }

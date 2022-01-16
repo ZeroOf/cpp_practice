@@ -10,7 +10,7 @@ using InterfacePtr = std::shared_ptr<TcpIO::IOInterface>;
 class Client : public std::enable_shared_from_this<Client> {
  public:
   Client(boost::asio::thread_pool &thread_pool, std::shared_ptr<TcpIO::IOInterface> ptr_io_interface);
-  Client(const std::weak_ptr<TcpIO::IOInterface> &ptr_io_interface,
+  Client(const std::shared_ptr<TcpIO::IOInterface> &ptr_io_interface,
          boost::asio::thread_pool &thread_pool,
          bool isConnected);
 
@@ -26,6 +26,8 @@ class Client : public std::enable_shared_from_this<Client> {
 
   virtual void Close() = 0;
 
+  void SetIOInterface(std::shared_ptr<TcpIO::IOInterface> pInterface);
+
  protected:
   virtual void Connect(const boost::system::error_code &ec,
                        boost::asio::ip::basic_resolver_results<boost::asio::ip::tcp> remote) = 0;
@@ -40,6 +42,11 @@ class Client : public std::enable_shared_from_this<Client> {
   std::string host_;
   std::string service_;
   bool isConnected_ = false;
+  enum Type {
+    CLIENT,
+    SERVER
+  };
+  Type type_;
  private:
   boost::asio::ip::tcp::resolver resolver_;
 };

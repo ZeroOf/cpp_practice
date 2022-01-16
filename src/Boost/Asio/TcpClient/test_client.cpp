@@ -3,6 +3,7 @@
 //
 
 #include "test_client.h"
+#include "Asio/TestServer/tcp_factory.h"
 #include <LogWrapper.h>
 #include <boost/make_shared.hpp>
 #include <ssl_client.h>
@@ -47,7 +48,10 @@ void TestClient::OnClose() {
                std::allocator<char>());
 }
 
-TestClient::TestClient(boost::asio::thread_pool &threadPool, const std::string &&host, const std::string &&service)
+TestClient::TestClient(boost::asio::thread_pool &threadPool,
+                       const std::string &&host,
+                       const std::string &&service,
+                       TcpFactory &tcpFatory)
     : thread_pool_(threadPool),
       strand_(boost::asio::make_strand(threadPool)),
       timer_(strand_),

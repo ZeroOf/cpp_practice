@@ -11,42 +11,50 @@
 #include <optional>
 #include <boost/asio/ssl.hpp>
 
+class TcpFactory;
+
 namespace TcpIO {
 
-    class TestClient : public IOInterface {
-    public:
-        TestClient(boost::asio::thread_pool &threadPool, const std::string &&host, const std::string &&service);
+class TestClient : public IOInterface {
+ public:
+  TestClient(boost::asio::thread_pool &threadPool,
+             const std::string &&host,
+             const std::string &&service,
+             TcpFactory &tcpFatory);
 
-        void OnRead(std::vector<char> msg) override;
+  void OnRead(std::vector<char> msg) override;
 
-        void OnConnected() override;
+  void OnConnected() override;
 
-        void OnConnectFailed() override;
+  void OnConnectFailed() override;
 
-        void OnSend(bool isSendSuccess, uint32_t msgType) override;
+  void OnSend(bool isSendSuccess, uint32_t msgType) override;
 
-        std::pair<buffer_iterator, bool> IsPackageComplete(buffer_iterator begin, buffer_iterator end) override;
+  std::pair<buffer_iterator, bool> IsPackageComplete(buffer_iterator begin, buffer_iterator end) override;
 
-        void OnClose() override;
+  void OnClose() override;
 
-        void Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext);
+  void Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext);
 
-        virtual ~TestClient();
+  virtual ~TestClient();
 
-    private:
-        void DelayConnect();
+  void SetClient(std::shared_ptr<Client> ptr_client);;
 
-    private:
-        boost::asio::thread_pool &thread_pool_;
-        std::shared_ptr<Client> ptr_client_;
-        boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
-        boost::asio::steady_timer timer_;
-        std::string host_;
-        std::string service_;
-        std::shared_ptr<boost::asio::ssl::context> pssl_context_;
-        size_t seq_ = 0;
-        bool isConnected_ = false;
-    };
+ private:
+  void DelayConnect();
+
+ private:
+  TcpFactory &factory_;
+  boost::asio::thread_pool &thread_pool_;
+  std::shared_ptr<Client> ptr_client_;
+  boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
+  boost::asio::steady_timer timer_;
+  std::string host_;
+  std::string service_;
+  std::shared_ptr<boost::asio::ssl::context> pssl_context_;
+  size_t seq_ = 0;
+  bool isConnected_ = false;
+};
 
 }
 

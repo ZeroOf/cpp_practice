@@ -3,6 +3,7 @@
 //
 
 #include "test_client.h"
+#include "tcp_factory.h"
 #include <Log/logwrapper/LogWrapper.h>
 #include <boost/make_shared.hpp>
 
@@ -46,12 +47,15 @@ void TestClient::OnClose() {
                std::allocator<char>());
 }
 
-TestClient::TestClient(boost::asio::thread_pool &threadPool, const std::string &&host, const std::string &&service)
+TestClient::TestClient(boost::asio::thread_pool &threadPool,
+                       const std::string &&host,
+                       const std::string &&service,
+                       TcpFactory &tcpFatory)
     : thread_pool_(threadPool),
       strand_(boost::asio::make_strand(threadPool)),
       timer_(strand_),
       host_(host),
-      service_(service) {}
+      service_(service), factory_(tcpFatory) {}
 
 void TestClient::Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext) {
   LOG_DEBUG("remote is " << host_ << ":" << service_);
@@ -74,4 +78,7 @@ void TestClient::DelayConnect() {
 
 TestClient::~TestClient() {
   LOG_DEBUG("destruct");
+}
+void TestClient::SetClient(std::shared_ptr<Client> ptr_client) {
+  ptr_client_ = ptr_client;
 }
