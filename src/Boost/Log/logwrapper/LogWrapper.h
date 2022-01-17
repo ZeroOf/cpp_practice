@@ -27,7 +27,7 @@ class LogWrapper : public boost::serialization::singleton<LogWrapper> {
 public:
     LogWrapper();
 
-    void Init();
+    void Init(std::string logName);
 
     void SetLevel(LogLevel level);
 
@@ -35,7 +35,7 @@ public:
 
     virtual ~LogWrapper();
 
-    void AddLogFile();
+    void AddLogFile(std::string logName);
 
 private:
     boost::log::sources::severity_logger_mt<LogLevel> m_log;

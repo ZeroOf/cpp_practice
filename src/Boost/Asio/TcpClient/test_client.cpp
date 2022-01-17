@@ -50,8 +50,7 @@ void TestClient::OnClose() {
 
 TestClient::TestClient(boost::asio::thread_pool &threadPool,
                        const std::string &&host,
-                       const std::string &&service,
-                       TcpFactory &tcpFatory)
+                       const std::string &&service)
     : thread_pool_(threadPool),
       strand_(boost::asio::make_strand(threadPool)),
       timer_(strand_),

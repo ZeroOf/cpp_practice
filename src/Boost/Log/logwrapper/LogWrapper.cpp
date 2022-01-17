@@ -17,17 +17,16 @@ namespace keywords = logging::keywords;
 namespace expr = logging::expressions;
 
 LogWrapper::LogWrapper() {
-    Init();
 }
 
 LogWrapper::~LogWrapper() {
 
 }
 
-void LogWrapper::Init() {
+void LogWrapper::Init(std::string logName) {
     logging::add_common_attributes();
 //    ConsoleLog();
-    AddLogFile();
+  AddLogFile(std::string());
     SetLevel(DEBUG);
 }
 
@@ -47,11 +46,11 @@ boost::log::sources::severity_logger_mt<LogLevel> &LogWrapper::GetLog() {
     return m_log;
 }
 
-void LogWrapper::AddLogFile() {
+void LogWrapper::AddLogFile(std::string logName) {
     std::filesystem::path logPath= std::filesystem::path("../log/");
 
     logging::add_file_log(
-           keywords::file_name =  "../log/sample_%N.log",
+           keywords::file_name =  "../log/"+ logName +"_%N.log",
            keywords::rotation_size = 10 * 1024 * 1024,
            keywords::max_files = 3,
            keywords::enable_final_rotation = true,

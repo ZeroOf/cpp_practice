@@ -25,8 +25,10 @@ void TcpClient::HandleSend(const boost::system::error_code &ec, size_t recv_size
     pInterface->OnSend(false, msgType);
     return;
   }
+  out_box_.pop_front();
   LOG_DEBUG("send " << recv_size << " bytes");
   pInterface->OnSend(true, msgType);
+  SendInLoop();
 }
 
 TcpClient::~TcpClient() {
