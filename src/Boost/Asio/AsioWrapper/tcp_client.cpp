@@ -7,6 +7,19 @@
 #include <iostream>
 #include <LogWrapper.h>
 
+TcpClient::TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface)
+    : Client(threadPool, ptrIoInterface, CLIENT), socket_(strand_) {}
+
+TcpClient::TcpClient(boost::asio::thread_pool &thread_pool,
+                     std::shared_ptr<TcpIO::IOInterface> ptr_io_interface,
+                     boost::asio::ip::tcp::socket &&socket) : Client(thread_pool, ptr_io_interface, SERVER),
+                                                              socket_(std::move(socket)) {
+}
+
+TcpClient::~TcpClient() {
+
+}
+
 void TcpClient::Close() {
   socket_.cancel();
   socket_.close();
@@ -16,23 +29,22 @@ void TcpClient::Close() {
   }
 }
 
-void TcpClient::HandleSend(const boost::system::error_code &ec, size_t recv_size, uint32_t msgType) {
+void TcpClient::HandleSend(const boost::system::error_code &ec,
+                           size_t sendSize,
+                           uint32_t msgType,
+                           std::shared_ptr<std::string> pMsg) {
   InterfacePtr pInterface = ptr_io_interface_.lock();
   if (!pInterface) {
     return;
   }
   if (ec) {
+    LOG_ERROR("send msg failed, cause " << ec);
     pInterface->OnSend(false, msgType);
     return;
   }
-  out_box_.pop_front();
-  LOG_DEBUG("send " << recv_size << " bytes");
+  LOG_DEBUG("send " << sendSize << " bytes");
   pInterface->OnSend(true, msgType);
   SendInLoop();
-}
-
-TcpClient::~TcpClient() {
-
 }
 
 void TcpClient::HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote) {
@@ -83,25 +95,18 @@ void TcpClient::Connect(const boost::system::error_code &ec,
                                        std::placeholders::_1,
                                        std::placeholders::_2));
 }
-
-TcpClient::TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface)
-    : Client(threadPool, ptrIoInterface), socket_(strand_) {}
-
 void TcpClient::SendInLoop() {
   if (out_box_.empty()) {
     return;
   }
   auto &msgPair = out_box_.front();
   boost::asio::async_write(socket_,
-                           boost::asio::buffer(msgPair.first),
+                           boost::asio::buffer(*msgPair.first),
                            std::bind(&TcpClient::HandleSend,
                                      std::static_pointer_cast<TcpClient>(shared_from_this()),
                                      std::placeholders::_1,
                                      std::placeholders::_2,
-                                     msgPair.second));
-}
-TcpClient::TcpClient(boost::asio::thread_pool &thread_pool,
-                     std::shared_ptr<TcpIO::IOInterface> ptr_io_interface,
-                     boost::asio::ip::tcp::socket &&socket) : Client(thread_pool, ptr_io_interface),
-                                                              socket_(std::move(socket)) {
+                                     msgPair.second,
+                                     msgPair.first));
+  out_box_.pop_front();
 }

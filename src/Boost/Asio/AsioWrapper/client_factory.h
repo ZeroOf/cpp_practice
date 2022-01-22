@@ -9,7 +9,7 @@
 
 class ClientFactory {
 public:
-    virtual std::shared_ptr<Client> GetClient(boost::asio::ip::tcp::socket &socket) = 0;
+    virtual std::shared_ptr<TcpIO::IOInterface> GetClient(boost::asio::ip::tcp::socket &socket) = 0;
 };
 
 

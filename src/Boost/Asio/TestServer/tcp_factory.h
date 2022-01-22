@@ -15,10 +15,12 @@
 class TcpFactory : public ClientFactory {
  public:
   TcpFactory(boost::asio::thread_pool &thread_pool);
-  std::shared_ptr<Client> GetClient(boost::asio::ip::tcp::socket &socket) override;
+  std::shared_ptr<TcpIO::IOInterface> GetClient(boost::asio::ip::tcp::socket &socket) override;
+  void Release(std::shared_ptr<TcpIO::TestClient> ptr_Client);
 
  private:
   boost::asio::thread_pool &thread_pool_;
+  boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
   std::set<std::shared_ptr<TcpIO::TestClient>> clients_;
 };
 

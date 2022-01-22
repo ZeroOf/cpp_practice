@@ -22,6 +22,8 @@ namespace TcpIO {
         virtual std::pair<buffer_iterator, bool> IsPackageComplete(buffer_iterator begin, buffer_iterator end) = 0;
 
         virtual void OnClose() = 0;
+
+        virtual void Start() {}
     };
 }
 

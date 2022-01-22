@@ -26,7 +26,7 @@ LogWrapper::~LogWrapper() {
 void LogWrapper::Init(std::string logName) {
     logging::add_common_attributes();
 //    ConsoleLog();
-  AddLogFile(std::string());
+  AddLogFile(logName);
     SetLevel(DEBUG);
 }
 

@@ -9,7 +9,7 @@ TimerThread::TimerThread(TimerThreadCallback cb, int init_sec, int interval_sec)
 
 void TimerThread::start()
 {
-    _thread.Start(std::__cxx11::basic_string<char>(), nullptr);
+  _thread.Start();
 }
 
 void TimerThread::stop()

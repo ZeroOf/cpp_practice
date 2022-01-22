@@ -1,4 +1,4 @@
-project(Boost_TcpClient)
+project(Boost_Asio_TcpClient)
 find_package(OpenSSL)
 link_libraries(pthread Boost_Asio_AsioWrapper Boost_Log_logwrapper ${OPENSSL_LIBRARIES})
 include(${CMAKE_SOURCE_DIR}/cmake/source.cmake)

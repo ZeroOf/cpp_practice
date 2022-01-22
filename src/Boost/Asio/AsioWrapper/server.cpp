@@ -16,16 +16,21 @@ void Server::Start(std::string ip, uint32_t port) {
   try {
     local_ = boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(ip_), port);
     acceptor_.open(local_.protocol());
+    acceptor_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
     acceptor_.bind(local_);
     acceptor_.listen();
   } catch (const std::exception &exception) {
     LOG_ERROR(exception.what());
-    exit;
+    exit(-1);
   }
   acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void Server::HandleAccept(const boost::system::error_code &ec, boost::asio::ip::tcp::socket s) {
+  if (ec) {
+    LOG_ERROR("accect failed, error : " << ec);
+    exit(-1);
+  }
   auto client = pClientFactory_->GetClient(s);
   client->Start();
   acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));

@@ -25,7 +25,10 @@ class TcpClient : public Client {
 
   void Read() override;
 
-  void HandleSend(const boost::system::error_code &ec, size_t recv_size, uint32_t msgType);
+  void HandleSend(const boost::system::error_code &ec,
+                  size_t sendSize,
+                  uint32_t msgType,
+                  std::shared_ptr<std::string> pMsg);
  private:
 
   void Connect(const boost::system::error_code &ec,

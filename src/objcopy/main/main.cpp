@@ -7,5 +7,5 @@
 
 int main() {
     Print print;
-    print.Start(std::__cxx11::basic_string<char>(), nullptr);
+  print.Start();
 }

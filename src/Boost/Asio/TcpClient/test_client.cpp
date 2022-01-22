@@ -22,7 +22,7 @@ void TestClient::OnConnected() {
 }
 
 void TestClient::OnConnectFailed() {
-  LOG_INFO("Connect to " << host_ << ":" << service_ << " failed");
+  LOG_INFO("Connect to " << host_ << ":" << port_ << " failed");
   DelayConnect();
 }
 
@@ -43,37 +43,30 @@ void TestClient::OnClose() {
     return;
   }
   isConnected_ = false;
-  LOG_ERROR("connection with remote " << host_ << ":" << service_ << " Close")
+  LOG_ERROR("connection with remote " << host_ << ":" << port_ << " Close")
   strand_.post(std::bind(&TestClient::DelayConnect, std::static_pointer_cast<TestClient>(shared_from_this())),
                std::allocator<char>());
 }
 
 TestClient::TestClient(boost::asio::thread_pool &threadPool,
                        const std::string &&host,
-                       const std::string &&service)
+                       unsigned short service)
     : thread_pool_(threadPool),
       strand_(boost::asio::make_strand(threadPool)),
       timer_(strand_),
       host_(host),
-      service_(service) {}
+      port_(service) {}
 
-void TestClient::Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext) {
-  LOG_DEBUG("remote is " << host_ << ":" << service_);
-  pssl_context_ = pSSLContext;
-  if (pSSLContext) {
-    ptr_client_ = std::make_shared<SSLClient>(thread_pool_, *pSSLContext, shared_from_this());
-    ptr_client_->Start(host_, service_);
-    return;
-  }
+void TestClient::Start() {
+  LOG_DEBUG("remote is " << host_ << ":" << port_);
   ptr_client_ = std::make_shared<TcpClient>(thread_pool_, shared_from_this());
-  ptr_client_->Start(host_, service_);
+  ptr_client_->Start(host_, port_);
 }
 
 void TestClient::DelayConnect() {
   timer_.expires_after(boost::asio::chrono::seconds(1));
   timer_.async_wait(std::bind(&TestClient::Start,
-                              std::dynamic_pointer_cast<TestClient>(shared_from_this()),
-                              pssl_context_));
+                              std::dynamic_pointer_cast<TestClient>(shared_from_this())));
 }
 
 TestClient::~TestClient() {

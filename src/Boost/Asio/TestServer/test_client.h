@@ -19,7 +19,7 @@ class TestClient : public IOInterface {
  public:
   TestClient(boost::asio::thread_pool &threadPool,
              const std::string &&host,
-             const std::string &&service,
+             unsigned short port,
              TcpFactory &tcpFatory);
 
   void OnRead(std::vector<char> msg) override;
@@ -34,7 +34,7 @@ class TestClient : public IOInterface {
 
   void OnClose() override;
 
-  void Start(std::shared_ptr<boost::asio::ssl::context> pSSLContext);
+  void Start();
 
   virtual ~TestClient();
 
@@ -50,7 +50,7 @@ class TestClient : public IOInterface {
   boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
   boost::asio::steady_timer timer_;
   std::string host_;
-  std::string service_;
+  unsigned short port_;
   std::shared_ptr<boost::asio::ssl::context> pssl_context_;
   size_t seq_ = 0;
   bool isConnected_ = false;
