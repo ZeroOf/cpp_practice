@@ -52,6 +52,10 @@ void Client::HandleRead(const boost::system::error_code &ec, size_t recv_size) {
 void Client::SendMsg(const std::string &msg, uint32_t msg_type) {
   auto self = shared_from_this();
   boost::asio::post(strand_, [msg, self, this, msg_type]() {
+    if (msg.empty()) {
+      LOG_ERROR("send empty msg");
+      return;
+    }
     out_box_.emplace_back(std::make_shared<std::string>(msg), msg_type);
     if (out_box_.size() == 1) {
       SendInLoop();

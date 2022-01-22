@@ -31,14 +31,14 @@ public:
 
     void SetLevel(LogLevel level);
 
-    boost::log::sources::severity_logger_mt<LogLevel> &GetLog();
+    boost::log::sources::severity_logger<LogLevel> &GetLog();
 
     virtual ~LogWrapper();
 
     void AddLogFile(std::string logName);
 
 private:
-    boost::log::sources::severity_logger_mt<LogLevel> m_log;
+    boost::log::sources::severity_logger<LogLevel> m_log;
 
     void ConsoleLog() const;
 };

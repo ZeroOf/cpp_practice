@@ -37,8 +37,9 @@ void TcpClient::HandleSend(const boost::system::error_code &ec,
   if (!pInterface) {
     return;
   }
+  out_box_.pop_front();
   if (ec) {
-    LOG_ERROR("send msg failed, cause " << ec);
+    LOG_ERROR("send msg failed, cause " << ec.what());
     pInterface->OnSend(false, msgType);
     return;
   }
@@ -108,5 +109,4 @@ void TcpClient::SendInLoop() {
                                      std::placeholders::_2,
                                      msgPair.second,
                                      msgPair.first));
-  out_box_.pop_front();
 }

@@ -32,7 +32,7 @@ void LogWrapper::Init(std::string logName) {
 
 void LogWrapper::ConsoleLog() const {
     logging::add_console_log(std::cout, keywords::format = (
-        expr::stream << boost::log::v2s_mt_posix::expressions::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
+        expr::stream << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
                      << " " <<  severity << " " << expr::smessage
     ));
 }
@@ -42,7 +42,7 @@ void LogWrapper::SetLevel(LogLevel level) {
     logging::core::get()->set_filter(severity >= level);
 }
 
-boost::log::sources::severity_logger_mt<LogLevel> &LogWrapper::GetLog() {
+boost::log::sources::severity_logger<LogLevel> &LogWrapper::GetLog() {
     return m_log;
 }
 
@@ -56,7 +56,7 @@ void LogWrapper::AddLogFile(std::string logName) {
            keywords::enable_final_rotation = true,
            keywords::target = logPath,
            keywords::format = (
-                   expr::stream << boost::log::v2s_mt_posix::expressions::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
+                   expr::stream << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")
                                 << " " <<  severity << " " << expr::smessage
            ),
            keywords::auto_flush = true);
