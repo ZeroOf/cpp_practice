@@ -37,15 +37,15 @@ void TcpClient::HandleSend(const boost::system::error_code &ec,
   if (!pInterface) {
     return;
   }
-  out_box_.pop_front();
   if (ec) {
     LOG_ERROR("send msg failed, cause " << ec.what());
     pInterface->OnSend(false, msgType);
+    SendInLoop();
     return;
   }
+  out_box_.pop_front();
   LOG_DEBUG("send " << sendSize << " bytes");
   pInterface->OnSend(true, msgType);
-  SendInLoop();
 }
 
 void TcpClient::HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote) {

@@ -8,23 +8,27 @@
 #include <boost/asio.hpp>
 
 class AppBase {
-public:
-    AppBase();
+ public:
 
-    void Run();
+  AppBase();
+  void Run();
 
-private:
-    virtual bool OnActivite() = 0;
+ private:
+  virtual bool OnActivite() = 0;
 
-    virtual void OnDeactivite() = 0;
+  virtual void OnDeactivite() = 0;
 
-    void Daemon();
+  void Daemon();
 
-    void SetSignal();
+  void SetSignal();
 
-protected:
-    boost::asio::thread_pool threadPool_;
+  virtual std::string &AppName() = 0;
+
+ protected:
+  boost::asio::thread_pool threadPool_;
+  boost::asio::signal_set sigHandler_;
+ private:
+  void HandleSignal(const boost::system::error_code &ec, int sigNo);
 };
-
 
 #endif //CPP_PRACTICE_APPBASE_H

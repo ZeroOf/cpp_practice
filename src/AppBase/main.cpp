@@ -8,23 +8,28 @@
 #include <Boost/Log/logwrapper/LogWrapper.h>
 
 class Demo : public AppBase {
-    bool OnActivite() override {
-        LOG_INFO("start");
-        while(true) {
-          sleep(1);
-        }
-        return true;
+  bool OnActivite() override {
+    LOG_INFO("start");
+    while (true) {
+      sleep(1);
     }
+    return true;
+  }
 
-    void OnDeactivite() override {
-        LOG_INFO("end");
-    }
+  void OnDeactivite() override {
+    LOG_INFO("end");
+  }
+  std::string &AppName() override {
+    static std::string appName("Demo");
+    return appName;
+  }
 
-    TaskPool taskPool_;
+  TaskPool taskPool_;
 };
 
 int main() {
-    Demo demo;
-    demo.Run();
-    std::cout << "hello app demo" << std::endl;
+  daemon(1, 0);
+  Demo demo;
+  demo.Run();
+  std::cout << "hello app demo" << std::endl;
 }
