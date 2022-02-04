@@ -6,6 +6,8 @@
 #include "client.h"
 #include <LogWrapper.h>
 
+namespace TcpIO {
+
 Client::Client(boost::asio::thread_pool &thread_pool,
                std::shared_ptr<TcpIO::IOInterface> ptr_io_interface,
                ClientType type)
@@ -64,4 +66,5 @@ void Client::SendMsg(const std::string &msg, uint32_t msg_type) {
 }
 Client::~Client() {
   LOG_DEBUG("~Client");
+}
 }

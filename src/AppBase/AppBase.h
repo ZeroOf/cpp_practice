@@ -18,8 +18,6 @@ class AppBase {
 
   virtual void OnDeactivite() = 0;
 
-  void Daemon();
-
   void SetSignal();
 
   virtual std::string &AppName() = 0;

@@ -9,6 +9,9 @@
 #include <boost/asio.hpp>
 #include "client_factory.h"
 
+namespace TcpIO {
+
+
 class Server : public std::enable_shared_from_this<Server> {
  public:
   Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFactory> pClientFactory);
@@ -25,5 +28,7 @@ class Server : public std::enable_shared_from_this<Server> {
   std::string ip_;
   uint32_t port_;
 };
+
+}
 
 #endif //CPP_PRACTICE_SERVER_H

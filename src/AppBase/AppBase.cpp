@@ -10,7 +10,6 @@
 AppBase::AppBase() : sigHandler_(threadPool_) {}
 
 void AppBase::Run() {
-  Daemon();
   LogWrapper::get_mutable_instance().Init(AppName());
   SetSignal();
   OnActivite();
@@ -18,11 +17,7 @@ void AppBase::Run() {
   OnDeactivite();
 }
 
-void AppBase::Daemon() {
-//  daemon(1, 0);
-}
 void AppBase::SetSignal() {
-//  boost::asio::signal_set signals(threadPool_, SIGINT, SIGTERM);
   sigHandler_.add(SIGINT);
   sigHandler_.async_wait(std::bind(&AppBase::HandleSignal, this, std::placeholders::_1, std::placeholders::_2));
 }

@@ -2,6 +2,8 @@
 #include <LogWrapper.h>
 #include <functional>
 
+namespace TcpIO {
+
 SSLClient::SSLClient(boost::asio::thread_pool &threadPool,
                      boost::asio::ssl::context &sslContext,
                      const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface) : Client(threadPool,
@@ -127,4 +129,5 @@ void SSLClient::SendInLoop() {
                                      std::placeholders::_1,
                                      std::placeholders::_2,
                                      msgPair.second));
+}
 }

@@ -5,7 +5,9 @@
 #include <deque>
 #include "io_interface.h"
 
-using InterfacePtr = std::shared_ptr<TcpIO::IOInterface>;
+namespace TcpIO {
+
+using InterfacePtr = std::shared_ptr<IOInterface>;
 
 enum ClientType {
   CLIENT, SERVER
@@ -53,4 +55,5 @@ class Client : public std::enable_shared_from_this<Client> {
         return;                                 \
     }
 
+}
 #endif //CPP_PRACTICE_CLIENT_H

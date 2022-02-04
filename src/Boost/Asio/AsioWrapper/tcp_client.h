@@ -10,6 +10,8 @@
 #include "io_interface.h"
 #include "client.h"
 
+namespace TcpIO {
+
 class TcpClient : public Client {
  public:
   TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface);
@@ -42,4 +44,5 @@ class TcpClient : public Client {
 
 };
 
+}
 #endif //CPP_PRACTICE_TCPCLIENT_H

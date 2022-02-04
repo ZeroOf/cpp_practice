@@ -7,10 +7,13 @@
 
 #include "client.h"
 
+namespace TcpIO {
+
 class ClientFactory {
-public:
-    virtual std::shared_ptr<TcpIO::IOInterface> GetClient(boost::asio::ip::tcp::socket &socket) = 0;
+ public:
+  virtual std::shared_ptr<TcpIO::IOInterface> GetClient(boost::asio::ip::tcp::socket &socket) = 0;
 };
 
+}
 
 #endif //CPP_PRACTICE_CLIENT_FACTORY_H

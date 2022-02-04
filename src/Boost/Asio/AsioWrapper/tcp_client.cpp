@@ -7,6 +7,8 @@
 #include <iostream>
 #include <LogWrapper.h>
 
+namespace TcpIO {
+
 TcpClient::TcpClient(boost::asio::thread_pool &threadPool, const std::shared_ptr<TcpIO::IOInterface> &ptrIoInterface)
     : Client(threadPool, ptrIoInterface, CLIENT), socket_(strand_) {}
 
@@ -109,4 +111,5 @@ void TcpClient::SendInLoop() {
                                      std::placeholders::_2,
                                      msgPair.second,
                                      msgPair.first));
+}
 }

@@ -5,6 +5,8 @@
 #include "server.h"
 #include "LogWrapper.h"
 
+namespace TcpIO {
+
 Server::Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFactory> pClientFactory) : acceptor_(
     threadPool), pClientFactory_(pClientFactory) {
 
@@ -34,4 +36,5 @@ void Server::HandleAccept(const boost::system::error_code &ec, boost::asio::ip::
   auto client = pClientFactory_->GetClient(s);
   client->Start();
   acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
+}
 }
