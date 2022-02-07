@@ -9,6 +9,9 @@
 #include "TaskState.h"
 
 class InitState : public TaskState {
+ public:
+  void PreProcess(Task *pTask) override;
+  void Process(Task *pTask, TaskMsg *pTaskMsg) override;
 
 };
 

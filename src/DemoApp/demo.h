@@ -15,6 +15,8 @@ class Demo : public AppBase {
 
  private:
   TcpIO::Server server_;
+ public:
+  void OnMessage();
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_

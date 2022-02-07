@@ -3,3 +3,9 @@
 //
 
 #include "InitState.h"
+void InitState::PreProcess(Task *pTask) {
+
+}
+void InitState::Process(Task *pTask, TaskMsg *pTaskMsg) {
+
+}

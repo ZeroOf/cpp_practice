@@ -5,7 +5,6 @@
 #ifndef CPP_PRACTICE_TASKPOOL_H
 #define CPP_PRACTICE_TASKPOOL_H
 
-
 #include <map>
 #include <cstdint>
 #include <memory>
@@ -16,22 +15,22 @@
 #include "Task.h"
 
 enum : uint32_t {
-    INVALID_TASK_ID = UINT32_MAX
+  INVALID_TASK_ID = UINT32_MAX
 };
 
 class TaskPool {
-public:
-    std::shared_ptr<Task> GetTask(uint32_t seq);
+ public:
+  std::shared_ptr<Task> GetTask(uint32_t seq);
+  std::shared_ptr<Task> GetTask();
 
-private:
+ private:
 
-    void NewTasks();
+  void NewTasks();
 
-private:
-    std::deque<Task> Tasks_;
-    std::list<std::deque<Task>::iterator> freeTasks_;
-    std::mutex lockTasks_;
+ private:
+  std::deque<Task> Tasks_;
+  std::list<std::deque<Task>::iterator> freeTasks_;
+  std::mutex lockTasks_;
 };
-
 
 #endif //CPP_PRACTICE_TASKPOOL_H

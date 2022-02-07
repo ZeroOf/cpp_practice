@@ -6,6 +6,9 @@
 #define CPP_PRACTICE_SRC_DEMOAPP_CLIENT_H_
 
 #include <Boost/Asio/AsioWrapper/io_interface.h>
+
+const uint32_t MAX_PACKAGE = 1024 * 1024;
+
 class Client : public TcpIO::IOInterface {
  public:
   void OnRead(std::vector<char> msg) override;
