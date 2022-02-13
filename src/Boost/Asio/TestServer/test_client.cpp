@@ -9,10 +9,27 @@
 
 using namespace TcpIO;
 
+TestClient::TestClient(boost::asio::thread_pool &threadPool,
+                       const std::string &&host,
+                       unsigned short port,
+                       TcpFactory &tcpFactory)
+    : thread_pool_(threadPool),
+      strand_(boost::asio::make_strand(threadPool)),
+      timer_(strand_),
+      host_(host),
+      port_(port),
+      factory_(tcpFactory) {
+}
+
 void TestClient::OnRead(std::vector<char> msg) {
   std::string recvMsg(msg.begin(), msg.end());
   LOG_INFO("get msg " << recvMsg << " msg size is " << msg.size());
-  ptr_client_->SendMsg(std::string(msg.begin(), msg.end()) + std::to_string(seq_), seq_++);
+  if (auto pClient = ptr_client_.lock()) {
+    pClient->SendMsg(std::string(msg.begin(), msg.end()) + std::to_string(seq_), seq_++);
+  } else {
+    LOG_ERROR("Client gone");
+    OnClose();
+  }
 }
 
 void TestClient::OnConnected() {
@@ -44,21 +61,9 @@ void TestClient::OnClose() {
   factory_.Release(std::dynamic_pointer_cast<TestClient>(shared_from_this()));
 }
 
-TestClient::TestClient(boost::asio::thread_pool &threadPool,
-                       const std::string &&host,
-                       unsigned short port,
-                       TcpFactory &tcpFatory)
-    : thread_pool_(threadPool),
-      strand_(boost::asio::make_strand(threadPool)),
-      timer_(strand_),
-      host_(host),
-      port_(port),
-      factory_(tcpFatory) {
-}
-
 void TestClient::Start() {
   LOG_DEBUG("remote is " << host_ << ":" << port_);
-  ptr_client_->Start(host_, port_);
+  ptr_client_.lock()->Start(host_, port_);
 }
 
 TestClient::~TestClient() {

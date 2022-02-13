@@ -8,8 +8,6 @@
 #include <boost/asio/buffers_iterator.hpp>
 #include <Asio/AsioWrapper/io_interface.h>
 #include <Asio/AsioWrapper/tcp_client.h>
-#include <optional>
-#include <boost/asio/ssl.hpp>
 
 class TcpFactory;
 
@@ -20,7 +18,7 @@ class TestClient : public IOInterface {
   TestClient(boost::asio::thread_pool &threadPool,
              const std::string &&host,
              unsigned short port,
-             TcpFactory &tcpFatory);
+             TcpFactory &tcpFactory);
 
   void OnRead(std::vector<char> msg) override;
 
@@ -46,12 +44,11 @@ class TestClient : public IOInterface {
  private:
   TcpFactory &factory_;
   boost::asio::thread_pool &thread_pool_;
-  std::shared_ptr<Client> ptr_client_;
+  std::weak_ptr<Client> ptr_client_;
   boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
   boost::asio::steady_timer timer_;
   std::string host_;
   unsigned short port_;
-  std::shared_ptr<boost::asio::ssl::context> pssl_context_;
   size_t seq_ = 0;
   bool isConnected_ = false;
 };

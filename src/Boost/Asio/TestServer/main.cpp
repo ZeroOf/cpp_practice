@@ -11,7 +11,7 @@ int main() {
   LogWrapper::get_mutable_instance().Init("TestServer");
   boost::asio::thread_pool thread_pool;
   std::shared_ptr<TcpFactory> ptr_tcp_factory = std::make_shared<TcpFactory>(thread_pool);
-  Server server(thread_pool, ptr_tcp_factory);
+  TcpIO::Server server(thread_pool, ptr_tcp_factory);
   server.Start("0.0.0.0", 8080);
   thread_pool.attach();
 }
