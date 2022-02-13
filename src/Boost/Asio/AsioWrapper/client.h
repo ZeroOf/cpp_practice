@@ -36,7 +36,7 @@ class Client : public std::enable_shared_from_this<Client> {
   virtual void SendInLoop() = 0;
 
  protected:
-  std::weak_ptr<TcpIO::IOInterface> ptr_io_interface_;
+  std::shared_ptr<TcpIO::IOInterface> ptr_io_interface_;
   boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
   std::vector<char> recv_buf_;
   std::deque<std::pair<std::shared_ptr<std::string>, uint32_t>> out_box_;
@@ -47,13 +47,6 @@ class Client : public std::enable_shared_from_this<Client> {
  private:
   boost::asio::ip::tcp::resolver resolver_;
 };
-
-#define GET_INTERFACE(pInterface)               \
-    auto pInterface = ptr_io_interface_.lock(); \
-    if(!pInterface) {                           \
-        LOG_ERROR("interface has gone");        \
-        return;                                 \
-    }
 
 }
 #endif //CPP_PRACTICE_CLIENT_H

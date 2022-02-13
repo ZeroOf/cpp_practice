@@ -33,8 +33,10 @@ void Server::HandleAccept(const boost::system::error_code &ec, boost::asio::ip::
     LOG_ERROR("accect failed, error : " << ec);
     exit(-1);
   }
-  auto client = pClientFactory_->GetClient(s);
-  client->Start();
+  auto remote_addr = s.remote_endpoint().address().to_string();
+  auto remote_port = s.remote_endpoint().port();
+  auto client = pClientFactory_->GetClient(std::move(s));
+  client->Start(remote_addr, remote_port);
   acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
 }
 }

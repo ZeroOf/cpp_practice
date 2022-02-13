@@ -35,19 +35,15 @@ void Client::Start(const std::string &host, unsigned short service) {
 }
 
 void Client::HandleRead(const boost::system::error_code &ec, size_t recv_size) {
-  auto pInterface = ptr_io_interface_.lock();
-  if (!pInterface) {
-    return;
-  }
   if (ec) {
     if (ec == boost::asio::error::operation_aborted) {
       return;
     }
     LOG_ERROR("Read failed, error : " << ec.message());
-    pInterface->OnClose();
+    ptr_io_interface_->OnClose();
     return;
   }
-  pInterface->OnRead(std::vector<char>(recv_buf_.begin(), recv_buf_.begin() + recv_size));
+  ptr_io_interface_->OnRead(std::vector<char>(recv_buf_.begin(), recv_buf_.begin() + recv_size));
   recv_buf_.erase(recv_buf_.begin(), recv_buf_.begin() + recv_size);
   Read();
 }

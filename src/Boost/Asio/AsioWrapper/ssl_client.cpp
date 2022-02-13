@@ -13,28 +13,23 @@ SSLClient::SSLClient(boost::asio::thread_pool &threadPool,
 }
 
 void SSLClient::Read() {
-  if (auto pInterface = ptr_io_interface_.lock()) {
-    boost::asio::async_read_until(ssl_stream_,
-                                  boost::asio::dynamic_buffer(recv_buf_),
-                                  std::bind(&TcpIO::IOInterface::IsPackageComplete,
-                                            pInterface,
-                                            std::placeholders::_1,
-                                            std::placeholders::_2),
-                                  std::bind(&Client::HandleRead,
-                                            shared_from_this(),
-                                            std::placeholders::_1,
-                                            std::placeholders::_2));
-    return;
-  }
-  LOG_ERROR("interface has gone, close connection");
+  boost::asio::async_read_until(ssl_stream_,
+                                boost::asio::dynamic_buffer(recv_buf_),
+                                std::bind(&TcpIO::IOInterface::IsPackageComplete,
+                                          ptr_io_interface_,
+                                          std::placeholders::_1,
+                                          std::placeholders::_2),
+                                std::bind(&Client::HandleRead,
+                                          shared_from_this(),
+                                          std::placeholders::_1,
+                                          std::placeholders::_2));
+  return;
 }
 
 void SSLClient::HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote) {
   if (ec) {
     LOG_ERROR("connect to " << host_ << ":" << service_ << " failed!");
-    if (auto pInterface = ptr_io_interface_.lock()) {
-      pInterface->OnConnectFailed();
-    }
+    ptr_io_interface_->OnConnectFailed();
     return;
   }
   LOG_DEBUG("connect to " << ssl_stream_.lowest_layer().remote_endpoint() << " success!");
@@ -43,12 +38,6 @@ void SSLClient::HandleConnect(const boost::system::error_code &ec, const boost::
 
 void SSLClient::Connect(const boost::system::error_code &ec,
                         boost::asio::ip::basic_resolver_results<boost::asio::ip::tcp> remote) {
-  GET_INTERFACE(pInterface);
-  if (ec) {
-    LOG_ERROR("resolve addr failed : " << host_ << ":" << service_);
-    pInterface->OnConnectFailed();
-    return;
-  }
   auto self = shared_from_this();
   boost::asio::async_connect(ssl_stream_.lowest_layer(),
                              remote,
@@ -61,49 +50,38 @@ void SSLClient::Connect(const boost::system::error_code &ec,
 void SSLClient::HandShake() {
   auto self = shared_from_this();
   ssl_stream_.async_handshake(boost::asio::ssl::stream_base::client, [this, self](const boost::system::error_code &ec) {
-    auto pInterface = ptr_io_interface_.lock();
-    if (!pInterface) {
-      LOG_DEBUG("interface has gone, bye");
-      return;
-    };
     if (ec) {
       LOG_DEBUG("shake hand failed, " << ec);
-      pInterface->OnConnectFailed();
+      ptr_io_interface_->OnConnectFailed();
     } else {
       isConnected_ = true;
       ssl_stream_.lowest_layer().non_blocking(true);
-      pInterface->OnConnected();
+      ptr_io_interface_->OnConnected();
       Read();
     }
   });
 }
 
 void SSLClient::HandleSend(const boost::system::error_code &ec, std::size_t size, uint32_t msgType) {
-  auto pinterface = ptr_io_interface_.lock();
-  if (!pinterface) {
-    LOG_ERROR("pinterface has gone.");
-    return;
-  }
   if (ec) {
     LOG_ERROR("send msg failed, cause " << ec);
-    pinterface->OnSend(false, msgType);
+    ptr_io_interface_->OnSend(false, msgType);
   } else {
     LOG_DEBUG("send " << size << " bytes");
-    pinterface->OnSend(true, msgType);
+    ptr_io_interface_->OnSend(true, msgType);
   }
   SendInLoop();
 }
 
 void SSLClient::Close() {
   LOG_DEBUG("close ssl connection");
-  GET_INTERFACE(pinterface);
   auto self = shared_from_this();
   boost::system::error_code ec;
   ssl_stream_.lowest_layer().cancel(ec);
   if (ec) {
     LOG_ERROR(ec.message());
   }
-  ssl_stream_.async_shutdown([pinterface, self, this](const boost::system::error_code &ec) {
+  ssl_stream_.async_shutdown([self, this](const boost::system::error_code &ec) {
     if (ec) {
       LOG_ERROR(ec.message())
     }
@@ -113,7 +91,7 @@ void SSLClient::Close() {
     if (ecClose) {
       LOG_ERROR(ec.message());
     }
-    pinterface->OnClose();
+    ptr_io_interface_->OnClose();
   });
 }
 

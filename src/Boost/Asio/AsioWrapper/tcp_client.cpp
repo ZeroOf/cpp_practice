@@ -25,55 +25,39 @@ TcpClient::~TcpClient() {
 void TcpClient::Close() {
   socket_.cancel();
   socket_.close();
-  InterfacePtr pInterface = ptr_io_interface_.lock();
-  if (pInterface) {
-    pInterface->OnClose();
-  }
+  ptr_io_interface_->OnClose();
 }
 
 void TcpClient::HandleSend(const boost::system::error_code &ec,
                            size_t sendSize,
                            uint32_t msgType,
                            std::shared_ptr<std::string> pMsg) {
-  InterfacePtr pInterface = ptr_io_interface_.lock();
-  if (!pInterface) {
-    return;
-  }
   if (ec) {
     LOG_ERROR("send msg failed, cause " << ec.what());
-    pInterface->OnSend(false, msgType);
+    ptr_io_interface_->OnSend(false, msgType);
     SendInLoop();
     return;
   }
   out_box_.pop_front();
   LOG_DEBUG("send " << sendSize << " bytes");
-  pInterface->OnSend(true, msgType);
+  ptr_io_interface_->OnSend(true, msgType);
 }
 
 void TcpClient::HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote) {
-  InterfacePtr pInterface = ptr_io_interface_.lock();
-  if (!pInterface) {
-    LOG_DEBUG("interface has gone, bye");
-    return;
-  }
   if (ec) {
-    pInterface->OnConnectFailed();
+    ptr_io_interface_->OnConnectFailed();
     return;
   }
   socket_.non_blocking(true);
-  pInterface->OnConnected();
+  ptr_io_interface_->OnConnected();
   Read();
 }
 
 void TcpClient::Read() {
-  InterfacePtr pInterface = ptr_io_interface_.lock();
-  if (!pInterface) {
-    return;
-  }
   boost::asio::async_read_until(socket_,
                                 boost::asio::dynamic_buffer(recv_buf_),
                                 std::bind(&TcpIO::IOInterface::IsPackageComplete,
-                                          pInterface,
+                                          ptr_io_interface_,
                                           std::placeholders::_1,
                                           std::placeholders::_2),
                                 std::bind(&Client::HandleRead,
@@ -85,15 +69,12 @@ void TcpClient::Read() {
 void TcpClient::Connect(const boost::system::error_code &ec,
                         boost::asio::ip::basic_resolver_results<boost::asio::ip::tcp> remote) {
   if (ec) {
-    InterfacePtr pInterface = ptr_io_interface_.lock();
-    if (pInterface) {
-      pInterface->OnConnectFailed();
-    }
+    ptr_io_interface_->OnConnectFailed();
     return;
   }
   boost::asio::async_connect(socket_,
                              remote,
-                             std::bind(&::TcpClient::HandleConnect,
+                             std::bind(&TcpClient::HandleConnect,
                                        std::static_pointer_cast<TcpClient>(shared_from_this()),
                                        std::placeholders::_1,
                                        std::placeholders::_2));
