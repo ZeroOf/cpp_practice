@@ -9,9 +9,10 @@
 
 class ClientFactory : public TcpIO::ClientFactory {
  public:
-  std::shared_ptr<TcpIO::IOInterface> GetClient(boost::asio::ip::tcp::socket &socket) override;
+  ClientFactory(boost::asio::thread_pool &thread_pool);
+  std::shared_ptr<TcpIO::Client> GetClient(boost::asio::ip::tcp::socket &&socket) override;
  private:
-
+  boost::asio::thread_pool &thread_pool_;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_CLIENT_FACTORY_H_

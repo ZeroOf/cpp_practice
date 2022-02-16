@@ -4,7 +4,8 @@
 
 #include "client.h"
 void Client::OnRead(std::vector<char> msg) {
-
+  if (msg.empty()) {
+  }
 }
 void Client::OnConnected() {
 

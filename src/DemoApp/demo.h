@@ -9,14 +9,18 @@
 #include <Boost/Asio/AsioWrapper/server.h>
 
 class Demo : public AppBase {
+ public:
+  Demo();
+  void OnMessage();
+ private:
   bool OnActivite() override;
   void OnDeactivite() override;
   std::string &AppName() override;
 
  private:
+  boost::asio::thread_pool thread_pool_;
+  std::shared_ptr<TcpIO::ClientFactory> pClientFactory_;
   TcpIO::Server server_;
- public:
-  void OnMessage();
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_

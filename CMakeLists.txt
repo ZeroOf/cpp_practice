@@ -11,6 +11,7 @@ set(BUILD_RPATH_USE_ORIGIN TRUE)
 set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 set(CMAKE_INSTALL_RPATH "$ENV{HOME}/3rd_party/lib")
 set(CMAKE_BUILD_RPATH "$ENV{HOME}/3rd_party/lib")
+set(CMAKE_PREFIX_PATH "$ENV{HOME}/3rd_party")
 
 configure_file(src/config/version.h.in version.h)
 
