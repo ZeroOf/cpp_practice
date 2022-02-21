@@ -41,7 +41,7 @@ class Client : public std::enable_shared_from_this<Client> {
   std::vector<char> recv_buf_;
   std::deque<std::pair<std::shared_ptr<std::string>, uint32_t>> out_box_;
   std::string host_;
-  std::string service_;
+  unsigned short service_;
   bool isConnected_ = false;
   ClientType type_;
  private:

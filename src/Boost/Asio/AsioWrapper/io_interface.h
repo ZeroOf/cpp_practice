@@ -11,7 +11,7 @@ namespace TcpIO {
 
     class IOInterface : public std::enable_shared_from_this<IOInterface> {
     public:
-        virtual void OnRead(std::vector<char> msg) = 0;
+        virtual bool OnRead(std::vector<char> msg) = 0;
 
         virtual void OnConnected() = 0;
 

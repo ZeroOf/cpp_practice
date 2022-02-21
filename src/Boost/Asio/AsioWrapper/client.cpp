@@ -43,9 +43,15 @@ void Client::HandleRead(const boost::system::error_code &ec, size_t recv_size) {
     ptr_io_interface_->OnClose();
     return;
   }
-  ptr_io_interface_->OnRead(std::vector<char>(recv_buf_.begin(), recv_buf_.begin() + recv_size));
-  recv_buf_.erase(recv_buf_.begin(), recv_buf_.begin() + recv_size);
-  Read();
+  if (ptr_io_interface_->OnRead(std::vector<char>(recv_buf_.begin(), recv_buf_.begin() + recv_size))) {
+    recv_buf_.erase(recv_buf_.begin(), recv_buf_.begin() + recv_size);
+    Read();
+  } else {
+    Close();
+    if (type_ == CLIENT) {
+      Start(host_, service_);
+    }
+  }
 }
 void Client::SendMsg(const std::string &msg, uint32_t msg_type) {
   auto self = shared_from_this();

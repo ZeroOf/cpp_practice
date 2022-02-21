@@ -21,7 +21,7 @@ TestClient::TestClient(boost::asio::thread_pool &threadPool,
       factory_(tcpFactory) {
 }
 
-void TestClient::OnRead(std::vector<char> msg) {
+bool TestClient::OnRead(std::vector<char> msg) {
   std::string recvMsg(msg.begin(), msg.end());
   LOG_INFO("get msg " << recvMsg << " msg size is " << msg.size());
   if (auto pClient = ptr_client_.lock()) {

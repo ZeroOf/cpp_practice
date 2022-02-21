@@ -7,11 +7,13 @@
 
 #include <AppBase/AppBase.h>
 #include <Boost/Asio/AsioWrapper/server.h>
+#include <boost/serialization/singleton.hpp>
+#include "proto/message.pb.h"
 
-class Demo : public AppBase {
+class Demo : public AppBase, public boost::serialization::singleton<Demo> {
  public:
   Demo();
-  void OnMessage();
+  void OnMessage(std::shared_ptr<message::Msg> ptr);
  private:
   bool OnActivite() override;
   void OnDeactivite() override;

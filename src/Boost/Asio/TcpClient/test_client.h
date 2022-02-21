@@ -19,7 +19,7 @@ class TestClient : public IOInterface {
              const std::string &&host,
              unsigned short service);
 
-  void OnRead(std::vector<char> msg) override;
+  bool OnRead(std::vector<char> msg) override;
 
   void OnConnected() override;
 

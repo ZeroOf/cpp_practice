@@ -10,7 +10,7 @@
 
 using namespace TcpIO;
 
-void TestClient::OnRead(std::vector<char> msg) {
+bool TestClient::OnRead(std::vector<char> msg) {
   std::string recvMsg(msg.begin(), msg.end());
   LOG_INFO("get msg " << recvMsg << " msg size is " << msg.size());
   ptr_client_->SendMsg(std::string("hello tcpClient ") + std::to_string(seq_), seq_++);
