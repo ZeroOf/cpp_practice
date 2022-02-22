@@ -12,8 +12,8 @@ const uint32_t MAX_PACKAGE = 1024 * 1024;
 class ClientHandler : public TcpIO::IOInterface {
  public:
   bool OnRead(std::vector<char> msg) override;
-  void OnConnected() override;
-  void OnConnectFailed() override;
+  void OnConnected(const std::string &host, unsigned short port) override;
+  void OnConnectFailed(const std::string &host, unsigned short port) override;
   void OnSend(bool isSendSuccess, uint32_t msgType) override;
   std::pair<TcpIO::buffer_iterator, bool> IsPackageComplete(TcpIO::buffer_iterator begin,
                                                             TcpIO::buffer_iterator end) override;

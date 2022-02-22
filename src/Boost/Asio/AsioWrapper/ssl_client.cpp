@@ -29,7 +29,7 @@ void SSLClient::Read() {
 void SSLClient::HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote) {
   if (ec) {
     LOG_ERROR("connect to " << host_ << ":" << service_ << " failed!");
-    ptr_io_interface_->OnConnectFailed();
+    ptr_io_interface_->OnConnectFailed(host_, service_);
     return;
   }
   LOG_DEBUG("connect to " << ssl_stream_.lowest_layer().remote_endpoint() << " success!");
@@ -52,11 +52,11 @@ void SSLClient::HandShake() {
   ssl_stream_.async_handshake(boost::asio::ssl::stream_base::client, [this, self](const boost::system::error_code &ec) {
     if (ec) {
       LOG_DEBUG("shake hand failed, " << ec);
-      ptr_io_interface_->OnConnectFailed();
+      ptr_io_interface_->OnConnectFailed(host_, service_);
     } else {
       isConnected_ = true;
       ssl_stream_.lowest_layer().non_blocking(true);
-      ptr_io_interface_->OnConnected();
+      ptr_io_interface_->OnConnected(host_, service_);
       Read();
     }
   });

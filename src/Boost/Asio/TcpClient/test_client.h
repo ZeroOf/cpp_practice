@@ -21,9 +21,9 @@ class TestClient : public IOInterface {
 
   bool OnRead(std::vector<char> msg) override;
 
-  void OnConnected() override;
+  void OnConnected(const std::string &host, unsigned short port) override;
 
-  void OnConnectFailed() override;
+  void OnConnectFailed(const std::string &host, unsigned short port) override;
 
   void OnSend(bool isSendSuccess, uint32_t msgType) override;
 

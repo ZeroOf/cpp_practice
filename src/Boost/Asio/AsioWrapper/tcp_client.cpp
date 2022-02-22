@@ -45,11 +45,11 @@ void TcpClient::HandleSend(const boost::system::error_code &ec,
 
 void TcpClient::HandleConnect(const boost::system::error_code &ec, const boost::asio::ip::tcp::endpoint &remote) {
   if (ec) {
-    ptr_io_interface_->OnConnectFailed();
+    ptr_io_interface_->OnConnectFailed(host_, service_);
     return;
   }
   socket_.non_blocking(true);
-  ptr_io_interface_->OnConnected();
+  ptr_io_interface_->OnConnected(host_, service_);
   Read();
 }
 
@@ -69,7 +69,7 @@ void TcpClient::Read() {
 void TcpClient::Connect(const boost::system::error_code &ec,
                         boost::asio::ip::basic_resolver_results<boost::asio::ip::tcp> remote) {
   if (ec) {
-    ptr_io_interface_->OnConnectFailed();
+    ptr_io_interface_->OnConnectFailed(host_, service_);
     return;
   }
   boost::asio::async_connect(socket_,

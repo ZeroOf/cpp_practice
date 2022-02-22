@@ -13,9 +13,9 @@ namespace TcpIO {
     public:
         virtual bool OnRead(std::vector<char> msg) = 0;
 
-        virtual void OnConnected() = 0;
+        virtual void OnConnected(const std::string &host, unsigned short port) = 0;
 
-        virtual void OnConnectFailed() = 0;
+        virtual void OnConnectFailed(const std::string &host, unsigned short port) = 0;
 
         virtual void OnSend(bool isSendSuccess, uint32_t msgType) = 0;
 

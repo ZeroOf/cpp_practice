@@ -18,15 +18,22 @@ bool ClientHandler::OnRead(std::vector<char> msg) {
     return false;
   }
   Demo::get_mutable_instance().OnMessage(pInput);
+  return true;
 }
-void ClientHandler::OnConnected() {
 
+void ClientHandler::OnConnected(const std::string &host, unsigned short port) {
+  LOG_INFO("connect with " << host << ":" << port << " Established");
 }
-void ClientHandler::OnConnectFailed() {
 
+void ClientHandler::OnConnectFailed(const std::string &host, unsigned short port) {
+  LOG_INFO("connect to " << host << ":" << port << " failed");
 }
 void ClientHandler::OnSend(bool isSendSuccess, uint32_t msgType) {
-
+  if (isSendSuccess) {
+    LOG_DEBUG("send message type : " << msgType << "success");
+  } else {
+    LOG_ERROR("send message type : " << msgType << "failed");
+  }
 }
 std::pair<TcpIO::buffer_iterator, bool> ClientHandler::IsPackageComplete(TcpIO::buffer_iterator begin,
                                                                          TcpIO::buffer_iterator end) {

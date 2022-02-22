@@ -32,11 +32,11 @@ bool TestClient::OnRead(std::vector<char> msg) {
   }
 }
 
-void TestClient::OnConnected() {
+void TestClient::OnConnected(const std::string &host, unsigned short port) {
   isConnected_ = true;
 }
 
-void TestClient::OnConnectFailed() {
+void TestClient::OnConnectFailed(const std::string &host, unsigned short port) {
   LOG_INFO("Connect to " << host_ << ":" << port_ << " failed");
 }
 

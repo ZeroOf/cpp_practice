@@ -16,12 +16,12 @@ bool TestClient::OnRead(std::vector<char> msg) {
   ptr_client_->SendMsg(std::string("hello tcpClient ") + std::to_string(seq_), seq_++);
 }
 
-void TestClient::OnConnected() {
+void TestClient::OnConnected(const std::string &host, unsigned short port) {
   isConnected_ = true;
   ptr_client_->SendMsg("hello tcpclient", 1);
 }
 
-void TestClient::OnConnectFailed() {
+void TestClient::OnConnectFailed(const std::string &host, unsigned short port) {
   LOG_INFO("Connect to " << host_ << ":" << port_ << " failed");
   DelayConnect();
 }
