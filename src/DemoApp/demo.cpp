@@ -3,6 +3,7 @@
 //
 
 #include "demo.h"
+#include "Boost/Log/logwrapper/LogWrapper.h"
 #include <client_factory.h>
 Demo::Demo() : pClientFactory_(std::make_shared<ClientFactory>(thread_pool_)), server_(thread_pool_, pClientFactory_) {}
 
@@ -18,5 +19,8 @@ std::string &Demo::AppName() {
   return name;
 }
 void Demo::OnMessage(std::shared_ptr<message::Msg> ptr) {
+  LOG_DEBUG("get message type " << ptr->type());
+  if (ptr->type() == 0) {
 
+  }
 }

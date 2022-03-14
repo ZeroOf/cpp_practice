@@ -47,6 +47,7 @@ void Client::HandleRead(const boost::system::error_code &ec, size_t recv_size) {
     recv_buf_.erase(recv_buf_.begin(), recv_buf_.begin() + recv_size);
     Read();
   } else {
+    LOG_ERROR("Read message failed, close it");
     Close();
     if (type_ == CLIENT) {
       Start(host_, service_);

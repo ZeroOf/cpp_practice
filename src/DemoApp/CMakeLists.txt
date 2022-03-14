@@ -1,4 +1,10 @@
 project(DemoApp)
 find_package(Protobuf REQUIRED)
+include_directories(${CMAKE_CURRENT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
+protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS DESCRIPTORS DESC_FILE ${CMAKE_CURRENT_SOURCE_DIR}/proto/message.proto)
+message("${DESC_FILE} ${CMAKE_CURRENT_BINARY_DIR}")
 link_libraries(Boost_Log_logwrapper ${Protobuf_LIBRARIES} Boost_Asio_AsioWrapper AppBase)
-include(${CMAKE_SOURCE_DIR}/cmake/source.cmake)
+file(GLOB_RECURSE SRCS *.cc *.cpp *.h *.hpp)
+add_executable(${PROJECT_NAME} ${SRCS} ${PROTO_SRCS})
+
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)

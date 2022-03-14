@@ -14,6 +14,7 @@ void AppBase::Run() {
   SetSignal();
   OnActivite();
   LOG_INFO("activite success");
+  threadPool_.attach();
   OnDeactivite();
 }
 

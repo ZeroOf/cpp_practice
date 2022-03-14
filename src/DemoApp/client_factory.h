@@ -6,6 +6,7 @@
 #define CPP_PRACTICE_SRC_DEMOAPP_CLIENT_FACTORY_H_
 
 #include <Boost/Asio/AsioWrapper/client_factory.h>
+#include "client_handler.h"
 
 class ClientFactory : public TcpIO::ClientFactory {
  public:

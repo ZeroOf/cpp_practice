@@ -3,11 +3,12 @@
 //
 
 #include "client_handler.h"
-#include <proto/message.pb.h>
+#include <message.pb.h>
 #include <Boost/Log/logwrapper/LogWrapper.h>
 #include "demo.h"
 bool ClientHandler::OnRead(std::vector<char> msg) {
   if (msg.empty()) {
+    LOG_ERROR("get empty message, close it");
     return false;
   }
   std::shared_ptr<message::Msg> pInput;

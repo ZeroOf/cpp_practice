@@ -8,7 +8,8 @@
 #include <AppBase/AppBase.h>
 #include <Boost/Asio/AsioWrapper/server.h>
 #include <boost/serialization/singleton.hpp>
-#include "proto/message.pb.h"
+#include <message.pb.h>
+#include "task/TaskPool.h"
 
 class Demo : public AppBase, public boost::serialization::singleton<Demo> {
  public:
@@ -23,6 +24,7 @@ class Demo : public AppBase, public boost::serialization::singleton<Demo> {
   boost::asio::thread_pool thread_pool_;
   std::shared_ptr<TcpIO::ClientFactory> pClientFactory_;
   TcpIO::Server server_;
+  TaskPool task_pool_;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_
