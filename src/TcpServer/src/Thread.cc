@@ -18,7 +18,7 @@ Thread::~Thread()
 	}
 }
 
-void Thread::start()
+void Thread::Start()
 {
 	pthread_create(&_pthid, NULL, threadFunc, this);	
 	_isRunning = true;

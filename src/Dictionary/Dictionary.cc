@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define Filename "test.txt"
+#define FILENAME "test.txt"
 
 //用2个vector 存储 单词 和对应词频 
 //每次从文件中读取一行处理
@@ -35,7 +35,7 @@ private:
 //文件特点:单词完整
 //
 void Dictionary::store() {
-    ofstream ofs(Filename, std::ios::app);
+    ofstream ofs(FILENAME, std::ios::app);
     size_t i;
     for (i = 0; i < _Dic.size(); i++) {
         if (!isdigit(_Dic[i][0]))

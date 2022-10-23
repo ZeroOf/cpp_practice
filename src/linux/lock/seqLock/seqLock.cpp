@@ -16,7 +16,6 @@ public:
 
     virtual ~Base() {
         DoSomething();
-
     }
 };
 

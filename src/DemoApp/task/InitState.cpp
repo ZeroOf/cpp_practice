@@ -3,9 +3,9 @@
 //
 
 #include "InitState.h"
-void InitState::PreProcess(Task *pTask) {
+void InitState::PreProcess(std::shared_ptr<Task> pTask) {
 
 }
-void InitState::Process(Task *pTask, TaskMsg *pTaskMsg) {
+void InitState::Process(std::shared_ptr<Task> pTask, TaskMsg *pTaskMsg) {
 
 }

@@ -1,0 +1,15 @@
+//
+// Created by Will Lee on 2022/9/6.
+//
+
+#ifndef CPP_PRACTICE_SRC_DEMOAPP_SERVERA_SERVERAADAPTER_H_
+#define CPP_PRACTICE_SRC_DEMOAPP_SERVERA_SERVERAADAPTER_H_
+
+class ServerAAdapter {
+ public:
+ private:
+
+
+};
+
+#endif //CPP_PRACTICE_SRC_DEMOAPP_SERVERA_SERVERAADAPTER_H_

@@ -16,7 +16,7 @@ class AppBase {
  private:
   virtual bool OnActivite() = 0;
 
-  virtual void OnDeactivite() = 0;
+  virtual void OnDeactivate() = 0;
 
   void SetSignal();
 

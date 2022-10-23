@@ -16,8 +16,8 @@ class Demo : public AppBase, public boost::serialization::singleton<Demo> {
   Demo();
   void OnMessage(std::shared_ptr<message::Msg> ptr);
  private:
-  bool OnActivite() override;
-  void OnDeactivite() override;
+  bool OnActivate() override;
+  void OnDeactivate() override;
   std::string &AppName() override;
 
  private:

@@ -15,7 +15,7 @@ public:
 	Thread(ThreadCallback && cb);
 	~Thread();
 
-	void start();
+	void Start();
 	void join();
 
 	bool isRunning() const {return _isRunning;}

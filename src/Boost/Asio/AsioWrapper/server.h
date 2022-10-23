@@ -18,6 +18,8 @@ class Server : public std::enable_shared_from_this<Server> {
 
   void Start(std::string ip, uint32_t port);
 
+  void Stop();
+
  private:
   void HandleAccept(const boost::system::error_code &ec, boost::asio::ip::tcp::socket s);
 

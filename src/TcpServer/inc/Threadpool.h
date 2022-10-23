@@ -18,7 +18,7 @@ public:
 	Threadpool(size_t threadNum, size_t queSize);
 	~Threadpool();
 
-	void start();
+	void Start();
 	void stop();
 	void addTask(Task && task);
 private:

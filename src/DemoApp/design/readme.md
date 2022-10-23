@@ -5,8 +5,7 @@
 3. Server A use short connection and Server B use long connection
 
 # class
-
-```puml
+```plantuml
 @startuml
 class Demo
 class TaskPool
