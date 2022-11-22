@@ -11,7 +11,7 @@ bool ClientHandler::OnRead(std::vector<char> msg) {
     LOG_ERROR("get empty message, close it");
     return false;
   }
-  std::shared_ptr<message::Msg> pInput;
+  std::shared_ptr<message::Msg> pInput = std::make_shared<message::Msg>();
   try {
     pInput->ParseFromArray(msg.data() + sizeof(uint32_t), msg.size() - sizeof(uint32_t));
   } catch (std::exception exception) {

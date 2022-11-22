@@ -14,7 +14,7 @@ class AppBase {
   void Run();
 
  private:
-  virtual bool OnActivite() = 0;
+  virtual bool OnActivate() = 0;
 
   virtual void OnDeactivate() = 0;
 
