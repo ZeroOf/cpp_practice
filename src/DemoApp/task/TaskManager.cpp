@@ -1,0 +1,9 @@
+//
+// Created by Will Lee on 2022/12/8.
+//
+
+#include "TaskManager.h"
+TaskManager::TaskManager(boost::asio::thread_pool &thread_pool) : thread_pool_(thread_pool) {}
+void TaskManager::ProcessMsg(std::shared_ptr<message::Msg> pMsg, std::unique_ptr<TaskMsg> pTaskMsg) {
+  auto pTask = task_pool_.GetTask(pMsg->seq());
+}

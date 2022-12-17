@@ -3,3 +3,5 @@
 //
 
 #include "Task.h"
+Task::Task(uint32_t index) : index_(index) {}
+Task::Task() {}

@@ -10,6 +10,7 @@
 #include <boost/serialization/singleton.hpp>
 #include <message.pb.h>
 #include "task/TaskPool.h"
+#include "task/TaskManager.h"
 
 class Demo : public AppBase, public boost::serialization::singleton<Demo> {
  public:
@@ -24,7 +25,7 @@ class Demo : public AppBase, public boost::serialization::singleton<Demo> {
   boost::asio::thread_pool thread_pool_;
   std::shared_ptr<TcpIO::ClientFactory> pClientFactory_;
   TcpIO::Server server_;
-  TaskPool task_pool_;
+  std::shared_ptr<TaskManager> pTaskManager_;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_

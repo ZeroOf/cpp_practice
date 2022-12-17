@@ -12,13 +12,15 @@ class TaskState;
 
 class Task {
  public:
+  explicit Task(uint32_t index);
+  Task();
   void ChangeState(TaskState *pNewState);
 
   void Process(TaskMsg *pTaskMsg);
 
  private:
-  uint32_t index_;
-  uint32_t seq_;
+  uint32_t index_ = 0;
+  uint32_t seq_ = 0;
   std::string request_;
   std::string response_;
   TaskState *state_;
