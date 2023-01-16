@@ -9,6 +9,9 @@
 #include "TaskState.h"
 
 class OptionState : public TaskState {
+ public:
+  void PreProcess(Task *pTask) override;
+  void Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) override;
 
 };
 

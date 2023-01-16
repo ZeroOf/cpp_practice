@@ -11,11 +11,10 @@
 class Task;
 
 class TaskState {
-public:
-    virtual void PreProcess(std::shared_ptr<Task> pTask) = 0;
+ public:
+  virtual void PreProcess(Task *pTask) = 0;
 
-    virtual void Process(std::shared_ptr<Task> pTask, TaskMsg *pTaskMsg) = 0;
+  virtual void Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) = 0;
 };
-
 
 #endif //CPP_PRACTICE_TASKSTATE_H

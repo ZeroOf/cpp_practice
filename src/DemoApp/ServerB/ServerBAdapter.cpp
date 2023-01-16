@@ -3,3 +3,6 @@
 //
 
 #include "ServerBAdapter.h"
+bool ServerBAdapter::SendMessage(std::vector<char> buffer) {
+  return false;
+}

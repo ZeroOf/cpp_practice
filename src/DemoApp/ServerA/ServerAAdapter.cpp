@@ -3,3 +3,7 @@
 //
 
 #include "ServerAAdapter.h"
+
+bool ServerAAdapter::SendMessage(std::vector<char> buffer) {
+  return false;
+}

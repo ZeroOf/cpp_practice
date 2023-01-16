@@ -28,7 +28,7 @@ class TaskPool {
   void NewTasks();
 
  private:
-  std::deque<Task> Tasks_;
+  std::deque<Task> tasks_;
   std::list<std::deque<Task>::iterator> freeTasks_;
   std::mutex lockTasks_;
 };

@@ -3,3 +3,9 @@
 //
 
 #include "OptionState.h"
+void OptionState::PreProcess(Task *pTask) {
+
+}
+void OptionState::Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) {
+
+}

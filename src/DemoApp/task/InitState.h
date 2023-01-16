@@ -9,8 +9,8 @@
 
 class InitState : public TaskState {
  public:
-  void PreProcess(std::shared_ptr<Task> pTask) override;
-  void Process(std::shared_ptr<Task> pTask, TaskMsg *pTaskMsg) override;
+  void PreProcess(Task *pTask) override;
+  void Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) override;
 };
 
 #endif //CPP_PRACTICE_INITSTATE_H

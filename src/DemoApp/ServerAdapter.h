@@ -5,8 +5,10 @@
 #ifndef CPP_PRACTICE_SRC_DEMOAPP_SERVERADAPTER_H_
 #define CPP_PRACTICE_SRC_DEMOAPP_SERVERADAPTER_H_
 
+#include <vector>
 class ServerAdapter {
-  bool SendMessage();
+ public:
+  virtual bool SendMessage(std::vector<char> buffer) = 0;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_SERVERADAPTER_H_

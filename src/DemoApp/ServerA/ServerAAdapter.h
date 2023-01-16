@@ -5,11 +5,10 @@
 #ifndef CPP_PRACTICE_SRC_DEMOAPP_SERVERA_SERVERAADAPTER_H_
 #define CPP_PRACTICE_SRC_DEMOAPP_SERVERA_SERVERAADAPTER_H_
 
-class ServerAAdapter {
+#include "ServerAdapter.h"
+class ServerAAdapter : public ServerAdapter {
  public:
- private:
-
-
+  bool SendMessage(std::vector<char> buffer) override;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_SERVERA_SERVERAADAPTER_H_

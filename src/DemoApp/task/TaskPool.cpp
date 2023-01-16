@@ -5,7 +5,7 @@
 #include "TaskPool.h"
 
 std::shared_ptr<Task> TaskPool::GetTask(uint32_t seq) {
-  if (seq > Tasks_.size()) {
+  if (seq > tasks_.size()) {
     return nullptr;
   }
   auto it = freeTasks_.front() + seq;
@@ -16,9 +16,9 @@ std::shared_ptr<Task> TaskPool::GetTask(uint32_t seq) {
 }
 
 void TaskPool::NewTasks() {
-  Tasks_.resize(Tasks_.size() + 50);
+  tasks_.resize(tasks_.size() + 50);
   for (int i = 0; i < 50; ++i) {
-    freeTasks_.push_back(Tasks_.end() - i - 1);
+    freeTasks_.push_back(tasks_.end() - i - 1);
   }
 }
 std::shared_ptr<Task> TaskPool::GetTask() {
