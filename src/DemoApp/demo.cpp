@@ -20,6 +20,7 @@ std::string &Demo::AppName() {
   static std::string name("Demo");
   return name;
 }
+
 void Demo::OnMessage(std::shared_ptr<message::Msg> ptr) {
-  pTaskManager_->ProcessMsg(ptr, std::unique_ptr<TaskMsg>());
+  pTaskManager_->ProcessMsg(ptr);
 }

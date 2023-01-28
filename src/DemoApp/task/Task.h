@@ -16,8 +16,7 @@ class TaskState;
 
 class Task {
  public:
-  explicit Task(uint32_t index);
-  Task();
+  Task(uint32_t index, boost::asio::thread_pool &threadPool);
   void ChangeState(TaskState *pNewState);
 
   void Process(std::shared_ptr<TaskMsg> pTaskMsg);

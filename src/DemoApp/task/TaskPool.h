@@ -20,6 +20,7 @@ enum : uint32_t {
 
 class TaskPool {
  public:
+  explicit TaskPool(boost::asio::thread_pool &thread_pool);
   std::shared_ptr<Task> GetTask(uint32_t seq);
   std::shared_ptr<Task> GetTask();
 
@@ -31,6 +32,7 @@ class TaskPool {
   std::deque<Task> tasks_;
   std::list<std::deque<Task>::iterator> freeTasks_;
   std::mutex lockTasks_;
+  boost::asio::thread_pool &threadPool_;
 };
 
 #endif //CPP_PRACTICE_TASKPOOL_H
