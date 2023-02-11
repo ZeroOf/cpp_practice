@@ -12,6 +12,7 @@ class Demo
 class TaskManager {
     void ProcessMsg(shared_ptr<Task>);
 }
+interface ServerAdapter
 class TaskPool
 class Task
 Task --* TaskPool
@@ -24,5 +25,6 @@ Demo o-- Server
 TaskManager o-- TaskPool
 Demo o-- TaskManager
 Server <-- ClientFactory
+
 @enduml
 ```

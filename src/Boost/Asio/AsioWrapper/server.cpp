@@ -30,7 +30,7 @@ void Server::Start(std::string ip, uint32_t port) {
 
 void Server::HandleAccept(const boost::system::error_code &ec, boost::asio::ip::tcp::socket s) {
   if (ec) {
-    LOG_ERROR("accect failed, error : " << ec.what());
+    LOG_ERROR("accept failed, error : " << ec.what());
     return;
   }
   auto remote_addr = s.remote_endpoint().address().to_string();

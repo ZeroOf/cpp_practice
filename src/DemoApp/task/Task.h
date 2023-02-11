@@ -16,7 +16,7 @@ class TaskState;
 
 class Task {
  public:
-  Task(uint32_t index, boost::asio::thread_pool &threadPool);
+  explicit Task(uint32_t index);
   void ChangeState(TaskState *pNewState);
 
   void Process(std::shared_ptr<TaskMsg> pTaskMsg);
@@ -29,7 +29,6 @@ class Task {
   TaskState *p_state_{};
   static InitState init_state_;
   static OptionState option_state_;
-  boost::asio::strand<boost::asio::thread_pool::executor_type> strand_;
 };
 
 #endif //CPP_PRACTICE_TASK_H

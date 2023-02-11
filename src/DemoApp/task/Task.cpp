@@ -6,8 +6,11 @@
 #include "TaskState.h"
 #include "Boost/Log/logwrapper/LogWrapper.h"
 
-Task::Task(uint32_t index, boost::asio::thread_pool &threadPool)
-    : index_(index), p_state_(&init_state_), strand_(threadPool.executor()) {}
+InitState Task::init_state_;
+OptionState Task::option_state_;
+
+Task::Task(uint32_t index)
+    : index_(index), p_state_(&init_state_) {}
 
 void Task::Process(std::shared_ptr<TaskMsg> pTaskMsg) {
   if (nullptr != p_state_) {

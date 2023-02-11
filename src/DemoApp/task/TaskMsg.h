@@ -6,6 +6,7 @@
 #define CPP_PRACTICE_TASKMSG_H
 
 #include <cstdint>
+#include <message.pb.h>
 
 struct TaskMsg {
   uint32_t seq_;
