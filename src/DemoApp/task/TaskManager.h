@@ -18,6 +18,7 @@ class TaskManager {
  private:
   TaskPool task_pool_;
   boost::asio::thread_pool &thread_pool_;
+  std::vector<boost::asio::strand<boost::asio::thread_pool::executor_type>> strands_;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_TASK_TASKMANAGER_H_

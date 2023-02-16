@@ -17,7 +17,7 @@ struct TaskMsg {
 };
 
 struct RequestMsg : public TaskMsg {
-  RequestMsg(std::shared_ptr<message::Msg> &p_msg, uint32_t seq) : TaskMsg{seq, MsgType::TcpMsg}, pMsg(p_msg) {}
+  RequestMsg(std::shared_ptr<message::Msg> p_msg, uint32_t seq) : TaskMsg{seq, MsgType::TcpMsg}, pMsg(p_msg) {}
   std::shared_ptr<message::Msg> pMsg;
 };
 

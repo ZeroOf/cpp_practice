@@ -4,14 +4,23 @@
 
 #include "TaskManager.h"
 #include "Boost/Log/logwrapper/LogWrapper.h"
-TaskManager::TaskManager(boost::asio::thread_pool &thread_pool) : thread_pool_(thread_pool), task_pool_(thread_pool) {}
+
+const static size_t NUM_STRANDS = 8;
+
+TaskManager::TaskManager(boost::asio::thread_pool &thread_pool)
+    : thread_pool_(thread_pool),
+      task_pool_(thread_pool),
+      strands_(NUM_STRANDS, boost::asio::strand<boost::asio::thread_pool::executor_type>(thread_pool_.executor())) {}
 void TaskManager::ProcessMsg(std::shared_ptr<message::Msg> pMsg) {
-  auto pTask = task_pool_.GetTask(pMsg->seq());
+  std::shared_ptr<Task> pTask = task_pool_.GetTask(pMsg->seq());
   if (!pTask) {
     LOG_ERROR("Cannot found the task : " << pMsg->seq());
     return;
   }
-  std::shared_ptr<TaskMsg>
-      pTaskMsg = std::static_pointer_cast<TaskMsg>(std::make_shared<RequestMsg>(pMsg, pMsg->seq()));
-  pTask->Process(pTaskMsg);
+
+  boost::asio::post(strands_[pMsg->seq() % NUM_STRANDS], [pTask, pMsg]() {
+    std::shared_ptr<TaskMsg>
+        pTaskMsg = std::static_pointer_cast<TaskMsg>(std::make_shared<RequestMsg>(pMsg, pMsg->seq()));
+    pTask->Process(pTaskMsg);
+  });
 }
