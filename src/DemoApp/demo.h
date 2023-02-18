@@ -5,12 +5,12 @@
 #ifndef CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_
 #define CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_
 
-#include <AppBase/AppBase.h>
+#include <AppBase/appbase.h>
 #include <Boost/Asio/AsioWrapper/server.h>
 #include <boost/serialization/singleton.hpp>
 #include <message.pb.h>
-#include "task/TaskPool.h"
-#include "task/TaskManager.h"
+#include "task/task_pool.h"
+#include "task/task_manager.h"
 
 class Demo : public AppBase, public boost::serialization::singleton<Demo> {
  public:
