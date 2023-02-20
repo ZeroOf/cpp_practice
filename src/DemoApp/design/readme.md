@@ -18,13 +18,13 @@ class Task
 Task --* TaskPool
 class Server
 class Client
-class ClientFactory
-ClientFactory *-- Client
-Demo o-- ClientFactory
+class ClientManager
+ClientManager *-- Client
+Demo o-- ClientManager
 Demo o-- Server
 TaskManager o-- TaskPool
 Demo o-- TaskManager
-Server <-- ClientFactory
+Server <-- ClientManager
 
 @enduml
 ```

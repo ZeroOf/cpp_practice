@@ -58,3 +58,4 @@ void ClientHandler::OnClose() {
 void ClientHandler::Start() {
   IOInterface::Start();
 }
+ClientHandler::ClientHandler(size_t seq) : seq_(seq) {}

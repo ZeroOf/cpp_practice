@@ -27,8 +27,8 @@
  * 	Fax: (201) 236-3290
 */ 
 
-#include "Query.h"
-#include "TextQuery.h"
+#include "query.h"
+#include "text_query.h"
 
 #include <memory>
 using std::shared_ptr; 

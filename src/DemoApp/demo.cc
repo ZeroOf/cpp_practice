@@ -7,7 +7,7 @@
 #include <client_factory.h>
 #include "task/task_wrapper.hpp"
 
-Demo::Demo() : pClientFactory_(std::make_shared<ClientFactory>(thread_pool_)), server_(thread_pool_, pClientFactory_) {}
+Demo::Demo() : pClientFactory_(std::make_shared<ClientManager>(thread_pool_)), server_(thread_pool_, pClientFactory_) {}
 
 bool Demo::OnActivate() {
   server_.Start("127.0.0.1", 8080);

@@ -27,7 +27,7 @@
  * 	Fax: (201) 236-3290
 */ 
 
-#include "TextQuery.h"
+#include "text_query.h"
 #include "make_plural.h"
 
 #include <cstddef>

@@ -1,5 +1,5 @@
-#include "Query.h"
-#include "TextQuery.h"
+#include "query.h"
+#include "text_query.h"
 #include <string>
 #include <vector>
 #include <map>

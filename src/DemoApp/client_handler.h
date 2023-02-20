@@ -11,6 +11,7 @@ const uint32_t MAX_PACKAGE = 1024 * 1024;
 
 class ClientHandler : public TcpIO::IOInterface {
  public:
+  explicit ClientHandler(size_t seq);
   bool OnRead(std::vector<char> msg) override;
   void OnConnected(const std::string &host, unsigned short port) override;
   void OnConnectFailed(const std::string &host, unsigned short port) override;
@@ -19,7 +20,8 @@ class ClientHandler : public TcpIO::IOInterface {
                                                             TcpIO::buffer_iterator end) override;
   void OnClose() override;
   void Start() override;
-
+ private:
+  size_t seq_;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_CLIENT_HANDLER_H_

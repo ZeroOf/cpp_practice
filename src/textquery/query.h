@@ -29,7 +29,7 @@
 
 #ifndef QUERY_H
 #define QUERY_H
-#include "TextQuery.h"
+#include "text_query.h"
 #include <string>
 #include <set>
 #include <iostream>
@@ -38,11 +38,11 @@
 #include <memory>
 
 // abstract class acts as a base class for concrete query types; all members are private
-class Query_base {
+class QueryBase {
     friend class Query;  
 protected:
     typedef TextQuery::line_no line_no; // used in the eval functions
-    virtual ~Query_base() { }
+    virtual ~QueryBase() { }
 private:
     // eval returns the QueryResult that matches this Query
     virtual QueryResult eval(const TextQuery&) const = 0; 
@@ -64,8 +64,8 @@ public:
                             { return q->eval(t); }
 	std::string rep() const { return q->rep(); }
 private:
-    Query(std::shared_ptr<Query_base> query): q(query) { }
-    std::shared_ptr<Query_base> q;
+    Query(std::shared_ptr<QueryBase> query): q(query) { }
+    std::shared_ptr<QueryBase> q;
 };
 inline
 std::ostream &
@@ -75,7 +75,7 @@ operator<<(std::ostream &os, const Query &query)
 	return os << query.rep();
 }
 
-class WordQuery: public Query_base {
+class WordQuery: public QueryBase {
     friend class Query; // Query uses the WordQuery constructor
     WordQuery(const std::string &s): query_word(s) { }
 
@@ -89,7 +89,7 @@ class WordQuery: public Query_base {
 inline
 Query::Query(const std::string &s): q(new WordQuery(s)) { }
 
-class NotQuery: public Query_base {
+class NotQuery: public QueryBase {
     friend Query operator~(const Query &);
     NotQuery(const Query &q): query(q) { }
 
@@ -99,7 +99,7 @@ class NotQuery: public Query_base {
     Query query;
 };
 
-class BinaryQuery: public Query_base {
+class BinaryQuery: public QueryBase {
 protected:
     BinaryQuery(const Query &l, const Query &r, std::string s): 
           lhs(l), rhs(r), opSym(s) { }
@@ -132,17 +132,17 @@ class OrQuery: public BinaryQuery {
 
 inline Query operator&(const Query &lhs, const Query &rhs)
 {
-    return std::shared_ptr<Query_base>(new AndQuery(lhs, rhs));
+    return std::shared_ptr<QueryBase>(new AndQuery(lhs, rhs));
 }
 
 inline Query operator|(const Query &lhs, const Query &rhs)
 {
-    return std::shared_ptr<Query_base>(new OrQuery(lhs, rhs));
+    return std::shared_ptr<QueryBase>(new OrQuery(lhs, rhs));
 }
 
 inline Query operator~(const Query &operand)
 {
-    return std::shared_ptr<Query_base>(new NotQuery(operand));
+    return std::shared_ptr<QueryBase>(new NotQuery(operand));
 }
 
 std::ifstream& open_file(std::ifstream&, const std::string&);

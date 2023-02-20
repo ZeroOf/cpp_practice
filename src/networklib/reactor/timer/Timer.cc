@@ -4,6 +4,7 @@
 
 #include "Timer.h"
 #include <sys/timerfd.h>
+#include <fcntl.h>
 
 void net::Timer::HandleRead() {
 

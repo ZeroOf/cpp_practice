@@ -2,9 +2,9 @@
 #define CPP_PRACTICE_HEADER_HPP
 
 #include <type_traits>
-#include "Fields.h"
+#include "fields.h"
 #include "verb.h"
-#include "Status.h"
+#include "status.h"
 
 namespace sip {
 

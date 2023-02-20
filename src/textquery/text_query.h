@@ -35,7 +35,7 @@
 #include <map>
 #include <set>
 #include <fstream>
-#include "QueryResult.h"
+#include "query_result.h"
 
 /* this version of the query classes includes two
  * members not covered in the book:  
