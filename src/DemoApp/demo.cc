@@ -4,7 +4,7 @@
 
 #include "demo.h"
 #include "Boost/Log/logwrapper/LogWrapper.h"
-#include <client_factory.h>
+#include <client_manager.h>
 #include "task/task_wrapper.hpp"
 
 Demo::Demo() : pClientFactory_(std::make_shared<ClientManager>(thread_pool_)), server_(thread_pool_, pClientFactory_) {}
