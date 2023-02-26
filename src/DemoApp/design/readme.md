@@ -7,24 +7,29 @@
 # class
 
 ```plantuml
-@startuml
+@startuml demoServer
 class Demo
 class TaskManager {
-    void ProcessMsg(shared_ptr<Task>);
+    +void ProcessMsg(shared_ptr<Task>);
 }
-interface ServerAdapter
+interface ServerAdapter {
++{abstract}bool SendMessage(std::vector<char> buffer)
+}
+interface TcpIO.ClientFactory {
++std::shared_ptr<TcpIO::Client> GetClient(boost::asio::ip::tcp::socket &&socket)
+}
 class TaskPool
 class Task
 Task --* TaskPool
 class Server
 class Client
 class ClientManager
-ClientManager *-- Client
 Demo o-- ClientManager
 Demo o-- Server
+ClientManager *-- Client
 TaskManager o-- TaskPool
-Demo o-- TaskManager
 Server <-- ClientManager
-
+Demo o-- TaskManager
+ClientManager --|> TcpIO.ClientFactory
 @enduml
 ```

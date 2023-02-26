@@ -15,38 +15,36 @@
 #include <boost/log/attributes/scoped_attribute.hpp>
 
 enum LogLevel {
-    DEBUG,
-    INFO,
-    ERROR
+  DEBUG,
+  INFO,
+  ERROR
 };
 
 BOOST_LOG_ATTRIBUTE_KEYWORD(line_id, "LineID", unsigned int)
 BOOST_LOG_ATTRIBUTE_KEYWORD(severity, "Severity", LogLevel)
 
 class LogWrapper : public boost::serialization::singleton<LogWrapper> {
-public:
-    LogWrapper();
+ public:
+  LogWrapper();
 
-    void Init(std::string logName);
+  void Init(std::string logName);
 
-    void SetLevel(LogLevel level);
+  void SetLevel(LogLevel level);
 
-    boost::log::sources::severity_logger<LogLevel> &GetLog();
+  boost::log::sources::severity_logger<LogLevel> &GetLog();
 
-    virtual ~LogWrapper();
+  virtual ~LogWrapper();
 
-    void AddLogFile(std::string logName);
+  void AddLogFile(std::string logName);
 
-private:
-    boost::log::sources::severity_logger<LogLevel> m_log;
+ private:
+  boost::log::sources::severity_logger<LogLevel> log_;
 
-    void ConsoleLog() const;
+  void ConsoleLog() const;
 };
-
 
 boost::log::formatting_ostream &
 operator<<(boost::log::formatting_ostream &strm, boost::log::to_log_manip<LogLevel, tag::severity> const &manip);
-
 
 #define LOG(level, MSG) { \
     BOOST_LOG_SEV(LogWrapper::get_mutable_instance().GetLog(), level) << boost::filesystem::path( __FILE__ ).filename().string() << ":" << __LINE__ << " [" << __func__ << "] "<< MSG; \
@@ -55,6 +53,5 @@ operator<<(boost::log::formatting_ostream &strm, boost::log::to_log_manip<LogLev
 #define LOG_DEBUG(MSG) LOG(DEBUG, MSG)
 #define LOG_INFO(MSG) LOG(INFO, MSG)
 #define LOG_ERROR(MSG) LOG(ERROR, MSG)
-
 
 #endif //CPP_PRACTICE_LOGWRAPPER_H

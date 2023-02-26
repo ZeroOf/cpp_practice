@@ -12,7 +12,7 @@ void AppBase::Run() {
   LogWrapper::get_mutable_instance().Init(AppName());
   SetSignal();
   OnActivate();
-  LOG_INFO(AppName() << "activite success");
+  LOG_INFO(AppName() << " activite success");
 //  threadPool_.join();
   OnDeactivate();
 }
