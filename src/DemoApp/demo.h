@@ -15,7 +15,9 @@
 class Demo : public AppBase, public boost::serialization::singleton<Demo> {
  public:
   Demo();
-  void OnMessage(std::shared_ptr<message::Msg> ptr);
+  void OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID);
+  void SendMsg2AServer();
+  void SendBack(uint32_t clientID, std::vector<char> buffer);
  private:
   bool OnActivate() override;
   void OnDeactivate() override;

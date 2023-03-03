@@ -23,11 +23,8 @@ class TaskPool {
   explicit TaskPool(boost::asio::thread_pool &thread_pool);
   std::shared_ptr<Task> GetTask(uint32_t seq);
   std::shared_ptr<Task> GetTask();
-
  private:
-
   void NewTasks();
-
  private:
   std::deque<Task> tasks_;
   std::list<std::deque<Task>::iterator> freeTasks_;

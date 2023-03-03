@@ -18,7 +18,7 @@ bool ClientHandler::OnRead(std::vector<char> msg) {
     LOG_ERROR("Decode failed " << exception.what());
     return false;
   }
-  Demo::get_mutable_instance().OnMessage(pInput);
+  Demo::get_mutable_instance().OnMessage(pInput, seq_);
   return true;
 }
 

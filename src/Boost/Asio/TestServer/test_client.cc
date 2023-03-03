@@ -29,7 +29,9 @@ bool TestClient::OnRead(std::vector<char> msg) {
   } else {
     LOG_ERROR("Client gone");
     OnClose();
+    return false;
   }
+  return true;
 }
 
 void TestClient::OnConnected(const std::string &host, unsigned short port) {

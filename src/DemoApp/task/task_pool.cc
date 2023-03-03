@@ -17,7 +17,7 @@ std::shared_ptr<Task> TaskPool::GetTask(uint32_t seq) {
 
 void TaskPool::NewTasks() {
   for (int i = 0; i < 50; ++i) {
-    tasks_.emplace_back(tasks_.size() + 1);
+    tasks_.emplace_back(tasks_.size() + 1, threadPool_);
     freeTasks_.push_back(tasks_.end() - 1);
   }
 }

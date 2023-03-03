@@ -21,6 +21,9 @@ std::string &Demo::AppName() {
   return name;
 }
 
-void Demo::OnMessage(std::shared_ptr<message::Msg> ptr) {
-  pTaskManager_->ProcessMsg(ptr);
+void Demo::OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID) {
+  pTaskManager_->ProcessMsg(ptr, clientID);
+}
+void Demo::SendMsg2AServer() {
+
 }

@@ -3,9 +3,15 @@
 //
 
 #include "init_state.h"
+#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "task.h"
+#include "demo.h"
 void InitState::PreProcess(Task *pTask) {
-
+  if (nullptr != pTask) {
+    LOG_DEBUG("Init task : " << pTask->GetSeq());
+  }
 }
 void InitState::Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) {
-
+  Demo::get_mutable_instance().SendMsg2AServer();
+  pTask->ChangeState(&Task::option_state_);
 }

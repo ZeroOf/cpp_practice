@@ -14,6 +14,7 @@ class ClientManager : public TcpIO::ClientFactory {
   ClientManager(boost::asio::thread_pool &thread_pool);
   std::shared_ptr<TcpIO::Client> GetClient(boost::asio::ip::tcp::socket &&socket) override;
   void OnClose(size_t client_seq);
+  bool SendMsg(uint32_t clientSeq, std::vector<char> buf);
  private:
   boost::asio::thread_pool &thread_pool_;
   std::map<size_t, std::shared_ptr<TcpIO::Client>> living_clients_;
