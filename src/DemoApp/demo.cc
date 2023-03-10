@@ -27,3 +27,9 @@ void Demo::OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID) {
 void Demo::SendMsg2AServer() {
 
 }
+void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
+
+}
+void Demo::OnTimer(Task *pTask) {
+
+}

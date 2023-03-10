@@ -4,33 +4,25 @@
 
 #include "task_pool.h"
 
-std::shared_ptr<Task> TaskPool::GetTask(uint32_t seq) {
+Task * TaskPool::GetTask(uint32_t seq) {
   if (seq > tasks_.size()) {
     return nullptr;
   }
-  auto it = tasks_.begin() + seq;
-  return std::shared_ptr<Task>(&*it, [it, this](auto p) {
-    std::scoped_lock lock(tasks_lock_);
-    free_tasks_.push_back(it);
-  });;
+  return &tasks_[seq];
 }
 
 void TaskPool::NewTasks() {
   for (int i = 0; i < 50; ++i) {
     tasks_.emplace_back(tasks_.size() + 1, threadPool_);
-    free_tasks_.push_back(tasks_.end() - 1);
+    free_tasks_.push_back(&tasks_.back());
   }
 }
-std::shared_ptr<Task> TaskPool::GetTask() {
+Task * TaskPool::GetTask() {
   std::scoped_lock lock(tasks_lock_);
   if (free_tasks_.empty()) {
     NewTasks();
   }
-  auto it = free_tasks_.front();
-  std::shared_ptr<Task> pTask(&*it, [it, this](auto p) {
-    std::scoped_lock lock(tasks_lock_);
-    free_tasks_.push_back(it);
-  });
+  auto pTask = free_tasks_.front();
   free_tasks_.pop_front();
   return pTask;
 }

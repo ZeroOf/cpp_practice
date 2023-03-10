@@ -13,8 +13,8 @@ TaskManager::TaskManager(boost::asio::thread_pool &thread_pool)
       strands_(NUM_STRANDS, boost::asio::strand<boost::asio::thread_pool::executor_type>(thread_pool_.executor())) {}
 
 void TaskManager::ProcessMsg(std::shared_ptr<message::Msg> pMsg, uint32_t clientID) {
-  std::shared_ptr<Task> pTask = task_pool_.GetTask(pMsg->seq());
-  if (!pTask) {
+  Task *pTask = task_pool_.GetTask(pMsg->seq());
+  if (nullptr == pTask) {
     LOG_ERROR("Cannot found the task : " << pMsg->seq());
     return;
   }

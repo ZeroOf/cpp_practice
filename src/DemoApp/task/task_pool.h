@@ -21,13 +21,13 @@ enum : uint32_t {
 class TaskPool {
  public:
   explicit TaskPool(boost::asio::thread_pool &thread_pool);
-  std::shared_ptr<Task> GetTask(uint32_t seq);
-  std::shared_ptr<Task> GetTask();
+  Task * GetTask(uint32_t seq);
+  Task * GetTask();
  private:
   void NewTasks();
  private:
   std::deque<Task> tasks_;
-  std::list<std::deque<Task>::iterator> free_tasks_;
+  std::list<Task*> free_tasks_;
   std::map<uint32_t, std::deque<Task>::iterator> working_Tasks_;
   std::mutex tasks_lock_;
   boost::asio::thread_pool &threadPool_;
