@@ -5,6 +5,7 @@
 #include "task.h"
 #include "task_state.h"
 #include "Boost/Log/logwrapper/LogWrapper.h"
+#include <demo.h>
 
 InitState Task::init_state_;
 OptionState Task::option_state_;
@@ -39,11 +40,20 @@ void Task::SetTimer() {
   timer_.async_wait(std::bind(&Task::OnTimer, this, std::placeholders::_1));
 }
 void Task::OnTimer(const boost::system::error_code &error) {
-
+  if (error != boost::asio::error::operation_aborted) {
+    LOG_DEBUG("timer is canceled");
+    return;
+  }
+  Demo::get_mutable_instance().OnTimer(this);
 }
 uint32_t Task::GetClientId() const {
   return client_id_;
 }
 void Task::SetClientId(uint32_t client_id) {
   client_id_ = client_id;
+}
+void Task::Release() {
+  assert(nullptr != p_state_);
+  ChangeState(&init_state_);
+
 }

@@ -27,8 +27,9 @@ class TaskPool {
   void NewTasks();
  private:
   std::deque<Task> tasks_;
-  std::list<std::deque<Task>::iterator> freeTasks_;
-  std::mutex lockTasks_;
+  std::list<std::deque<Task>::iterator> free_tasks_;
+  std::map<uint32_t, std::deque<Task>::iterator> working_Tasks_;
+  std::mutex tasks_lock_;
   boost::asio::thread_pool &threadPool_;
 };
 

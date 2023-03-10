@@ -18,7 +18,7 @@ void TaskManager::ProcessMsg(std::shared_ptr<message::Msg> pMsg, uint32_t client
     LOG_ERROR("Cannot found the task : " << pMsg->seq());
     return;
   }
-  pTask->SetSeq(clientID);
+  pTask->SetClientId(clientID);
   boost::asio::post(strands_[pMsg->seq() % NUM_STRANDS], [pTask, pMsg]() {
     std::shared_ptr<TaskMsg>
         pTaskMsg = std::static_pointer_cast<TaskMsg>(std::make_shared<RequestMsg>(pMsg, pMsg->seq()));

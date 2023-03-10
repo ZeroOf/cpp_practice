@@ -13,5 +13,5 @@ void OptionState::PreProcess(Task *pTask) {
 }
 void OptionState::Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) {
   Demo::get_mutable_instance().SendBack(pTask->GetClientId(), std::vector<char>());
-  pTask->ChangeState(&Task::init_state_);
+  pTask->Release();
 }

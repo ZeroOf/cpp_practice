@@ -25,6 +25,7 @@ class Task {
   void OnTimer(const boost::system::error_code &error);
   static OptionState option_state_;
   static InitState init_state_;
+  void Release();
  private:
   uint32_t index_ = 0;
   uint32_t seq_ = 0;
