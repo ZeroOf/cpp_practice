@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package message;
+
+enum MsgType {
+  MSGA = 0;
+  MSGB = 1;
+}
+
+message Msg {
+  uint32 seq = 1;
+  MsgType type = 2;
+  string msg = 3;
+}
+
+message Resp {
+  uint32 seq = 1;
+  string msg = 2;
+}
