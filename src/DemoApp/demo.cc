@@ -33,3 +33,6 @@ void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
 void Demo::OnTimer(Task *pTask) {
 
 }
+void Demo::RemoveClient(size_t i) {
+  pClientFactory_->RemoveClient(i);
+}

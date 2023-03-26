@@ -25,7 +25,6 @@ bool ClientHandler::OnRead(std::vector<char> msg) {
 void ClientHandler::OnConnected(const std::string &host, unsigned short port) {
   LOG_INFO("connect with " << host << ":" << port << " Established");
 }
-
 void ClientHandler::OnConnectFailed(const std::string &host, unsigned short port) {
   LOG_INFO("connect to " << host << ":" << port << " failed");
 }
@@ -43,7 +42,7 @@ std::pair<TcpIO::buffer_iterator, bool> ClientHandler::IsPackageComplete(TcpIO::
   }
   uint32_t packageLen = 0;
   std::copy(begin, end, &packageLen);
-  packageLen = htonl(packageLen);
+  packageLen = ntohl(packageLen);
   if (packageLen > MAX_PACKAGE) {
     return std::pair<TcpIO::buffer_iterator, bool>(begin, true);
   }
@@ -53,8 +52,10 @@ std::pair<TcpIO::buffer_iterator, bool> ClientHandler::IsPackageComplete(TcpIO::
   return std::pair<TcpIO::buffer_iterator, bool>(begin + packageLen, true);
 }
 void ClientHandler::OnClose() {
-
+  LOG_INFO("close connection");
+  Demo::get_mutable_instance().RemoveClient(seq_);
 }
+
 void ClientHandler::Start() {
   IOInterface::Start();
 }
