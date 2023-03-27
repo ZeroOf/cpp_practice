@@ -1,10 +1,6 @@
-//
-// Created by Will Lee on 2021/12/11.
-//
-
 #include "task_pool.h"
 
-Task * TaskPool::GetTask(uint32_t seq) {
+Task *TaskPool::GetTask(uint32_t seq) {
   if (seq > tasks_.size()) {
     return nullptr;
   }
@@ -17,7 +13,7 @@ void TaskPool::NewTasks() {
     free_tasks_.push_back(&tasks_.back());
   }
 }
-Task * TaskPool::GetTask() {
+Task *TaskPool::GetTask() {
   std::scoped_lock lock(tasks_lock_);
   if (free_tasks_.empty()) {
     NewTasks();

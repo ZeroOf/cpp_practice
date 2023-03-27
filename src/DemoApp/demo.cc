@@ -21,8 +21,8 @@ std::string &Demo::AppName() {
   return name;
 }
 
-void Demo::OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID) {
-  pTaskManager_->ProcessMsg(ptr, clientID);
+void Demo::OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID, uint32_t seq) {
+  pTaskManager_->ProcessMsg(ptr, clientID, seq);
 }
 void Demo::SendMsg2AServer() {
 
@@ -32,7 +32,4 @@ void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
 }
 void Demo::OnTimer(Task *pTask) {
 
-}
-void Demo::RemoveClient(size_t i) {
-  pClientFactory_->RemoveClient(i);
 }

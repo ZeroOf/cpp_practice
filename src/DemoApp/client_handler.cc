@@ -18,7 +18,7 @@ bool ClientHandler::OnRead(std::vector<char> msg) {
     LOG_ERROR("Decode failed " << exception.what());
     return false;
   }
-  Demo::get_mutable_instance().OnMessage(pInput, seq_);
+  Demo::get_mutable_instance().OnMessage(pInput, seq_, INVALID_SEQ);
   return true;
 }
 
@@ -40,9 +40,13 @@ std::pair<TcpIO::buffer_iterator, bool> ClientHandler::IsPackageComplete(TcpIO::
   if (end - begin < sizeof(uint32_t)) {
     return std::pair<TcpIO::buffer_iterator, bool>(begin, false);
   }
+  //copy first 4 bytes to packageLen
   uint32_t packageLen = 0;
-  std::copy(begin, end, &packageLen);
+  std::copy(begin, begin + sizeof(uint32_t), reinterpret_cast<char *>(&packageLen));
+
+  //convert to host byte order
   packageLen = ntohl(packageLen);
+
   if (packageLen > MAX_PACKAGE) {
     return std::pair<TcpIO::buffer_iterator, bool>(begin, true);
   }
@@ -53,7 +57,6 @@ std::pair<TcpIO::buffer_iterator, bool> ClientHandler::IsPackageComplete(TcpIO::
 }
 void ClientHandler::OnClose() {
   LOG_INFO("close connection");
-  Demo::get_mutable_instance().RemoveClient(seq_);
 }
 
 void ClientHandler::Start() {

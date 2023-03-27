@@ -12,14 +12,16 @@
 #include "task/task_pool.h"
 #include "task/task_manager.h"
 
+
+const uint32_t INVALID_SEQ = -1;
+
 class Demo : public AppBase, public boost::serialization::singleton<Demo> {
  public:
   Demo();
-  void OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID);
+  void OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID, uint32_t seq);
   void SendMsg2AServer();
   void SendBack(uint32_t clientID, std::vector<char> buffer);
   void OnTimer(Task *pTask);
-  void RemoveClient(size_t i);
  private:
   bool OnActivate() override;
   void OnDeactivate() override;

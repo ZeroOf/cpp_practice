@@ -14,6 +14,7 @@ void AppBase::Run() {
   OnActivate();
   LOG_INFO(AppName() << " activite success");
 //  threadPool_.join();
+  threadPool_.join();
   OnDeactivate();
 }
 
