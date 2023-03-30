@@ -1,6 +1,8 @@
 #include "task_pool.h"
+#include "Boost/Log/logwrapper/LogWrapper.h"
 
 Task *TaskPool::GetTask(uint32_t seq) {
+  LOG_DEBUG("GetTask seq : " << seq);
   if (seq > tasks_.size()) {
     return nullptr;
   }
@@ -14,6 +16,7 @@ void TaskPool::NewTasks() {
   }
 }
 Task *TaskPool::GetTask() {
+  LOG_DEBUG("GetTask");
   std::scoped_lock lock(tasks_lock_);
   if (free_tasks_.empty()) {
     NewTasks();

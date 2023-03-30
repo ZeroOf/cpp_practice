@@ -12,6 +12,7 @@ void InitState::PreProcess(Task *pTask) {
   }
 }
 void InitState::Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) {
+  LOG_DEBUG("Init state process");
   Demo::get_mutable_instance().SendMsg2AServer();
   pTask->ChangeState(&Task::option_state_);
 }

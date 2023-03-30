@@ -14,6 +14,7 @@ Task::Task(uint32_t index, boost::asio::thread_pool &threadPool)
     : index_(index), p_state_(&init_state_), timer_(threadPool) {}
 
 void Task::Process(std::shared_ptr<TaskMsg> pTaskMsg) {
+  LOG_DEBUG("Task " << index_ << " process");
   if (nullptr == p_state_) {
     LOG_ERROR("state is null");
     return;
@@ -22,11 +23,11 @@ void Task::Process(std::shared_ptr<TaskMsg> pTaskMsg) {
 }
 
 void Task::ChangeState(TaskState *pNewState) {
-  p_state_ = pNewState;
   if (nullptr == p_state_) {
     LOG_ERROR("state pointer is null");
     assert(false);
   }
+  p_state_ = pNewState;
   p_state_->PreProcess(this);
 }
 uint32_t Task::GetSeq() const {

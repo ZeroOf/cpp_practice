@@ -15,6 +15,7 @@ class TaskManager {
  public:
   explicit TaskManager(boost::asio::thread_pool &thread_pool);
   void ProcessMsg(std::shared_ptr<message::Msg> pMsg, uint32_t clientID, uint32_t seq);
+  void Init();
  private:
   TaskPool task_pool_;
   boost::asio::thread_pool &thread_pool_;

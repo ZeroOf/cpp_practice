@@ -22,7 +22,7 @@ class Client : public std::enable_shared_from_this<Client> {
   void Start(const std::string &host, unsigned short service);
 
   void HandleRead(const boost::system::error_code &ec, size_t recv_size);
-
+  // send msg to remote, msg_type is used to distinguish different msg
   void SendMsg(const std::string &msg, uint32_t msg_type);
 
   virtual void Close() = 0;
