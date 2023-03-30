@@ -6,6 +6,5 @@
 
 int main() {
   daemon(1, 0);
-  Demo demo;
-  demo.Run();
+  Demo::get_mutable_instance().Run();
 }

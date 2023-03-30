@@ -12,7 +12,6 @@
 #include "task/task_pool.h"
 #include "task/task_manager.h"
 
-
 const uint32_t INVALID_SEQ = -1;
 
 class Demo : public AppBase, public boost::serialization::singleton<Demo> {
@@ -28,10 +27,10 @@ class Demo : public AppBase, public boost::serialization::singleton<Demo> {
   std::string &AppName() override;
 
  private:
-  boost::asio::thread_pool thread_pool_;
-  std::shared_ptr<TcpIO::ClientFactory> pClientFactory_;
-  TcpIO::Server server_;
-  std::shared_ptr<TaskManager> pTaskManager_;
+  std::shared_ptr<boost::asio::thread_pool> ptr_thread_pool_;
+  std::shared_ptr<TcpIO::ClientFactory> ptr_client_factory_;
+  std::shared_ptr<TcpIO::Server> ptr_server_;
+  std::shared_ptr<TaskManager> ptr_task_manager_;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_
