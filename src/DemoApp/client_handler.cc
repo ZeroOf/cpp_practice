@@ -6,6 +6,8 @@
 #include <message.pb.h>
 #include <Boost/Log/logwrapper/LogWrapper.h>
 #include "demo.h"
+#include <client_manager.h>
+
 bool ClientHandler::OnRead(std::vector<char> msg) {
   if (msg.empty()) {
     LOG_ERROR("get empty message, close it");
@@ -55,11 +57,19 @@ std::pair<TcpIO::buffer_iterator, bool> ClientHandler::IsPackageComplete(TcpIO::
   }
   return std::pair<TcpIO::buffer_iterator, bool>(begin + packageLen, true);
 }
+
 void ClientHandler::OnClose() {
   LOG_INFO("close connection");
+  ptr_client_manager_->OnClose(seq_);
 }
 
 void ClientHandler::Start() {
   IOInterface::Start();
 }
-ClientHandler::ClientHandler(size_t seq) : seq_(seq) {}
+
+ClientHandler::ClientHandler(size_t seq, std::shared_ptr<ClientManager> ptr_client_manager)
+    : seq_(seq), ptr_client_manager_(ptr_client_manager) {}
+
+size_t ClientHandler::GetSeq() const {
+  return seq_;
+}

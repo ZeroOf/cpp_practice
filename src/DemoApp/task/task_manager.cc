@@ -36,9 +36,15 @@ void TaskManager::ProcessMsg(std::shared_ptr<message::Msg> pMsg, uint32_t client
   });
 }
 void TaskManager::Init() {
-  for (auto strand : strands_) {
-    boost::asio::post(strand, []() {
-      LOG_DEBUG("Init task,threadID : " << boost::this_thread::get_id());
-    });
+  LOG_DEBUG("TaskManager init");
+}
+void TaskManager::ProcessMsg(std::shared_ptr<TaskMsg> ptr_task_msg, Task *ptr_task) {
+  if (task_pool_.GetTask(ptr_task->GetSeq()) == nullptr) {
+    LOG_ERROR("Cannot found the task : " << ptr_task->GetSeq());
+    return;
   }
+  boost::asio::post(strands_[ptr_task->GetSeq() % NUM_STRANDS], [ptr_task, ptr_task_msg]() {
+    LOG_DEBUG("Task " << ptr_task->GetSeq() << " process msg : " << ptr_task_msg->seq_);
+    ptr_task->Process(ptr_task_msg);
+  });
 }

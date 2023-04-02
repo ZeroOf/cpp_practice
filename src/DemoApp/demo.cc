@@ -34,12 +34,17 @@ void Demo::SendMsg2AServer() {
 }
 void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
   LOG_DEBUG("SendBack to client : " << clientID);
-  std::shared_ptr<message::Msg> pMsg = std::make_shared<message::Msg>();
-  pMsg->set_seq(1);
-  pMsg->set_type(static_cast<message::MsgType>(1));
-  pMsg->set_msg("hello world");
+  std::shared_ptr<message::Resp> ptr_msg = std::make_shared<message::Resp>();
+  ptr_msg->set_seq(1);
+  ptr_msg->set_msg("hello world");
+  buffer.resize(ptr_msg->ByteSizeLong());
+  ptr_msg->SerializeToArray(buffer.data(), buffer.size());
   std::static_pointer_cast<ClientManager>(ptr_client_factory_)->SendMsg(clientID, buffer);
 }
 void Demo::OnTimer(Task *pTask) {
-
+  LOG_DEBUG("OnTimer");
+  std::shared_ptr<TaskMsg> ptr_task_msg = std::make_shared<TaskMsg>();
+  ptr_task_msg->msg_type_ = TaskMsg::MsgType::kTimeOut;
+  ptr_task_msg->seq_ = pTask->GetSeq();
+  ptr_task_manager_->ProcessMsg(ptr_task_msg, pTask);
 }

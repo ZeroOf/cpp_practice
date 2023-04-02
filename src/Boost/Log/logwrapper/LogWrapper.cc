@@ -49,10 +49,12 @@ void LogWrapper::AddLogFile(std::string logName) {
   std::filesystem::path logPath = std::filesystem::path("../log/");
 
   logging::add_file_log(
-      keywords::file_name = "../log/" + logName + "_%N.log",
+      keywords::file_name = "../log/" + logName + ".log",
       keywords::rotation_size = 10 * 1024 * 1024,
+      keywords::max_size = 100 * 1024 * 1024,
       keywords::max_files = 3,
       keywords::enable_final_rotation = true,
+//      keywords::open_mode = std::ios_base::app,
       keywords::target = logPath,
       keywords::format = (
           expr::stream << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S")

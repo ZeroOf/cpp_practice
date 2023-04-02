@@ -41,7 +41,7 @@ void Task::SetTimer() {
   timer_.async_wait(std::bind(&Task::OnTimer, this, std::placeholders::_1));
 }
 void Task::OnTimer(const boost::system::error_code &error) {
-  if (error != boost::asio::error::operation_aborted) {
+  if (error == boost::asio::error::operation_aborted) {
     LOG_DEBUG("timer is canceled");
     return;
   }
@@ -56,5 +56,4 @@ void Task::SetClientId(uint32_t client_id) {
 void Task::Release() {
   assert(nullptr != p_state_);
   ChangeState(&init_state_);
-
 }
