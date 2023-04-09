@@ -10,12 +10,13 @@
 Demo::Demo() {}
 
 bool Demo::OnActivate() {
-  ptr_thread_pool_ = std::make_shared<boost::asio::thread_pool>(4);
   ptr_client_factory_ = std::make_shared<ClientManager>(*ptr_thread_pool_);
   ptr_server_ = std::make_shared<TcpIO::Server>(*ptr_thread_pool_, ptr_client_factory_);
   ptr_task_manager_ = std::make_shared<TaskManager>(*ptr_thread_pool_);
   ptr_task_manager_->Init();
-  ptr_server_->Start("127.0.0.1", 8080);
+  if (!ptr_server_->Start("127.0.0.1", 8080)) {
+    return false;
+  }
   return true;
 }
 void Demo::OnDeactivate() {

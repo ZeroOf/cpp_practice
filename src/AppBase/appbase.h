@@ -23,8 +23,8 @@ class AppBase {
   virtual std::string &AppName() = 0;
 
  protected:
-  boost::asio::thread_pool threadPool_;
-  boost::asio::signal_set sigHandler_;
+  std::shared_ptr<boost::asio::thread_pool> ptr_thread_pool_;
+  std::unique_ptr<boost::asio::signal_set> ptr_sig_handler_;
  private:
   void HandleSignal(const boost::system::error_code &ec, int sigNo);
 };

@@ -6,24 +6,36 @@
 #include "appbase.h"
 #include <Boost/Log/logwrapper/LogWrapper.h>
 
-AppBase::AppBase() : sigHandler_(threadPool_) {}
+AppBase::AppBase() {}
 
 void AppBase::Run() {
   LogWrapper::get_mutable_instance().Init(AppName());
+  if (nullptr != ptr_thread_pool_) {
+    LOG_ERROR("thread pool is not null");
+    return;
+  }
+  ptr_thread_pool_ = std::make_shared<boost::asio::thread_pool>(4);
+  if (nullptr != ptr_sig_handler_) {
+    LOG_ERROR("sig handler is not null");
+    return;
+  }
+  ptr_sig_handler_ = std::make_unique<boost::asio::signal_set>(*ptr_thread_pool_);
   SetSignal();
   OnActivate();
-  LOG_INFO(AppName() << " activite success");
+  LOG_INFO(AppName() << " activate success");
 //  threadPool_.join();
-  threadPool_.join();
+  ptr_thread_pool_->join();
   OnDeactivate();
 }
 
 void AppBase::SetSignal() {
-  sigHandler_.add(SIGINT);
-  sigHandler_.async_wait(std::bind(&AppBase::HandleSignal, this, std::placeholders::_1, std::placeholders::_2));
+  LOG_DEBUG("set signal");
+  ptr_sig_handler_->add(SIGINT);
+  ptr_sig_handler_->async_wait(std::bind(&AppBase::HandleSignal, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void AppBase::HandleSignal(const boost::system::error_code &ec, int sigNo) {
+  LOG_DEBUG("get signal");
   if (ec) {
     LOG_ERROR("get ec " << ec.what());
     return;
@@ -31,8 +43,8 @@ void AppBase::HandleSignal(const boost::system::error_code &ec, int sigNo) {
   LOG_INFO("get sig " << sigNo);
   if (sigNo == SIGINT) {
     LOG_INFO("get sigint sig, stop all");
-    threadPool_.stop();
+    ptr_thread_pool_->stop();
     return;
   }
-  sigHandler_.async_wait(std::bind(&AppBase::HandleSignal, this, std::placeholders::_1, std::placeholders::_2));
+  ptr_sig_handler_->async_wait(std::bind(&AppBase::HandleSignal, this, std::placeholders::_1, std::placeholders::_2));
 }

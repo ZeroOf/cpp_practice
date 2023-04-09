@@ -9,6 +9,7 @@
 class ServerAdapter {
  public:
   virtual bool SendMessage(std::vector<char> buffer) = 0;
+  virtual ~ServerAdapter() = default;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_SERVER_ADAPTER_H_

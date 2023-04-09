@@ -50,6 +50,7 @@ void LogWrapper::AddLogFile(std::string logName) {
 
   logging::add_file_log(
       keywords::file_name = "../log/" + logName + ".log",
+      keywords::target_file_name = "../log/" + logName + "%Y%m%d-%N.log",
       keywords::rotation_size = 10 * 1024 * 1024,
       keywords::max_size = 100 * 1024 * 1024,
       keywords::max_files = 3,

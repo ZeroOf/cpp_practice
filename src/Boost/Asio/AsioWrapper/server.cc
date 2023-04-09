@@ -12,7 +12,7 @@ Server::Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFacto
 
 }
 
-void Server::Start(std::string ip, uint32_t port) {
+bool Server::Start(std::string ip, uint32_t port) {
   ip_ = ip;
   port_ = port_;
   try {
@@ -23,9 +23,10 @@ void Server::Start(std::string ip, uint32_t port) {
     acceptor_.listen();
   } catch (const std::exception &exception) {
     LOG_ERROR(exception.what());
-    return;
+    return false;
   }
   acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
+  return true;
 }
 
 void Server::HandleAccept(const boost::system::error_code &ec, boost::asio::ip::tcp::socket s) {

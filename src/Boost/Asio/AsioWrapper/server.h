@@ -16,7 +16,7 @@ class Server : public std::enable_shared_from_this<Server> {
  public:
   Server(boost::asio::thread_pool &threadPool, std::shared_ptr<ClientFactory> pClientFactory);
 
-  void Start(std::string ip, uint32_t port);
+  bool Start(std::string ip, uint32_t port);
 
   void Stop();
 
