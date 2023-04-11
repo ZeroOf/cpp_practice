@@ -23,6 +23,7 @@ class TaskPool {
   explicit TaskPool(boost::asio::thread_pool &thread_pool);
   Task *GetTask(uint32_t seq);
   Task *GetTask();
+  void ReleaseTask(Task *p_task);
  private:
   void NewTasks();
  private:

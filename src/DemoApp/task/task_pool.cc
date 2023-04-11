@@ -25,4 +25,11 @@ Task *TaskPool::GetTask() {
   free_tasks_.pop_front();
   return pTask;
 }
+
 TaskPool::TaskPool(boost::asio::thread_pool &thread_pool) : threadPool_(thread_pool) {}
+
+void TaskPool::ReleaseTask(Task *p_task) {
+  LOG_DEBUG("ReleaseTask");
+  std::scoped_lock lock(tasks_lock_);
+  free_tasks_.push_back(p_task);
+}

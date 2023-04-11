@@ -56,4 +56,6 @@ void Task::SetClientId(uint32_t client_id) {
 void Task::Release() {
   assert(nullptr != p_state_);
   ChangeState(&init_state_);
+  timer_.cancel();
+  seq_ = INVALID_SEQ;
 }

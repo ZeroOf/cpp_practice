@@ -32,9 +32,9 @@ void ClientHandler::OnConnectFailed(const std::string &host, unsigned short port
 }
 void ClientHandler::OnSend(bool isSendSuccess, uint32_t msgType) {
   if (isSendSuccess) {
-    LOG_DEBUG("send message type : " << msgType << "success");
+    LOG_DEBUG("send message type : " << msgType << " success");
   } else {
-    LOG_ERROR("send message type : " << msgType << "failed");
+    LOG_ERROR("send message type : " << msgType << " failed");
   }
 }
 std::pair<TcpIO::buffer_iterator, bool> ClientHandler::IsPackageComplete(TcpIO::buffer_iterator begin,
@@ -72,4 +72,7 @@ ClientHandler::ClientHandler(size_t seq, std::shared_ptr<ClientManager> ptr_clie
 
 size_t ClientHandler::GetSeq() const {
   return seq_;
+}
+ClientHandler::~ClientHandler() {
+  LOG_DEBUG("ClientHandler destructor");
 }

@@ -48,3 +48,7 @@ void TaskManager::ProcessMsg(std::shared_ptr<TaskMsg> ptr_task_msg, Task *ptr_ta
     ptr_task->Process(ptr_task_msg);
   });
 }
+void TaskManager::ReleaseTask(Task *ptr_task) {
+  LOG_DEBUG("Release task : " << ptr_task->GetSeq());
+  task_pool_.ReleaseTask(ptr_task);
+}

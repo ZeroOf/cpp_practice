@@ -49,7 +49,7 @@ void TcpClient::HandleConnect(const boost::system::error_code &ec, const boost::
     return;
   }
   socket_.non_blocking(true);
-  ptr_io_interface_->OnConnected(host_, service_);
+  ptr_io_interface_->OnConnected(remote.address().to_string(), remote.port());
   Read();
 }
 

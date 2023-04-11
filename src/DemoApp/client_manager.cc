@@ -7,6 +7,7 @@
 #include "Boost/Log/logwrapper/LogWrapper.h"
 
 std::shared_ptr<TcpIO::Client> ClientManager::GetClient(boost::asio::ip::tcp::socket &&socket) {
+  LOG_DEBUG("ClientManager::GetClient");
   auto ptr_handler = std::make_shared<ClientHandler>(seq_++, shared_from_this());
   std::shared_ptr<TcpIO::Client>
       pClient = std::make_shared<TcpIO::TcpClient>(thread_pool_, ptr_handler, std::move(socket));
@@ -19,6 +20,7 @@ std::shared_ptr<TcpIO::Client> ClientManager::GetClient(boost::asio::ip::tcp::so
 ClientManager::ClientManager(boost::asio::thread_pool &thread_pool) : thread_pool_(thread_pool) {}
 
 void ClientManager::OnClose(size_t client_seq) {
+  LOG_DEBUG("ClientManager::OnClose : " << client_seq);
   std::lock_guard<std::mutex> lock(lock4living_clients_);
   living_clients_.erase(client_seq);
 }

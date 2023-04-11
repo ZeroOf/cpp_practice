@@ -27,6 +27,7 @@ class ClientHandler : public TcpIO::IOInterface {
   std::shared_ptr<ClientManager> ptr_client_manager_;
  public:
   size_t GetSeq() const;
+  virtual ~ClientHandler();
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_CLIENT_HANDLER_H_
