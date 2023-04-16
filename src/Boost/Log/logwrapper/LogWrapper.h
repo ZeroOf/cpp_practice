@@ -31,14 +31,15 @@ class LogWrapper : public boost::serialization::singleton<LogWrapper> {
 
   void SetLevel(LogLevel level);
 
-  boost::log::sources::severity_logger<LogLevel> &GetLog();
+  boost::log::sources::severity_logger<LogLevel>
+  &GetLog();
 
   virtual ~LogWrapper();
 
   void AddLogFile(std::string logName);
 
  private:
-  boost::log::sources::severity_logger<LogLevel> log_;
+  std::unique_ptr<boost::log::sources::severity_logger<LogLevel>> ptr_log_;
 
   void ConsoleLog() const;
 };

@@ -1,4 +1,5 @@
 MACRO(SUBDIRLIST result curdir)
+    # Get a list of subdirectories
     FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
     SET(dirlist "")
     FOREACH (child ${children})

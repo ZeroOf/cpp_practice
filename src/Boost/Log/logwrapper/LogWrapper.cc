@@ -24,6 +24,7 @@ LogWrapper::~LogWrapper() {
 }
 
 void LogWrapper::Init(std::string logName) {
+  ptr_log_ = std::make_unique<boost::log::sources::severity_logger<LogLevel>>();
   logging::add_common_attributes();
 //    ConsoleLog();
   AddLogFile(logName);
@@ -42,7 +43,7 @@ void LogWrapper::SetLevel(LogLevel level) {
 }
 
 boost::log::sources::severity_logger<LogLevel> &LogWrapper::GetLog() {
-  return log_;
+  return *ptr_log_;
 }
 
 void LogWrapper::AddLogFile(std::string logName) {
