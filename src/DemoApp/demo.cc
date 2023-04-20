@@ -5,7 +5,8 @@
 #include "demo.h"
 #include "Boost/Log/logwrapper/LogWrapper.h"
 #include <client_manager.h>
-#include "task/task_wrapper.hpp"
+#include "ServerA/server_a_adapter.h"
+#include "ServerB/server_b_adapter.h"
 
 Demo::Demo() {}
 
@@ -17,8 +18,35 @@ bool Demo::OnActivate() {
   if (!ptr_server_->Start("127.0.0.1", 8080)) {
     return false;
   }
+
+  // init server a
+  if (nullptr != ptr_server_a_) {
+    LOG_ERROR("server a has been initialized");
+    return false;
+  }
+
+  ptr_server_a_ = std::make_unique<ServerAAdapter>();
+  if (!ptr_server_a_->Init()) {
+    LOG_ERROR("server a init error");
+    return false;
+  }
+
+  // init server b
+  if (nullptr != ptr_server_b_) {
+    LOG_ERROR("server b has been initialized");
+    return false;
+  }
+
+  ptr_server_b_ = std::make_unique<ServerBAdapter>();
+
+  if (!ptr_server_b_->Init()) {
+    LOG_ERROR("server b init error");
+    return false;
+  }
+
   return true;
 }
+
 void Demo::OnDeactivate() {
   LOG_INFO("Demo exit");
 }
@@ -32,6 +60,7 @@ void Demo::OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID, uint3
 }
 void Demo::SendMsg2AServer() {
   LOG_DEBUG("SendMsg2AServer");
+
 }
 void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
   LOG_DEBUG("SendBack to client : " << clientID);

@@ -11,6 +11,7 @@
 #include <message.pb.h>
 #include "task/task_pool.h"
 #include "task/task_manager.h"
+#include "server_adapter.h"
 
 const uint32_t INVALID_SEQ = -1;
 
@@ -30,6 +31,8 @@ class Demo : public AppBase, public boost::serialization::singleton<Demo> {
   std::shared_ptr<TcpIO::ClientFactory> ptr_client_factory_;
   std::shared_ptr<TcpIO::Server> ptr_server_;
   std::shared_ptr<TaskManager> ptr_task_manager_;
+  std::unique_ptr<ServerAdapter> ptr_server_a_;
+  std::unique_ptr<ServerAdapter> ptr_server_b_;
 };
 
 #endif //CPP_PRACTICE_SRC_DEMOAPP_DEMO_H_

@@ -9,6 +9,7 @@
 class ServerAdapter {
  public:
   virtual bool SendMessage(std::vector<char> buffer) = 0;
+  virtual bool Init() = 0;
   virtual ~ServerAdapter() = default;
 };
 

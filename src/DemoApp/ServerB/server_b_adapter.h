@@ -8,7 +8,9 @@
 #include "server_adapter.h"
 class ServerBAdapter : public ServerAdapter {
  public:
+  ServerBAdapter();
   bool SendMessage(std::vector<char> buffer) override;
+  bool Init() override;
 
 };
 
