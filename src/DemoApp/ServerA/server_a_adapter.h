@@ -7,7 +7,7 @@
 
 #include <memory>
 #include "server_adapter.h"
-#include "sw/redis++/redis.h"
+#include "redis++.h"
 
 class ServerAAdapter : public ServerAdapter {
  public:
