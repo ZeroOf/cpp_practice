@@ -4,7 +4,7 @@
 
 #include <boost/asio/signal_set.hpp>
 #include "appbase.h"
-#include <Boost/Log/logwrapper/LogWrapper.h>
+#include <Boost/Log/logwrapper/log_wrapper.h>
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 
@@ -68,13 +68,13 @@ void AppBase::CheckLogLevel() {
   if (ptr_shared_memory_data_->modified) {
     LOG_INFO("log level change to " << static_cast<LogLevel>(ptr_shared_memory_data_->logLevel));
     ptr_shared_memory_data_->modified = false;
-    LogWrapper::get_mutable_instance().SetLevel(static_cast<LogLevel>(ptr_shared_memory_data_->logLevel));
+    log_wrapper::get_mutable_instance().SetLevel(static_cast<LogLevel>(ptr_shared_memory_data_->logLevel));
   }
   ptr_check_log_level_timer_->expires_from_now(std::chrono::seconds(1));
   ptr_check_log_level_timer_->async_wait(std::bind(&AppBase::CheckLogLevel, this));
 }
 bool AppBase::InitLog() {
-  LogWrapper::get_mutable_instance().Init(AppName());
+  log_wrapper::get_mutable_instance().Init(AppName());
   if (nullptr != ptr_check_log_level_timer_) {
     LOG_ERROR("check log level timer is not null");
     return false;

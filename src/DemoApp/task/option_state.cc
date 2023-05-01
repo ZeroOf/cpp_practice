@@ -4,7 +4,7 @@
 
 #include "option_state.h"
 #include "task.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 #include <demo.h>
 
 void OptionState::PreProcess(Task *pTask) {

@@ -3,7 +3,7 @@
 //
 
 #include "init_state.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 #include "task.h"
 #include "demo.h"
 void InitState::PreProcess(Task *pTask) {

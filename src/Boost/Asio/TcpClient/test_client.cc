@@ -4,7 +4,7 @@
 
 #include "test_client.h"
 #include "Asio/TestServer/tcp_factory.h"
-#include <LogWrapper.h>
+#include <log_wrapper.h>
 #include <boost/make_shared.hpp>
 #include <ssl_client.h>
 

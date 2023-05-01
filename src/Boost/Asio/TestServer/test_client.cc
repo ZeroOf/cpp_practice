@@ -4,7 +4,7 @@
 
 #include "test_client.h"
 #include "tcp_factory.h"
-#include <Log/logwrapper/LogWrapper.h>
+#include <Log/logwrapper/log_wrapper.h>
 #include <boost/make_shared.hpp>
 
 using namespace TcpIO;

@@ -1,5 +1,5 @@
 #include "task_pool.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 
 Task *TaskPool::GetTask(uint32_t seq) {
   LOG_DEBUG("GetTask seq : " << seq);

@@ -5,10 +5,10 @@
 #include <iostream>
 #include <Asio/AsioWrapper/server.h>
 #include "tcp_factory.h"
-#include "Log/logwrapper/LogWrapper.h"
+#include "Log/logwrapper/log_wrapper.h"
 
 int main() {
-  LogWrapper::get_mutable_instance().Init("TestServer");
+  log_wrapper::get_mutable_instance().Init("TestServer");
   boost::asio::thread_pool thread_pool;
   std::shared_ptr<TcpFactory> ptr_tcp_factory = std::make_shared<TcpFactory>(thread_pool);
   TcpIO::Server server(thread_pool, ptr_tcp_factory);

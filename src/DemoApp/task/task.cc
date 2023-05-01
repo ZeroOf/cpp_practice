@@ -4,7 +4,7 @@
 
 #include "task.h"
 #include "task_state.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 #include <demo.h>
 
 InitState Task::init_state_;

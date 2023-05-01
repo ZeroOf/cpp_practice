@@ -4,7 +4,7 @@
 
 #include "client_manager.h"
 #include "Boost/Asio/AsioWrapper/tcp_client.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 
 std::shared_ptr<TcpIO::Client> ClientManager::GetClient(boost::asio::ip::tcp::socket &&socket) {
   LOG_DEBUG("ClientManager::GetClient");

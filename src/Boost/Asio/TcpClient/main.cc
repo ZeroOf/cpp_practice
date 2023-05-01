@@ -6,12 +6,12 @@
 #include <memory>
 #include "test_client.h"
 #include "ssl_client.h"
-#include "LogWrapper.h"
+#include "log_wrapper.h"
 
 std::shared_ptr<TcpIO::TestClient> Start(boost::asio::thread_pool &threadPool);
 
 int main(int argc, const char *argv[]) {
-  LogWrapper::get_mutable_instance().Init("TcpClient");
+  log_wrapper::get_mutable_instance().Init("TcpClient");
   boost::asio::thread_pool threadPool;
   auto pC = Start(threadPool);
   threadPool.join();

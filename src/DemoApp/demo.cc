@@ -3,7 +3,7 @@
 //
 
 #include "demo.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 #include <client_manager.h>
 #include "ServerA/server_a_adapter.h"
 #include "ServerB/server_b_adapter.h"

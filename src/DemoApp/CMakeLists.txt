@@ -3,14 +3,14 @@ include(FetchContent)
 
 FetchContent_Declare(hiredis
         GIT_REPOSITORY https://github.com/redis/hiredis.git
-        GIT_TAG v1.0.0
+        GIT_TAG v1.1.0
         )
 
 FetchContent_MakeAvailable(hiredis)
 
 FetchContent_Declare(redis-plus-plus
         GIT_REPOSITORY https://github.com/sewenew/redis-plus-plus.git
-        GIT_TAG 1.3.7
+        GIT_TAG 1.3.8
         )
 FetchContent_MakeAvailable(redis-plus-plus)
 

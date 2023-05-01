@@ -5,7 +5,7 @@
 #include "tcp_client.h"
 #include "client.h"
 #include <iostream>
-#include <LogWrapper.h>
+#include <log_wrapper.h>
 
 namespace TcpIO {
 

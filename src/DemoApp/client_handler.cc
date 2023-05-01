@@ -4,7 +4,7 @@
 
 #include "client_handler.h"
 #include <message.pb.h>
-#include <Boost/Log/logwrapper/LogWrapper.h>
+#include <Boost/Log/logwrapper/log_wrapper.h>
 #include "demo.h"
 #include <client_manager.h>
 

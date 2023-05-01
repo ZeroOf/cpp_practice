@@ -3,7 +3,7 @@
 //
 
 #include "task_manager.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 #include "demo.h"
 
 const static size_t NUM_STRANDS = 8;

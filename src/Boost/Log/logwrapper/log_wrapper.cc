@@ -2,7 +2,7 @@
 // Created by God on 2021/4/29.
 //
 
-#include "LogWrapper.h"
+#include "log_wrapper.h"
 #include <boost/log/common.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>

@@ -1,5 +1,5 @@
 #include "ssl_client.h"
-#include <LogWrapper.h>
+#include <log_wrapper.h>
 #include <functional>
 
 namespace TcpIO {

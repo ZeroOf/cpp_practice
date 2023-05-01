@@ -3,7 +3,7 @@
 //
 
 #include "server.h"
-#include "LogWrapper.h"
+#include "log_wrapper.h"
 
 namespace TcpIO {
 

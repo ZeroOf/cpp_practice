@@ -3,7 +3,7 @@
 //
 
 #include "server_b_adapter.h"
-#include "Boost/Log/logwrapper/LogWrapper.h"
+#include "Boost/Log/logwrapper/log_wrapper.h"
 
 bool ServerBAdapter::SendMessage(std::vector<char> buffer) {
   return false;

@@ -2,7 +2,7 @@
 // Created by Will Lee on 2021/11/27.
 //
 
-#include <logwrapper/LogWrapper.h>
+#include <logwrapper/log_wrappter.h>
 #include <gtest/gtest.h>
 
 
