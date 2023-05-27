@@ -68,13 +68,13 @@ void AppBase::CheckLogLevel() {
   if (ptr_shared_memory_data_->modified) {
     LOG_INFO("log level change to " << static_cast<LogLevel>(ptr_shared_memory_data_->logLevel));
     ptr_shared_memory_data_->modified = false;
-    log_wrapper::get_mutable_instance().SetLevel(static_cast<LogLevel>(ptr_shared_memory_data_->logLevel));
+    LogWrapper::get_mutable_instance().SetLevel(static_cast<LogLevel>(ptr_shared_memory_data_->logLevel));
   }
   ptr_check_log_level_timer_->expires_from_now(std::chrono::seconds(1));
   ptr_check_log_level_timer_->async_wait(std::bind(&AppBase::CheckLogLevel, this));
 }
 bool AppBase::InitLog() {
-  log_wrapper::get_mutable_instance().Init(AppName());
+  LogWrapper::get_mutable_instance().Init(AppName());
   if (nullptr != ptr_check_log_level_timer_) {
     LOG_ERROR("check log level timer is not null");
     return false;

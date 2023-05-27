@@ -58,9 +58,14 @@ std::string &Demo::AppName() {
 void Demo::OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID, uint32_t seq) {
   ptr_task_manager_->ProcessMsg(ptr, clientID, seq);
 }
-void Demo::SendMsg2AServer() {
+bool Demo::SendMsg2AServer(std::vector<char> &msg) {
+  if (!ptr_server_a_) {
+    LOG_ERROR("server a adapter is not init");
+    return false;
+  }
+  ptr_server_a_->SendMessage(msg);
   LOG_DEBUG("SendMsg2AServer");
-
+  return true;
 }
 void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
   LOG_DEBUG("SendBack to client : " << clientID);

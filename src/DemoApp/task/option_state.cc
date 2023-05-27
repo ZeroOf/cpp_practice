@@ -9,6 +9,8 @@
 
 void OptionState::PreProcess(Task *pTask) {
   LOG_DEBUG(" option state prepare");
+  std::vector<char> buffer(pTask->GetRequest().begin(), pTask->GetRequest().end());
+  Demo::get_mutable_instance().SendMsg2AServer(buffer);
   pTask->SetTimer();
 }
 void OptionState::Process(Task *pTask, std::shared_ptr<TaskMsg> pTaskMsg) {

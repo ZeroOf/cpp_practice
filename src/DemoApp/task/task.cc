@@ -59,3 +59,9 @@ void Task::Release() {
   timer_.cancel();
   seq_ = INVALID_SEQ;
 }
+const std::string &Task::GetRequest() const {
+  return request_;
+}
+void Task::SetRequest(const std::string &request) {
+  request_ = request;
+}

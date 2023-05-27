@@ -35,6 +35,10 @@ class Task {
   void SetClientId(uint32_t client_id);
  private:
   std::string request_;
+ public:
+  const std::string &GetRequest() const;
+  void SetRequest(const std::string &request);
+ private:
   std::string response_;
   TaskState *p_state_{};
   boost::asio::steady_timer timer_;

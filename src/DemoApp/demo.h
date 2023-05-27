@@ -19,7 +19,7 @@ class Demo : public AppBase, public boost::serialization::singleton<Demo> {
  public:
   Demo();
   void OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID, uint32_t seq);
-  void SendMsg2AServer();
+  bool SendMsg2AServer(std::vector<char> &msg);
   void SendBack(uint32_t clientID, std::vector<char> buffer);
   void OnTimer(Task *pTask);
  private:
