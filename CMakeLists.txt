@@ -10,8 +10,8 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib)
 set(BUILD_RPATH_USE_ORIGIN TRUE)
 set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 set(CMAKE_INSTALL_RPATH "$ENV{HOME}/3rd_party/lib")
-set(CMAKE_BUILD_RPATH "$ENV{HOME}/3rd_party/lib")
-set(CMAKE_PREFIX_PATH "$ENV{HOME}/3rd_party")
+set(CMAKE_BUILD_RPATH "$ENV{HOME}/3rd_party/lib;${CMAKE_SOURCE_DIR}/third_party")
+set(CMAKE_PREFIX_PATH "$ENV{HOME}/3rd_party;${CMAKE_SOURCE_DIR}/third_party")
 
 configure_file(src/config/version.h.in version.h)
 

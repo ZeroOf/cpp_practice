@@ -83,7 +83,7 @@ void SSLClient::Close() {
   }
   ssl_stream_.async_shutdown([self, this](const boost::system::error_code &ec) {
     if (ec) {
-      LOG_ERROR(ec.message())
+      LOG_ERROR(ec.message());
     }
     LOG_DEBUG("close socket");
     boost::system::error_code ecClose;

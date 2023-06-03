@@ -47,9 +47,8 @@ class LogWrapper : public boost::serialization::singleton<LogWrapper> {
 boost::log::formatting_ostream &
 operator<<(boost::log::formatting_ostream &strm, boost::log::to_log_manip<LogLevel, tag::severity> const &manip);
 
-#define LOG(level, MSG) { \
-    BOOST_LOG_SEV(LogWrapper::get_mutable_instance().GetLog(), level) << boost::filesystem::path( __FILE__ ).filename().string() << ":" << __LINE__ << " [" << __func__ << "] "<< MSG; \
-}
+#define LOG(level, MSG)  \
+    BOOST_LOG_SEV(LogWrapper::get_mutable_instance().GetLog(), level) << boost::filesystem::path( __FILE__ ).filename().string() << ":" << __LINE__ << " [" << __func__ << "] "<< MSG
 
 #define LOG_DEBUG(MSG) LOG(DEBUG, MSG)
 #define LOG_INFO(MSG) LOG(INFO, MSG)

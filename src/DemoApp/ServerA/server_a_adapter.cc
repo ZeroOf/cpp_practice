@@ -12,8 +12,8 @@ bool ServerAAdapter::SendMessage(std::vector<char> buffer) {
     LOG_ERROR("redis is not initialized");
     return false;
   }
-
   ptr_redis_->set(std::to_string(i++), std::string(buffer.begin(), buffer.end()), std::chrono::seconds(10));
+  return true;
 }
 bool ServerAAdapter::Init() {
   if (nullptr != ptr_redis_) {
