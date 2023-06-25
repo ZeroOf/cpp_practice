@@ -13,3 +13,5 @@
 /cmake-build-debug-docker/
 /cmake-build-debug-wsl/
 /build/
+/third_party
+/hiredis
