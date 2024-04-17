@@ -1,29 +1,24 @@
 
-#include "EventfdThread.h"
+#include "eventfd_thread.h"
 #include <iostream>
 using std::cout;
 using std::endl;
 using namespace net;
 
-
-EventfdThread::EventfdThread(EventfdCallback && cb)
-: _eventfd(std::move(cb))
-, _thread(std::bind(&Eventfd::Start, &_eventfd))
-{
+EventfdThread::EventfdThread(EventfdCallback &&cb)
+    : _eventfd(std::move(cb)), _thread(std::bind(&Eventfd::Start, &_eventfd)) {
 }
 
-void EventfdThread::start()
-{
-    _thread.Start();
+//
+void EventfdThread::Start() {
+  _thread.Start();
 }
 
-void EventfdThread::stop()
-{
-    _eventfd.Stop();
-    _thread.Join();
+void EventfdThread::Stop() {
+  _eventfd.Stop();
+  _thread.Join();
 }
 
-void EventfdThread::wakeup()
-{
-    _eventfd.Wakeup();
+void EventfdThread::WakeUp() {
+  _eventfd.Wakeup();
 }

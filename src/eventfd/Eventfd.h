@@ -4,33 +4,32 @@
 
 #include <functional>
 
-
 namespace net {
 
-    class Eventfd {
-    public:
-        using EventfdCallback = std::function<void()>;
+class Eventfd {
+ public:
+  using EventfdCallback = std::function<void()>;
 
-        Eventfd(EventfdCallback &&cb);
+  Eventfd(EventfdCallback &&cb);
 
-        ~Eventfd();
+  ~Eventfd();
 
-        void Start();
+  void Start();
 
-        void Stop();
+  void Stop();
+  // use Wakeup to
+  void Wakeup();
 
-        void Wakeup();
+ private:
+  int CreateEventFD();
 
-    private:
-        int createEventfd();
+  void HandleRead();
 
-        void handleRead();
-
-    private:
-        int _fd;
-        bool _isStarted;
-        EventfdCallback _cb;
-    };
+ private:
+  int _fd;
+  bool _isStarted;
+  EventfdCallback _cb;
+};
 
 }//end of namespace net
 

@@ -42,7 +42,7 @@ void Threadpool::start()
 
 void Threadpool::stop()
 {
-	cout << ">>> Threadpool::stop() enter" << endl;
+	cout << ">>> Threadpool::Stop() enter" << endl;
 	if(!_isExit){
 		while(!_taskQue.empty())
 		{
@@ -50,13 +50,13 @@ void Threadpool::stop()
 		}
 		_isExit = true;
 
-		_taskQue.wakeup();
+      _taskQue.WakeUp();
 	}
 	for(auto & pthread : _threads)
 	{
 		pthread->join();
 	}
-	cout << ">>> Threadpool::stop() exit" << endl;
+	cout << ">>> Threadpool::Stop() exit" << endl;
 }
 
 void Threadpool::addTask(Task && task)

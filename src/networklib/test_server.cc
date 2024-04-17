@@ -66,7 +66,7 @@ int main(int argc, char const *argv[]) {
     tcpserver.setMessageCallback(&onMessage);
     tcpserver.setCloseCallback(&onClose);
 
-    tcpserver.start();
+  tcpserver.Start();
 
     return 0;
 }

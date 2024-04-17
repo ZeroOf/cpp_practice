@@ -50,7 +50,7 @@ void AppBase::HandleSignal(const boost::system::error_code &ec, int sigNo) {
   }
   LOG_INFO("get sig " << sigNo);
   if (sigNo == SIGINT) {
-    LOG_INFO("get sigint sig, stop all");
+    LOG_INFO("get sigint sig, Stop all");
     ptr_thread_pool_->stop();
     return;
   }
@@ -100,8 +100,7 @@ bool AppBase::InitLog() {
     ptr_check_log_level_timer_ = std::make_unique<boost::asio::steady_timer>(*ptr_thread_pool_);
     ptr_check_log_level_timer_->expires_from_now(std::chrono::seconds(1));
     ptr_check_log_level_timer_->async_wait(std::bind(&AppBase::CheckLogLevel, this));
-  }
-  catch (std::exception &ex) {
+  } catch (std::exception &ex) {
     LOG_ERROR("init log failed " << ex.what());
     return false;
   }

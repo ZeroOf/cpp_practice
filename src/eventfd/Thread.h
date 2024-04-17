@@ -1,4 +1,3 @@
-
 #ifndef __WD_THREAD_H__
 #define __WD_THREAD_H__
 
@@ -9,28 +8,27 @@
 namespace net {
 
 //这是一个具体类
-    class Thread
-            : Noncopyable {
-    public:
-        typedef std::function<void()> ThreadCallback;
+class Thread : Noncopyable {
+ public:
+  typedef std::function<void()> ThreadCallback;
 
-        Thread(ThreadCallback &&cb);
+  Thread(ThreadCallback &&cb);
 
-        ~Thread();
+  ~Thread();
 
-        void Start();
+  void Start();
 
-        void Join();
+  void Join();
 
-        inline bool IsRunning() const { return _isRunning; }
+  bool IsRunning() const { return _isRunning; }
 
-    private:
-        static void *threadFunc(void *arg);//线程的执行体
-    private:
-        pthread_t _pthid;
-        bool _isRunning;
-        ThreadCallback _cb;
-    };
+ private:
+  static void *threadFunc(void *arg);//线程的执行体
+ private:
+  pthread_t _threadID;
+  bool _isRunning;
+  ThreadCallback _cb;
+};
 
 }//end of namespace net
 #endif 

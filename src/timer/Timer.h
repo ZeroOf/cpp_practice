@@ -4,30 +4,30 @@
 #include <functional>
 
 class Timer {
-public:
-    using TimerCallback = std::function<void()>;
+ public:
+  using TimerCallback = std::function<void()>;
 
-    Timer(int initialTime, int _perodicTime, TimerCallback &&cb);
+  Timer(int initialTime, int _perodicTime, TimerCallback &&cb);
 
-    ~Timer();
+  ~Timer();
 
-    void Start();
+  void Start();
 
-    void stop();
+  void stop();
 
-private:
-    static int createTimerfd();
+ private:
+  static int createTimerfd();
 
-    void setTimerfd(int initialTime, int perodicTime) const;
+  void setTimerfd(int initialTime, int perodicTime) const;
 
-    void handleRead() const;
+  void handleRead() const;
 
-private:
-    int _fd;
-    int _initialTime;
-    int _perodicTime;
-    bool _isStarted;
-    TimerCallback _cb;
+ private:
+  int _fd;
+  int _initialTime;
+  int _perodicTime;
+  bool _isStarted;
+  TimerCallback _cb;
 };
 
 #endif

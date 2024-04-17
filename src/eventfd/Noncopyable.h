@@ -4,17 +4,16 @@
 
 namespace net {
 
-    class Noncopyable {
-    protected:
-        Noncopyable() {}
+class Noncopyable {
+ protected:
+  Noncopyable() {}
 
-        ~Noncopyable() {}
+  ~Noncopyable() {}
 
-        Noncopyable(const Noncopyable &) = delete;
+  Noncopyable(const Noncopyable &) = delete;
 
-        Noncopyable &operator=(const Noncopyable &) = delete;
-    };
+  Noncopyable &operator=(const Noncopyable &) = delete;
+};
 }
-
 
 #endif

@@ -13,5 +13,5 @@ void TimerThread::start()
 
 void TimerThread::stop()
 {
-	_timer.stop();
+  _timer.Stop();
 }

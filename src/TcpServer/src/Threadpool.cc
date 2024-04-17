@@ -31,7 +31,7 @@ void Threadpool::stop() {
       ::sleep(1);
     }
     _isExit = true;
-    _taskQue.wakeup();
+    _taskQue.WakeUp();
   }
   for (auto &thread : _threads) {
     thread->join();

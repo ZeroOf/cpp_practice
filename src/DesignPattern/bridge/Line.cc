@@ -41,7 +41,13 @@ Line::~Line() {
     }
 
 }
-
+/**
+ * @class LineImpl
+ * @brief Implementation class for Line
+ *
+ * LineImpl is responsible for storing the coordinates of a line and providing necessary operations.
+ */
+//
 Line::Line(int x1, int y1, int x2, int y2) : pImpl_(new LineImpl(x1, y1, x2, y2)) {
     std::cout << __FUNCTION__ << std::endl;
 }

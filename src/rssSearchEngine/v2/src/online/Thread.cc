@@ -9,18 +9,18 @@ namespace net {
     __thread int pthname = 0;
 
     Thread::Thread(ThreadCallback &&cb, int name)
-            : _pthid(0), _isRunning(false), _cb(std::move(cb)), _name(name) {
+            : _threadID(0), _isRunning(false), _cb(std::move(cb)), _name(name) {
     }
 
     Thread::~Thread() {
         if (_isRunning) {
-            pthread_detach(_pthid);
+            pthread_detach(_threadID);
             _isRunning = false;
         }
     }
 
     void Thread::start() {
-        pthread_create(&_pthid, NULL, threadFunc, this);
+        pthread_create(&_threadID, NULL, threadFunc, this);
         _isRunning = true;
     }
 
@@ -37,7 +37,7 @@ namespace net {
 
     void Thread::join() {
         if (_isRunning)
-            pthread_join(_pthid, NULL);
+            pthread_join(_threadID, NULL);
     }
 
 }

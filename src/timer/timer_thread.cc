@@ -5,10 +5,10 @@ TimerThread::TimerThread(int initialTime, int perodicTime, TimerCallback &&cb)
         : _timer(initialTime, perodicTime, std::move(cb)), _thread(std::bind(&Timer::Start, &_timer)) {}
 
 void TimerThread::start() {
-    _thread.start();
+  _thread.Start();
 }
 
 void TimerThread::stop() {
-    _timer.stop();
+  _timer.Stop();
     _thread.join();
 }

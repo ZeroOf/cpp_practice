@@ -13,6 +13,6 @@ int main()
 	Configuration * conf = Configuration::CreateConf("../../conf/myconf.conf");
 	map<string,string> temp = conf->getConfigMap();
 	WordQueryServer wqs(*conf);
-	wqs.start();
+  wqs.Start();
 	return 0;
 }

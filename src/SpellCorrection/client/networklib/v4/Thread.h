@@ -31,7 +31,7 @@ public:
 private:
 	static void * threadFunc(void * arg);//线程的执行体
 private:
-	pthread_t _pthid;
+	pthread_t _threadID;
 	bool _isRunning;
 	ThreadCallback _cb;
 };

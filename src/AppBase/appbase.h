@@ -1,6 +1,3 @@
-//
-// Created by Will Lee on 2021/12/9.
-//
 
 #ifndef CPP_PRACTICE_APPBASE_H
 #define CPP_PRACTICE_APPBASE_H
@@ -10,6 +7,7 @@
 
 struct SharedMemoryData;
 
+//
 class AppBase {
  public:
 

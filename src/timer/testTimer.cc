@@ -16,9 +16,9 @@ int test0() {
     });
 
     Thread thread(std::bind(&Timer::Start, &timer));
-    thread.start();
+  thread.Start();
     sleep(30);
-    timer.stop();
+  timer.Stop();
     thread.join();
     return 0;
 }
@@ -29,9 +29,9 @@ int test1() {
         int number = rand() % 100;
         cout << "number = " << number << endl;
     });
-    timer.start();
+  timer.Start();
     sleep(30);
-    timer.stop();
+  timer.Stop();
     return 0;
 }
 

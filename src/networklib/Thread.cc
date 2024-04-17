@@ -7,7 +7,7 @@ using std::endl;
 namespace net
 {
 Thread::Thread(ThreadCallback && cb)
-: _pthid(0)
+: _threadID(0)
 , _isRunning(false)
 , _cb(std::move(cb))
 {
@@ -17,14 +17,14 @@ Thread::~Thread()
 {
 	if(_isRunning)
 	{
-		pthread_detach(_pthid);
+		pthread_detach(_threadID);
 		_isRunning = false;
 	}
 }
 
 void Thread::start()
 {
-	pthread_create(&_pthid, NULL, threadFunc, this);
+	pthread_create(&_threadID, NULL, threadFunc, this);
 	_isRunning = true;
 }
 
@@ -41,7 +41,7 @@ void * Thread::threadFunc(void * arg)
 void Thread::join()
 {
 	if(_isRunning)
-		pthread_join(_pthid, NULL);	
+		pthread_join(_threadID, NULL);
 }
 
 }

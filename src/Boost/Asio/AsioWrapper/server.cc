@@ -41,7 +41,7 @@ void Server::HandleAccept(const boost::system::error_code &ec, boost::asio::ip::
   acceptor_.async_accept(std::bind(&Server::HandleAccept, this, std::placeholders::_1, std::placeholders::_2));
 }
 void Server::Stop() {
-  LOG_INFO("stop server");
+  LOG_INFO("Stop server");
   acceptor_.cancel();
 }
 }
