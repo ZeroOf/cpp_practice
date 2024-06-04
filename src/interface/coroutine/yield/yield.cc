@@ -6,5 +6,5 @@
 #include <coroutine>
 
 int main() {
-
+  // demo of how to use yield
 }

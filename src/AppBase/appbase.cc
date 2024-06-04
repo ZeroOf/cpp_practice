@@ -2,8 +2,8 @@
 // Created by Will Lee on 2021/12/9.
 //
 
-#include <boost/asio/signal_set.hpp>
 #include "appbase.h"
+#include <boost/asio/signal_set.hpp>
 #include <Boost/Log/logwrapper/log_wrapper.h>
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
@@ -73,6 +73,7 @@ void AppBase::CheckLogLevel() {
   ptr_check_log_level_timer_->expires_from_now(std::chrono::seconds(1));
   ptr_check_log_level_timer_->async_wait(std::bind(&AppBase::CheckLogLevel, this));
 }
+
 bool AppBase::InitLog() {
   LogWrapper::get_mutable_instance().Init(AppName());
   if (nullptr != ptr_check_log_level_timer_) {
@@ -80,7 +81,6 @@ bool AppBase::InitLog() {
     return false;
   }
   try {
-
     shared_memory_object shm(open_or_create, "Log_Shared_Memory", read_write);
     shm.truncate(SHARED_MEMORY_SIZE);
 

@@ -1,4 +1,3 @@
-find_package(Boost REQUIRED COMPONENTS filesystem log log_setup)
-link_libraries(${Boost_LOG_LIBRARY} ${Boost_LOG_SETUP_LIBRARY})
+link_libraries(Boost::log Boost::log_setup)
 include(${CMAKE_SOURCE_DIR}/cmake/child.cmake)
 AddSub()

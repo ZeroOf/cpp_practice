@@ -15,14 +15,20 @@ bool ServerAAdapter::SendMessage(std::vector<char> buffer) {
   ptr_redis_->set(std::to_string(i++), std::string(buffer.begin(), buffer.end()), std::chrono::seconds(10));
   return true;
 }
+
 bool ServerAAdapter::Init() {
   if (nullptr != ptr_redis_) {
     LOG_ERROR("redis has been initialized");
     return false;
   }
+  if (ptr_boost_redis_) {
+    LOG_ERROR("boost redis has been initialized");
+    return false;
+  }
   try {
     LOG_INFO("redis init");
     ptr_redis_ = std::make_unique<sw::redis::Redis>("tcp://127.0.0.1:6379");
+    ptr_boost_redis_ = std::make_unique<boost::redis::client>();
   }
   catch (const std::exception &e) {
     LOG_ERROR("redis init error: {" << e.what() << "}");

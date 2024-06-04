@@ -26,6 +26,7 @@ ExternalProject_Add(OpenSSL
         INSTALL_COMMAND $(MAKE) install
 )
 
+set(ABSL_PROPAGATE_CXX_STD ON CACHE BOOL "Enable C++ standard version propagation" FORCE)
 # After the project has been built, you can find the libraries and include directories like this:
 set(OPENSSL_ROOT_DIR ${CMAKE_BINARY_DIR}/external/openssl)
 set(OPENSSL_INCLUDE_DIR ${OPENSSL_ROOT_DIR}/include)

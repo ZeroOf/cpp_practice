@@ -1,7 +1,0 @@
-#ifndef VERSION_H
-#define VERSION_H
-
-#define VERSION_MAJOR @cpp_practice_VERSION_MAJOR@
-#define VERSION_MINOR @cpp_practice_VERSION_MINOR@
-
-#endif
