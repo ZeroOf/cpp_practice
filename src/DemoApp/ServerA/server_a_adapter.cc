@@ -1,6 +1,3 @@
-//
-// Created by Will Lee on 2022/9/6.
-//
 
 #include "server_a_adapter.h"
 #include "Boost/Log/logwrapper/log_wrapper.h"
@@ -28,7 +25,8 @@ bool ServerAAdapter::Init() {
   try {
     LOG_INFO("redis init");
     ptr_redis_ = std::make_unique<sw::redis::Redis>("tcp://127.0.0.1:6379");
-    ptr_boost_redis_ = std::make_unique<boost::redis::client>();
+    // create a boost redis client
+//    ptr_boost_redis_ = std::make_unique<boost::redis::connection>(*ptr_executor_);
   }
   catch (const std::exception &e) {
     LOG_ERROR("redis init error: {" << e.what() << "}");
@@ -37,3 +35,5 @@ bool ServerAAdapter::Init() {
   LOG_INFO("redis init success");
   return true;
 }
+
+ServerAAdapter::ServerAAdapter() {}

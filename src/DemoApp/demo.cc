@@ -50,6 +50,7 @@ bool Demo::OnActivate() {
 void Demo::OnDeactivate() {
   LOG_INFO("Demo exit");
 }
+
 std::string &Demo::AppName() {
   static std::string name("Demo");
   return name;
@@ -58,6 +59,7 @@ std::string &Demo::AppName() {
 void Demo::OnMessage(std::shared_ptr<message::Msg> ptr, uint32_t clientID, uint32_t seq) {
   ptr_task_manager_->ProcessMsg(ptr, clientID, seq);
 }
+
 bool Demo::SendMsg2AServer(std::vector<char> &msg, size_t seq) {
   if (!ptr_server_a_) {
     LOG_ERROR("server a adapter is not init");
@@ -67,6 +69,7 @@ bool Demo::SendMsg2AServer(std::vector<char> &msg, size_t seq) {
   LOG_DEBUG("SendMsg2AServer");
   return true;
 }
+
 void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
   LOG_DEBUG("SendBack to client : " << clientID);
   std::shared_ptr<message::Resp> ptr_msg = std::make_shared<message::Resp>();
@@ -76,6 +79,7 @@ void Demo::SendBack(uint32_t clientID, std::vector<char> buffer) {
   ptr_msg->SerializeToArray(buffer.data(), buffer.size());
   std::static_pointer_cast<ClientManager>(ptr_client_factory_)->SendMsg(clientID, buffer);
 }
+
 void Demo::OnTimer(Task *pTask) {
   LOG_DEBUG("OnTimer");
   std::shared_ptr<TaskMsg> ptr_task_msg = std::make_shared<TaskMsg>();

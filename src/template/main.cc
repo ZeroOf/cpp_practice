@@ -6,13 +6,13 @@
 #include <iostream>
 
 namespace TemplateFoldExpression {
-// Unary right fold (E op ...) becomes (E1 op (... op (EN-1 op EN)))
+// 1) Unary right fold (E op ...) becomes (E1 op (... op (EN-1 op EN)))
 template<typename... Args>
 bool All(Args... args) {
   return (args && ...);
 }
 
-// Unary left fold (... op E) becomes (((E1 op E2) op ...) op EN)
+// 2) Unary left fold (... op E) becomes (((E1 op E2) op ...) op EN)
 template<typename... Args>
 bool Any(Args... args) {
   return (... || args);

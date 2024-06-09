@@ -12,11 +12,14 @@
 
 class ServerAAdapter : public ServerAdapter {
  public:
+  ServerAAdapter();
+
   bool SendMessage(std::vector<char> buffer) override;
 
   bool Init() final;
 
  private:
+  std::shared_ptr<boost::asio::executor> ptr_executor_;
   std::unique_ptr<sw::redis::Redis> ptr_redis_;
   std::unique_ptr<boost::redis::connection> ptr_boost_redis_;
 };

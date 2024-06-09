@@ -1,4 +1,4 @@
 project(Algorithm_DynamicProgramming_cut)
-link_libraries(${Boost_SYSTEM_LIBRARY})
+find_package(Boost REQUIRED COMPONENTS system timer)
 include(${CMAKE_SOURCE_DIR}/cmake/source.cmake)
-target_link_libraries(${PROJECT_NAME} Boost::timer)
+target_link_libraries(${PROJECT_NAME} private Boost::timer Boost::system)
