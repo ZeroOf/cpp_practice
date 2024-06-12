@@ -10,7 +10,6 @@
 #include <boost/serialization/singleton.hpp>
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/expressions.hpp>
-#include <boost/filesystem.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/log/attributes/scoped_attribute.hpp>
 
@@ -48,7 +47,7 @@ boost::log::formatting_ostream &
 operator<<(boost::log::formatting_ostream &strm, boost::log::to_log_manip<LogLevel, tag::severity> const &manip);
 
 #define LOG(level, MSG)  \
-    BOOST_LOG_SEV(LogWrapper::get_mutable_instance().GetLog(), level) << boost::filesystem::path( __FILE__ ).filename().string() << ":" << __LINE__ << " [" << __func__ << "] "<< MSG
+    BOOST_LOG_SEV(LogWrapper::get_mutable_instance().GetLog(), level) <<  __FILE_NAME__ << ":" << __LINE__ << " [" << __func__ << "] "<< MSG
 
 #define LOG_DEBUG(MSG) LOG(DEBUG, MSG)
 #define LOG_INFO(MSG) LOG(INFO, MSG)
