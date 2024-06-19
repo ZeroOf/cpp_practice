@@ -53,6 +53,7 @@ void NanoPrintf(const char *fmt, ...) {
   va_end(args);
 }
 
+
 void TestVariadicParameter() {
   std::cout << "TestPrintVariance" << std::endl;
   PrintVariance(3, "variance = %f\n", 1.0, 2.0, 3.0);

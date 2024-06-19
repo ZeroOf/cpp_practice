@@ -3,15 +3,18 @@
 #define CPP_PRACTICE_CAST_H
 
 class Cast {
-public:
-    //prohabit implicit conversion
-    explicit Cast(int iNum);
-    Cast(double iNum);
-    operator int();
-    operator double();
+ public:
+  //prohabit implicit conversion
+  explicit Cast(int iNum);
 
-private:
-    int iNum_;
+  Cast(double iNum);
+
+  operator int();
+
+  operator double();
+
+ private:
+  int iNum_;
 };
 
 

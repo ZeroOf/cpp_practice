@@ -4,8 +4,6 @@ find_package(Protobuf REQUIRED)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS DESCRIPTORS DESC_FILE ${CMAKE_CURRENT_SOURCE_DIR}/proto/message.proto)
 
-message("Protobuf_LIBRARIES:${Protobuf_LIBRARIES}")
-
 find_package(Boost REQUIRED COMPONENTS serialization)
 find_package(Absl REQUIRED)
 

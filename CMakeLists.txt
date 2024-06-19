@@ -16,6 +16,12 @@ set(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 set(CMAKE_BUILD_RPATH "${CMAKE_SOURCE_DIR}/third_party")
 set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/third_party")
 
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+find_package(Threads REQUIRED)
+link_libraries(Threads::Threads)
+
+
 set(BOOST_ROOT $ENV{HOME}/3rd_party)
 set(OPENSSL_ROOT_DIR $ENV{HOME}/3rd_party)
 

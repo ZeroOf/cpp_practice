@@ -1,8 +1,8 @@
 
 #include <iostream>
-#include "Cast4IO.h"
+#include "cast4_io.h"
 
 Cast4IO::operator int() {
-    std::cout << __FUNCTION__ << std::endl;
-    return iNum_;
+  std::cout << __FUNCTION__ << std::endl;
+  return iNum_;
 }
