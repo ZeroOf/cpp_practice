@@ -3,13 +3,14 @@
 #include <algorithm>
 #include <iterator>
 #include <map>
+#include <unordered_map>
 
 void foo();
 
 using namespace std;
 
 void TestMapArray() {
-  std::map<int, std::array<int, 10>> i2array;
+  std::unordered_map<int, std::array<int, 10>> i2array;
   for (int i = 0; i < 10; ++i) {
     for (int j = 0; j < 10; j++) {
       // when i2array[i] dose not exist, it will create a new array with zero-initialized
