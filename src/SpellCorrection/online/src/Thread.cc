@@ -38,8 +38,8 @@ void * Thread::threadFunc(void * arg)
 	pthname = pthread->_name;
 	cout << "pthname : " << pthname << " _name" << pthread->_name << endl;
 	if(pthread)
-		pthread->_cb();
-	pthread->_isRunning = false;
+		pthread->callback_();
+	pthread->isRunning_ = false;
 	return NULL;
 }
 

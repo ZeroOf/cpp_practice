@@ -8,7 +8,7 @@
 #include "SocketUtil.h"
 
 
-namespace net
+namespace component
 {
 
 SocketIO::SocketIO(int sockfd)

@@ -9,28 +9,28 @@
 using std::cout;
 using std::endl;
 
-namespace net
+namespace component
 {
 Thread::Thread(ThreadCallback && cb)
-: _threadID(0)
-, _isRunning(false)
+: threadID_(0)
+, isRunning_(false)
 , _cb(std::move(cb))
 {
 }
 
 Thread::~Thread()
 {
-	if(_isRunning)
+	if(isRunning_)
 	{
-		pthread_detach(_threadID);
-		_isRunning = false;
+		pthread_detach(threadID_);
+      isRunning_ = false;
 	}
 }
 
 void Thread::start()
 {
-	pthread_create(&_threadID, NULL, threadFunc, this);
-	_isRunning = true;
+	pthread_create(&threadID_, NULL, threadFunc, this);
+  isRunning_ = true;
 }
 
 void * Thread::threadFunc(void * arg)
@@ -39,14 +39,14 @@ void * Thread::threadFunc(void * arg)
 	if(pthread)
 		pthread->_cb();
 
-	pthread->_isRunning = false;
+	pthread->isRunning_ = false;
 	return NULL;
 }
 
 void Thread::join()
 {
-	if(_isRunning)
-		pthread_join(_threadID, NULL);
+	if(isRunning_)
+		pthread_join(threadID_, NULL);
 }
 
 }

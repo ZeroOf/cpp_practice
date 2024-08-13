@@ -10,14 +10,14 @@
 #include <stdio.h>
 
 
-namespace net
+namespace component
 {
 
 TcpConnection::TcpConnection(int sockfd, EpollPoller * loop)
 : sockfd_(sockfd)
 , sockIO_(sockfd)
-, localAddr_(net::Socket::getLocalAddr(sockfd))
-, peerAddr_(net::Socket::getPeerAddr(sockfd))
+, localAddr_(component::Socket::getLocalAddr(sockfd))
+, peerAddr_(component::Socket::getPeerAddr(sockfd))
 , isShutdownWrite_(false)
 , loop_(loop) 
 {
@@ -65,9 +65,9 @@ std::string TcpConnection::toString()
 {
 	char str[100];
 	snprintf(str, sizeof(str), "%s:%d -> %s:%d",
-			 localAddr_.ip().c_str(),
+             localAddr_.IP().c_str(),
 			 localAddr_.port(),
-			 peerAddr_.ip().c_str(),
+             peerAddr_.IP().c_str(),
 			 peerAddr_.port());
 	return std::string(str);
 }

@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 
-namespace net
+namespace component
 {
 
 EpollPoller::EpollPoller(Acceptor & acceptor)

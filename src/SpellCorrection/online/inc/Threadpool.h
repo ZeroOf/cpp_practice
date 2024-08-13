@@ -1,5 +1,5 @@
-#ifndef __WD_THREADPOOL_H__
-#define __WD_THREADPOOL_H__
+#ifndef __WILL_THREADPOOL_H__
+#define __WILL_THREADPOOL_H__
 
 #include "TaskQueue.h"
 

@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-namespace net
+namespace component
 {
 
 InetAddress::InetAddress(short port)

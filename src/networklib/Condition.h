@@ -1,11 +1,11 @@
 
-#ifndef __WD_CONDITION_H__
-#define __WD_CONDITION_H__
+#ifndef __WILL_CONDITION_H__
+#define __WILL_CONDITION_H__
 
 #include "Noncopyable.h" 
 #include <pthread.h>
 
-namespace net
+namespace component
 {
 
 class MutexLock;

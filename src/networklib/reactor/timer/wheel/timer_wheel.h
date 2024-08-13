@@ -1,23 +1,39 @@
-//
-// Created by Will Lee on 2021/10/16.
-//
+#ifndef CPP_PRACTICE_TIMER_WHEEL_H
+#define CPP_PRACTICE_TIMER_WHEEL_H
 
-#ifndef CPP_PRACTICE_TIMERWHEEL_H
-#define CPP_PRACTICE_TIMERWHEEL_H
-
-#include "SecondGrid.h"
+#include "second_grid.h"
 #include <array>
+#include <vector>
+#include <list>
 
-class TimerWheel {
-    const static size_t SecondsPerMinutes = 60;
-    std::array<SecondGrid, SecondsPerMinutes> grids_;
-public:
-    void OnSecond();
 
-    uint64_t RegisterTime(std::function<void()> &&func, uint64_t seconds, bool isRepeat = false, uint64_t interval = 0);
+template<typename Task>
+struct TimeWheel {
+  int size;
+  int tick;
+  int position;
+  std::vector<std::list<Task>> slots;
 
-    bool UnregisteTimer(uint64_t seq);
+  TimeWheel(int size, int tick) : size(size), tick(tick), position(0), slots(size) {}
+
+  void addTask(Task task, int delay) {
+    // 计算任务应该被添加到哪个槽位
+    int slot = (position + delay / tick) % size;
+    slots[slot].push_back(task);
+  }
+
+  void advance() {
+    position = (position + 1) % size;
+    // 处理当前槽位中的任务
+    for (auto it = slots[position].begin(); it != slots[position].end();) {
+      if (it->Expired()) {
+        it = slots[position].erase(it);
+      } else {
+        ++it;
+      }
+    }
+  }
 };
 
 
-#endif //CPP_PRACTICE_TIMERWHEEL_H
+#endif //CPP_PRACTICE_TIMER_WHEEL_H

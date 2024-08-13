@@ -4,8 +4,8 @@
  /// @date    2015-11-05 16:59:04
  ///
 
-#ifndef _WD_TCPCONNCETION_H
-#define _WD_TCPCONNCETION_H
+#ifndef _WILL_TCPCONNCETION_H
+#define _WILL_TCPCONNCETION_H
 
 #include "Noncopyable.h"
 #include "InetAddress.h"
@@ -16,7 +16,7 @@
 #include <memory>
 #include <functional>
 
-namespace net
+namespace component
 {
 
 
@@ -48,7 +48,7 @@ public:
 	void handleCloseCallback();
 
 private:
-	Socket sockfd_;
+	Socket socket_;
 	SocketIO sockIO_;
 	const InetAddress localAddr_;
 	const InetAddress peerAddr_;

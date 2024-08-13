@@ -4,11 +4,11 @@
  /// @date    2018-05-07 11:20:45
  ///
  
-#ifndef __WD_NONCOPYABLE_H__
-#define __WD_NONCOPYABLE_H__
+#ifndef __WILL_NONCOPYABLE_H__
+#define __WILL_NONCOPYABLE_H__
 
 
-namespace net
+namespace component
 {
 
 class Noncopyable

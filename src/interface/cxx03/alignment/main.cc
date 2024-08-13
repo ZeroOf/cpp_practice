@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <stdalign.h>
-#include <util/util.h>
+#include <util.h>
 
 
 void BitFieldTest() {

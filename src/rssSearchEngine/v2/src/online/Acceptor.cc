@@ -12,7 +12,7 @@ using std::cout;
 using std::endl;
 
 
-namespace net
+namespace component
 {
 
 Acceptor::Acceptor(int listenfd, const InetAddress & addr)

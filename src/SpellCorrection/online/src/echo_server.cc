@@ -63,7 +63,7 @@ void onMessage(const wiz::TcpConnectionPtr &conn)
 {
 	string s(conn->receive());
 	Task task(s, conn);
-	_pthreadpool->addTask(std::bind(&Task::process, task));
+  _pthreadpool->AddTask(std::bind(&Task::process, task));
 	cout << ">add task to threadpool " << endl;
 }
 

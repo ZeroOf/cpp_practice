@@ -8,7 +8,7 @@
 #include "SocketUtil.h"
 #include "InetAddress.h"
 
-namespace net
+namespace component
 {
 
 Socket::Socket(int sockfd)

@@ -59,9 +59,9 @@ std::string TcpConnection::toString()
 {
 	char str[100];
 	snprintf(str, sizeof(str), "%s,%d -> %s: %d",
-				_localAddr.ip().c_str(),
+             _localAddr.IP().c_str(),
 				_localAddr.port(),
-				_peerAddr.ip().c_str(),
+             _peerAddr.IP().c_str(),
 				_peerAddr.port());
 	return std::string(str);
 }

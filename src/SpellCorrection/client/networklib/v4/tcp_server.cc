@@ -12,7 +12,7 @@ using std::cout;
 using std::endl;
 
 
-namespace net
+namespace component
 {
 
 TcpServer::TcpServer(const string & ip, unsigned short port)

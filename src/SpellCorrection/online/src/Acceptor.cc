@@ -58,7 +58,7 @@ void Acceptor::setReusePort(bool flag)
 
 void Acceptor::bind()
 {
-	if(-1 == ::bind(_listenSock.fd(), (const struct sockaddr*)_addr.getSockAddrPtr(), sizeof(InetAddress))){
+	if(-1 == ::bind(_listenSock.fd(), (const struct sockaddr*) _addr.GetSockAddrPtr(), sizeof(InetAddress))){
 		perror("bind error");
 		::close(_listenSock.fd());
 		exit(EXIT_FAILURE);

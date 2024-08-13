@@ -1,10 +1,10 @@
 
-#ifndef __WD_MUTEXLOCK_H__
-#define __WD_MUTEXLOCK_H__
+#ifndef __WILL_MUTEXLOCK_H__
+#define __WILL_MUTEXLOCK_H__
 #include "Noncopyable.h"
 #include <pthread.h>
 
-namespace net
+namespace component
 {
 
 class MutexLock
@@ -14,11 +14,11 @@ public:
 	MutexLock();
 	~MutexLock();
 
-	void lock();
-	void unlock();
-	bool isLocking() const{	return _isLocking;	}
+	void Lock();
+	void Unlock();
+	bool IsLocking() const{	return _isLocking;	}
 
-	pthread_mutex_t * getMutexLockPtr() {	return &_mutex;}
+	pthread_mutex_t * GetMutexLockPtr() {	return &_mutex;}
 
 private:
 	pthread_mutex_t _mutex;
@@ -33,12 +33,12 @@ public:
 	MutexLockGuard(MutexLock & mutex)
 	: _mutex(mutex)
 	{
-		_mutex.lock();
+      _mutex.Lock();
 	}
 
 	~MutexLockGuard()
 	{
-		_mutex.unlock();
+      _mutex.Unlock();
 	}
 
 private:

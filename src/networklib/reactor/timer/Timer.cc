@@ -1,27 +1,23 @@
-//
-// Created by Will Lee on 2021/10/7.
-//
-
 #include "Timer.h"
 #include <sys/timerfd.h>
 #include <fcntl.h>
 
-void net::Timer::HandleRead() {
+void component::Timer::HandleRead() {
 
 }
 
-void net::Timer::HandleWrite() {
+void component::Timer::HandleWrite() {
 
 }
 
-void net::Timer::HandleTimeOut() {
+void component::Timer::HandleTimeOut() {
 
 }
 
-net::HandleID net::Timer::GetHandleID() {
-    return timerID_;
+component::HandleID component::Timer::GetHandleID() {
+  return timerID_;
 }
 
-net::Timer::Timer() {
-    timerID_ = timerfd_create(CLOCK_REALTIME, O_NONBLOCK | TFD_CLOEXEC);
+component::Timer::Timer() {
+  timerID_ = timerfd_create(CLOCK_REALTIME, O_NONBLOCK | TFD_CLOEXEC);
 }

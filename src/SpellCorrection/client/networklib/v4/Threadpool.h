@@ -1,5 +1,5 @@
-#ifndef __WD_THREADPOOL_H__
-#define __WD_THREADPOOL_H__
+#ifndef __WILL_THREADPOOL_H__
+#define __WILL_THREADPOOL_H__
 
 #include "TaskQueue.h"
 
@@ -9,7 +9,7 @@
 using std::unique_ptr;
 using std::vector;
 
-namespace net {
+namespace component {
 
 class Thread;
 class Threadpool {
@@ -18,13 +18,13 @@ class Threadpool {
   Threadpool(size_t threadNum, size_t queSize);
   ~Threadpool();
 
-  void start();
-  void stop();
-  void addTask(Task &&task);
+  void Start();
+  void Stop();
+  void AddTask(Task &&task);
  private:
-  Task getTask();
+  Task GetTask();
 
-  void threadFunc();
+  void ThreadFunc();
  private:
   size_t _threadNum;
   size_t _queSize;

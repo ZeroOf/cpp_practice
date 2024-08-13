@@ -9,7 +9,7 @@ using std::endl;
 
 class Task {
 public:
-    Task(const string &query, net::TcpConnectionPtr conn)
+    Task(const string &query, component::TcpConnectionPtr conn)
             : _queury(query), _conn(std::move(conn)) {}
 
     //process的执行是在一个计算线程里面完成的
@@ -21,26 +21,26 @@ public:
 
 private:
     string _queury;
-    net::TcpConnectionPtr _conn;
+    component::TcpConnectionPtr _conn;
 };
 
-net::Threadpool *g_threadpool = NULL;
+component::Threadpool *g_threadpool = NULL;
 
-void onConnection(const net::TcpConnectionPtr &conn) {
+void onConnection(const component::TcpConnectionPtr &conn) {
     cout << conn->toString() << endl;
     conn->send("hello, welcome to Chat Server.\r\n");
 }
 
 //运行在IO线程
-void onMessage(const net::TcpConnectionPtr &conn) {
+void onMessage(const component::TcpConnectionPtr &conn) {
     std::string s(conn->receive());
 
     Task task(s, conn);
-    g_threadpool->addTask(std::bind(&Task::process, task));
+  g_threadpool->AddTask(std::bind(&Task::process, task));
     cout << "> add task to threadpool" << endl;
 }
 
-void onClose(const net::TcpConnectionPtr &conn) {
+void onClose(const component::TcpConnectionPtr &conn) {
     printf("%s close\n", conn->toString().c_str());
 }
 
@@ -57,11 +57,11 @@ void onClose(const net::TcpConnectionPtr &conn) {
 //};
 
 int main(int argc, char const *argv[]) {
-    net::Threadpool threadpool(4, 10);
+    component::Threadpool threadpool(4, 10);
     g_threadpool = &threadpool;
-    threadpool.start();
+  threadpool.Start();
 
-    net::TcpServer tcpserver("127.0.0.1", 9999);
+    component::TcpServer tcpserver("127.0.0.1", 9999);
     tcpserver.setConnectionCallback(&onConnection);
     tcpserver.setMessageCallback(&onMessage);
     tcpserver.setCloseCallback(&onClose);

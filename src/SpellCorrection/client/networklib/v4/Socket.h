@@ -4,12 +4,12 @@
  /// @date    2015-11-04 17:25:32
  ///
 
-#ifndef __WD_SOCKET_H
-#define __WD_SOCKET_H
+#ifndef __WILL_SOCKET_H
+#define __WILL_SOCKET_H
 
 #include "Noncopyable.h"
 
-namespace net
+namespace component
 {
 class InetAddress;
 class Socket : Noncopyable

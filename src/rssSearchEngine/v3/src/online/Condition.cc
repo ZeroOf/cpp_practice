@@ -24,7 +24,7 @@ Condition::~Condition()
 
 void Condition::wait()
 {
-	pthread_cond_wait(&_cond, _mutex.getMutexLockPtr());
+	pthread_cond_wait(&_cond, _mutex.GetMutexLockPtr());
 }
 
 void Condition::notify()

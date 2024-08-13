@@ -16,7 +16,7 @@ interface ServerAdapter {
 +{abstract}bool SendMessage(std::vector<char> buffer)
 }
 interface TcpIO.ClientFactory {
-+std::shared_ptr<TcpIO::Client> GetClient(boost::asio::ip::tcp::socket &&socket)
++std::shared_ptr<TcpIO::Client> GetClient(boost::asio::IP::tcp::socket &&socket)
 }
 class TaskPool
 class Task

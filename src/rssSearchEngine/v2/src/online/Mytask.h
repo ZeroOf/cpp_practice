@@ -47,19 +47,19 @@ struct Compare
 class Task
 {
 public:
-	Task(const string & query, const net::TcpConnectionPtr & conn);
+	Task(const string & query, const component::TcpConnectionPtr & conn);
 	
 	int calcDistance(std::string & rhs);
 	//process的执行是在一个计算线程里面完成的
 	void process();
 private:
 	string _query;
-	net::TcpConnectionPtr _conn;
+	component::TcpConnectionPtr _conn;
 	priority_queue<MyResult,vector<MyResult>,Compare> _que;
 };
 
 
-void onConnection(const net::TcpConnectionPtr &conn);
-void onMessage(const net::TcpConnectionPtr &conn);
-void onClose(const net::TcpConnectionPtr &conn);
+void onConnection(const component::TcpConnectionPtr &conn);
+void onMessage(const component::TcpConnectionPtr &conn);
+void onClose(const component::TcpConnectionPtr &conn);
 #endif

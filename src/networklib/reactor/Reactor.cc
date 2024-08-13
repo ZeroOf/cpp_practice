@@ -2,20 +2,20 @@
 // Created by Will Lee on 2021/9/10.
 //
 
-#include "Reactor.h"
+#include "reactor.h"
 
-void net::Reactor::RegisterRead(EventHandler &eventHandler) {
-    realReactor_->RegisterRead(eventHandler);
+void component::Reactor::RegisterRead(EventHandler &eventHandler) {
+  realReactor_->RegisterRead(eventHandler);
 }
 
-void net::Reactor::RegisterWrite(EventHandler &eventHander) {
-    realReactor_->RegisterWrite(eventHander);
+void component::Reactor::RegisterWrite(EventHandler &eventHander) {
+  realReactor_->RegisterWrite(eventHander);
 }
 
-void net::Reactor::RegisterTimeout(EventHandler &eventHandler, size_t second) {
-    realReactor_->RegisterTimeout(eventHandler, 0);
+void component::Reactor::RegisterTimeout(EventHandler &eventHandler, size_t second) {
+  realReactor_->RegisterTimeout(eventHandler, 0);
 }
 
-void net::Reactor::Init(std::unique_ptr<ReactorInterface> &&pReactor) {
-    realReactor_ = std::move(pReactor);
+void component::Reactor::Init(std::unique_ptr<ReactorInterface> &&pReactor) {
+  realReactor_ = std::move(pReactor);
 }

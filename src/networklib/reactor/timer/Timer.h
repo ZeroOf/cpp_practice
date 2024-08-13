@@ -1,30 +1,26 @@
-//
-// Created by Will Lee on 2021/10/7.
-//
-
 #ifndef CPP_PRACTICE_TIMER_H
 #define CPP_PRACTICE_TIMER_H
 
-#include <reactor/EventHandler.h>
+#include <reactor/event_handler.h>
 #include <unordered_map>
 
-namespace net {
+namespace component {
 
-    class Timer : public EventHandler {
-    public:
-        Timer();
+class Timer : public EventHandler {
+ public:
+  Timer();
 
-        void HandleRead() override;
+  void HandleRead() override;
 
-        void HandleWrite() override;
+  void HandleWrite() override;
 
-        void HandleTimeOut() override;
+  void HandleTimeOut() override;
 
-        HandleID GetHandleID() override;
+  HandleID GetHandleID() override;
 
-    private:
-        HandleID timerID_;
-    };
+ private:
+  HandleID timerID_;
+};
 
 }
 

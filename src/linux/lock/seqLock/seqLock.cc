@@ -1,46 +1,54 @@
-//
-// Created by Will Lee on 2021/9/11.
-//
-#include <pthread.h>
-#include <iostream>
 
-class Base {
-public:
-    Base() {
-        DoSomething();
-    }
+// implementation seqlock
 
-    virtual void DoSomething() {
-        std::cout << "Base" << std::endl;
-    }
+#include <atomic>
+#include <mutex>
+#include <util.h>
+#include <thread>
+#include <array>
+#include <algorithm>
 
-    virtual ~Base() {
-        DoSomething();
-    }
-};
+template<typename T>
+class Seqlock {
+ public:
+  void store(const T &data) {
+    std::lock_guard<std::mutex> guard(mutex_);
+    seq_.fetch_add(1, std::memory_order_acquire);
+    data_ = data;
+    seq_.fetch_add(1, std::memory_order_release);
+  }
 
-struct Derive : public Base {
-    Derive() {
-        DoSomething();
-    }
+  T load() const {
+    T copy;
+    size_t seq0, seq1;
+    do {
+      seq0 = seq_.load(std::memory_order_acquire);
+      copy = data_;
+      seq1 = seq_.load(std::memory_order_acquire);
+    } while (seq0 != seq1 || seq0 & 1);
+    return copy;
+  }
 
-    void DoSomething() override {
-        std::cout << "Derive" << std::endl;
-    }
-
-    ~Derive() override {
-        DoSomething();
-    }
-
-public:
-
+ private:
+  mutable std::atomic<size_t> seq_{0};
+  T data_;
+  mutable std::mutex mutex_;
 };
 
 int main() {
-    Base* pDerive = new Derive;
-    pDerive->DoSomething();
-    auto ptr = dynamic_cast<Derive*>(pDerive);
-    std::cout << ptr << std::endl;
-    std::cout << typeid(*pDerive).name() << std::endl;
-    delete pDerive;
+  Seqlock<int> seq;
+  std::array<std::thread, 2> threads{
+      std::thread([&seq] {
+        for (int i = 0; i < 10000; ++i) {
+          seq.store(i);
+        }
+      }),
+      std::thread([&seq] {
+        for (int i = 0; i < 10000; ++i) {
+          LOG_VALUE(seq.load());
+        }
+      })
+  };
+  std::for_each(threads.begin(), threads.end(), [](auto &t) { t.join(); });
+  return 0;
 }

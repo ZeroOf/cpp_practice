@@ -4,13 +4,13 @@
  /// @date    2017-05-11 18:42:23
  ///
  
-#ifndef __WD_ACCEPTOR_H__
-#define __WD_ACCEPTOR_H__
+#ifndef __WILL_ACCEPTOR_H__
+#define __WILL_ACCEPTOR_H__
 
 #include "Socket.h"
 #include "InetAddress.h"
 
-namespace net
+namespace component
 {
 
 class Acceptor

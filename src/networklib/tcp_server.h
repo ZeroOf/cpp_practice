@@ -1,6 +1,6 @@
 
-#ifndef __WD_TCPSERVER_H__
-#define __WD_TCPSERVER_H__
+#ifndef __WILL_TCPSERVER_H__
+#define __WILL_TCPSERVER_H__
 
 #include "Acceptor.h"
 #include "EpollPoller.h"
@@ -8,7 +8,7 @@
 
 using std::string;
 
-namespace net
+namespace component
 {
 
 

@@ -2,7 +2,7 @@
 #include "Condition.h"
 #include "MutexLock.h"
 
-using namespace net;
+using namespace component;
 
 
 Condition::Condition(MutexLock & mutex)

@@ -4,15 +4,15 @@
  /// @date    2018-05-07 11:42:58
  ///
  
-#ifndef __WD_TASKQUEUE_H__
-#define __WD_TASKQUEUE_H__
+#ifndef __WILL_TASKQUEUE_H__
+#define __WILL_TASKQUEUE_H__
 
 #include "MutexLock.h"
 #include "Condition.h"
 #include <queue>
 #include <functional>
 
-namespace net
+namespace component
 {
 
 
@@ -20,7 +20,7 @@ class TaskQueue
 {
 public:
 	using Type = std::function<void()>;
-	TaskQueue(int queSize);
+	TaskQueue(int maxSize);
 
 	bool full() const;
 	bool empty() const;
@@ -28,15 +28,15 @@ public:
 	void push(Type && type);
 	Type pop();
 
-	void wakeup();
+	void WakeUp();
 
 private:
-	size_t _queSize;
+	size_t _maxSize;
 	std::queue<Type> _que;
 	MutexLock _mutex;
 	Condition _notFull;
 	Condition _notEmpty;
-	bool _flag;
+	bool shouldStop_;
 };
 
 

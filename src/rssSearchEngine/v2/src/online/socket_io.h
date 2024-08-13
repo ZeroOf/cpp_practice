@@ -4,11 +4,11 @@
  /// @date    2015-11-05 16:10:26
  ///
 
-#ifndef _WD_SOCKETIO_H
-#define _WD_SOCKETIO_H
+#ifndef _WILL_SOCKETIO_H
+#define _WILL_SOCKETIO_H
 #include <stdio.h>
 
-namespace net
+namespace component
 {
 class SocketIO
 {

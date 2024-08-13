@@ -12,7 +12,7 @@ using std::cout;
 using std::endl;
 
 
-namespace net
+namespace component
 {
 
 Acceptor::Acceptor(int listenfd, const InetAddress & addr)
@@ -80,7 +80,7 @@ void Acceptor::setReusePort(bool flag)
 void Acceptor::bind()
 {
 	if(-1 == ::bind(listenSock_.fd(), 
-					(const struct sockaddr*)addr_.getSockAddrPtr(), 
+					(const struct sockaddr*) addr_.GetSockAddrPtr(),
 					sizeof(InetAddress)))
 	{
 		perror("bind error");

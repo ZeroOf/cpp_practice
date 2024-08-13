@@ -39,7 +39,7 @@ void WordQueryServer::onMessage(const net::TcpConnectionPtr & conn)
 		data = s.substr(0,pos);
 	else
 		data = s;
-	_tpl.addTask(bind(&WordQueryServer::dotask,this,conn,data));
+  _tpl.AddTask(bind(&WordQueryServer::dotask, this, conn, data));
 	cout << "test -------" << endl;
 }
 

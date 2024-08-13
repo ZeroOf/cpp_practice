@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-namespace net {
+namespace component {
     using HandleID = uint32_t;
 
     class EventHandler {

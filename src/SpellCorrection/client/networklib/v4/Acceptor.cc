@@ -11,7 +11,7 @@
 using std::cout;
 using std::endl;
 
-namespace net {
+namespace component {
 
 Acceptor::Acceptor(int listenfd, const InetAddress &addr) : listenSock_(listenfd), addr_(addr) {}
 

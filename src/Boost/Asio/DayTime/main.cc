@@ -68,7 +68,7 @@ class tcp_server {
                                        boost::asio::placeholders::error));
   }
 
-  void handle_accept(const tcp_connection::pointer& new_connection,
+  void handle_accept(const tcp_connection::pointer &new_connection,
                      const boost::system::error_code &error) {
     if (!error) {
       new_connection->start();

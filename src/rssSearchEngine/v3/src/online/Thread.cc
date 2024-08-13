@@ -9,7 +9,7 @@
 using std::cout;
 using std::endl;
 
-namespace net
+namespace component
 {
 
 __thread int pthname = 0;
@@ -42,9 +42,9 @@ void * Thread::threadFunc(void * arg)
 	pthname = pthread->_name;
 	cout << "pthname: " << pthname << "_name" <<pthread-> _name <<  endl;
 	if(pthread)
-		pthread->_cb();
+		pthread->callback_();
 
-	pthread->_isRunning = false;
+	pthread->isRunning_ = false;
 	return NULL;
 }
 

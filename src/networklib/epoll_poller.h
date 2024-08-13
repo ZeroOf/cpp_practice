@@ -1,7 +1,7 @@
 
 
-#ifndef __WD_EPOLLPOLLER_H
-#define __WD_EPOLLPOLLER_H
+#ifndef __WILL_EPOLLPOLLER_H
+#define __WILL_EPOLLPOLLER_H
 
 #include "Noncopyable.h"
 #include "TcpConnection.h"
@@ -11,7 +11,7 @@
 #include <map>
 #include <functional>
 
-namespace net {
+namespace component {
 
 class Acceptor;
 class EpollPoller : Noncopyable {
@@ -33,16 +33,16 @@ public:
     void setCloseCallback(EpollCallback cb);
 
 private:
-    void waitEpollfd();
+    void WaitEpollFd();
     void handleConnection();
     void handleMessage(int peerfd);
     void handleRead();
 
 private:
     Acceptor& acceptor_;
-    int epollfd_;
-    int eventfd_;
-    int listenfd_;
+    int epoll_fd_;
+    int event_fd_;
+    int listen_fd_;
     bool isLooping_;
 
     MutexLock _mutex;

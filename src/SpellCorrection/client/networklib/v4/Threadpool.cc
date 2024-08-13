@@ -12,7 +12,7 @@
 using std::cout;
 using std::endl;
 
-using namespace net;
+using namespace component;
 
 
 Threadpool::Threadpool(size_t threadNum, size_t queSize)
@@ -28,16 +28,16 @@ Threadpool::~Threadpool()
 {
 	if(!_isExit)
 	{
-		stop();
+      Stop();
 	}
 }
 
-void Threadpool::start()
+void Threadpool::Start()
 {
 	//创建N个子线程对象
 	for(size_t idx = 0; idx != _threadNum; ++idx){
 		unique_ptr<Thread> up(new Thread(
-			std::bind(&Threadpool::threadFunc, this)));
+			std::bind(&Threadpool::ThreadFunc, this)));
 		_threads.push_back(std::move(up));
 	}
 	//开启N个子线程
@@ -45,7 +45,7 @@ void Threadpool::start()
 		thread->start();
 }
 
-void Threadpool::stop()
+void Threadpool::Stop()
 {
 	cout << ">>> Threadpool::Stop() enter" << endl;
 	if(!_isExit){
@@ -64,22 +64,22 @@ void Threadpool::stop()
 	cout << ">>> Threadpool::Stop() exit" << endl;
 }
 
-void Threadpool::addTask(Task && task)
+void Threadpool::AddTask(Task && task)
 {
 	_taskQue.push(std::move(task));
 }
 
-Threadpool::Task Threadpool::getTask()
+Threadpool::Task Threadpool::GetTask()
 {
 	return _taskQue.pop();
 }
 
 //该方法是每一个子线程要执行的
-void Threadpool::threadFunc()
+void Threadpool::ThreadFunc()
 {
 	while(!_isExit)
 	{
-		Task task = getTask();
+		Task task = GetTask();
 		if(task)
 			task();
 	}

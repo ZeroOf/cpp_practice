@@ -5,34 +5,34 @@
 #ifndef CPP_PRACTICE_EPOLLREACTOR_H
 #define CPP_PRACTICE_EPOLLREACTOR_H
 
-#include "reactor/ReactorInterface.h"
+#include "reactor/reactor_interface.h"
 #include <sys/epoll.h>
 #include <vector>
 #include <map>
 
-namespace net {
-    class EpollReactor : public ReactorInterface {
-    public:
-        EpollReactor();
+namespace component {
+class EpollReactor : public ReactorInterface {
+ public:
+  EpollReactor();
 
-        void RegisterRead(EventHandler &eventHandler) final;
+  void RegisterRead(EventHandler &eventHandler) final;
 
-        void RegisterWrite(EventHandler &eventHander) final;
+  void RegisterWrite(EventHandler &eventHander) final;
 
-        void RegisterTimeout(EventHandler &eventHandler, size_t second) final;
+  void RegisterTimeout(EventHandler &eventHandler, size_t second) final;
 
-        void Run();
+  void Run();
 
-    private:
-        void RegisterEvent(EventHandler &eventHandler, uint32_t event);
+ private:
+  void RegisterEvent(EventHandler &eventHandler, uint32_t event);
 
-    private:
-        int epollFd_;
-        std::vector<epoll_event> events_;
-        std::map<int, epoll_event> registeredFd_;
-        uint32_t eventSize_;
-        bool isRunning_;
-    };
+ private:
+  int epollFd_;
+  std::vector<epoll_event> events_;
+  std::map<int, epoll_event> registeredFd_;
+  uint32_t eventSize_;
+  bool isRunning_;
+};
 }
 
 

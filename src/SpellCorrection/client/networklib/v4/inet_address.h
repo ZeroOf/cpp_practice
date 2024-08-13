@@ -5,14 +5,14 @@
  ///
 
 
-#ifndef _WD_INETADDRESS_H
-#define _WD_INETADDRESS_H
+#ifndef _WILL_INETADDRESS_H
+#define _WILL_INETADDRESS_H
 
 
 #include <netinet/in.h>
 #include <string>
 
-namespace net
+namespace component
 {
 
 class InetAddress
@@ -24,8 +24,8 @@ public:
 
 	InetAddress(const struct sockaddr_in & addr);
 
-	const struct sockaddr_in * getSockAddrPtr() const;
-	std::string ip() const;
+	const struct sockaddr_in * GetSockAddrPtr() const;
+	std::string IP() const;
 	unsigned short port() const;
 
 private:

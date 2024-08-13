@@ -1,6 +1,6 @@
 
-#ifndef __WD_SOCKETUTIL_H__
-#define __WD_SOCKETUTIL_H__
+#ifndef __WILL_SOCKETUTIL_H__
+#define __WILL_SOCKETUTIL_H__
 
 #include <unistd.h>
 #include <stdio.h>
@@ -15,7 +15,7 @@
 #include <sys/eventfd.h>
 #include <sys/epoll.h>
 
-namespace net
+namespace component
 {
 
 inline int createSocketFd()

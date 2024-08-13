@@ -16,7 +16,7 @@ public:
 	void stop();
 private:
 	Timer _timer;
-	net::Thread _thread;
+	component::Thread _thread;
 };
 
 #endif

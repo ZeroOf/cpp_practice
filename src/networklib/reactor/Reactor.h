@@ -5,23 +5,23 @@
 #ifndef CPP_PRACTICE_REACTOR_H
 #define CPP_PRACTICE_REACTOR_H
 
-#include "ReactorInterface.h"
+#include "reactor_interface.h"
 
-namespace net {
+namespace component {
 
-    class Reactor : public ReactorInterface {
-    public:
-        void Init(std::unique_ptr<ReactorInterface> &&pReactor);
+class Reactor : public ReactorInterface {
+ public:
+  void Init(std::unique_ptr<ReactorInterface> &&pReactor);
 
-        void RegisterRead(EventHandler &eventHandler) override;
+  void RegisterRead(EventHandler &eventHandler) override;
 
-        void RegisterWrite(EventHandler &eventHander) override;
+  void RegisterWrite(EventHandler &eventHander) override;
 
-        void RegisterTimeout(EventHandler &eventHandler, size_t second) override;
+  void RegisterTimeout(EventHandler &eventHandler, size_t second) override;
 
-    private:
-        std::unique_ptr<ReactorInterface> realReactor_;
-    };
+ private:
+  std::unique_ptr<ReactorInterface> realReactor_;
+};
 }
 
 #endif //CPP_PRACTICE_REACTOR_H
